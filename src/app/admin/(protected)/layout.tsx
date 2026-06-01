@@ -1,21 +1,20 @@
 import { redirect } from 'next/navigation';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { createClient } from '@/lib/supabase/server';
+import { ActiveLink } from '@/components/admin/ActiveLink';
 
 const NAV = [
-  { href: '/admin', label: 'Dashboard' },
+  { href: '/admin', label: 'Dashboard', exact: true },
+  { href: '/admin/contacts', label: 'Contact Submissions' },
   { href: '/admin/services', label: 'Services' },
   { href: '/admin/gallery', label: 'Gallery' },
   { href: '/admin/blog', label: 'Blog Posts' },
   { href: '/admin/team', label: 'Team Members' },
   { href: '/admin/testimonials', label: 'Testimonials' },
   { href: '/admin/faq', label: 'FAQ' },
-  { href: '/admin/contacts', label: 'Contact Submissions' },
   { href: '/admin/settings', label: 'Site Settings' },
   { href: '/admin/seo', label: 'Page SEO' },
-  { href: '/admin/forms', label: 'Form Settings' },
-  { href: '/admin/analytics', label: 'Analytics' },
+  { href: '/admin/forms', label: 'Form Redirects' },
 ];
 
 export default async function ProtectedAdminLayout({
@@ -32,37 +31,34 @@ export default async function ProtectedAdminLayout({
 
   return (
     <div className="min-h-screen flex bg-slate-50">
-      <aside className="w-64 bg-slate-900 text-slate-100 flex flex-col">
-        <div className="px-6 py-5 border-b border-slate-800">
-          <h1 className="font-semibold text-lg">Hang Da Admin</h1>
-          <p className="text-xs text-slate-400 mt-1 truncate">{user.email}</p>
+      <aside className="hidden w-64 flex-col bg-[var(--color-primary-darker)] text-slate-100 md:flex">
+        <div className="border-b border-slate-700/60 px-6 py-5">
+          <p className="text-xs uppercase tracking-widest text-[var(--color-primary)]">Hang Da</p>
+          <h1 className="text-lg font-semibold">Admin Console</h1>
+          <p className="mt-1 truncate text-xs text-slate-400">{user.email}</p>
         </div>
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
           {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block px-3 py-2 rounded-md text-sm text-slate-200 hover:bg-slate-800 hover:text-white transition"
-            >
+            <ActiveLink key={item.href} href={item.href} exact={item.exact}>
               {item.label}
-            </Link>
+            </ActiveLink>
           ))}
         </nav>
         <form
           action="/admin/logout"
           method="post"
-          className="p-3 border-t border-slate-800"
+          className="border-t border-slate-700/60 p-3"
         >
           <button
             type="submit"
-            className="w-full px-3 py-2 rounded-md text-sm bg-slate-800 hover:bg-slate-700 text-slate-100 transition"
+            className="w-full rounded-md bg-slate-800 px-3 py-2 text-sm text-slate-100 transition hover:bg-slate-700"
           >
             Logout
           </button>
         </form>
       </aside>
-      <main className="flex-1 overflow-x-hidden">
-        <div className="px-8 py-6 max-w-7xl">{children}</div>
+      <main className="min-w-0 flex-1">
+        <div className="mx-auto max-w-7xl px-6 py-8 sm:px-10">{children}</div>
       </main>
     </div>
   );

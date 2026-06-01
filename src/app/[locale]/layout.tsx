@@ -11,6 +11,8 @@ import {
   GoogleTagManagerNoScript,
 } from '@/components/analytics/GoogleTagManager';
 import { MetaPixel } from '@/components/analytics/MetaPixel';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -86,6 +88,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   const gaId = getSetting(settings, 'ga_measurement_id') || undefined;
   const gtmId = getSetting(settings, 'gtm_id') || undefined;
   const pixelId = getSetting(settings, 'meta_pixel_id') || undefined;
+  const brand = getSetting(settings, 'site_name', 'Hang Da');
+  const whatsapp = getSetting(settings, 'contact_whatsapp');
 
   return (
     <>
@@ -94,7 +98,9 @@ export default async function LocaleLayout({ children, params }: Props) {
       <MetaPixel pixelId={pixelId} />
       <GoogleTagManagerNoScript gtmId={gtmId} />
       <NextIntlClientProvider locale={locale} messages={messages}>
+        <Navbar brand={brand} whatsapp={whatsapp || undefined} />
         {children}
+        <Footer locale={locale} />
       </NextIntlClientProvider>
     </>
   );
