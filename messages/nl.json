@@ -1,0 +1,200 @@
+{
+  "Common": {
+    "loading": "Laden...",
+    "error": "Er is iets misgegaan",
+    "success": "Gelukt",
+    "submit": "Verzenden",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "back": "Terug",
+    "next": "Volgende",
+    "previous": "Vorige",
+    "viewAll": "Alles bekijken",
+    "readMore": "Lees meer",
+    "learnMore": "Meer informatie",
+    "getStarted": "Aan de slag",
+    "freeConsultation": "Gratis consult",
+    "whatsapp": "WhatsApp",
+    "call": "Bel ons",
+    "email": "E-mail"
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "Over ons",
+    "services": "Diensten",
+    "gallery": "Voor & Na",
+    "team": "Ons Team",
+    "testimonials": "Reviews",
+    "blog": "Blog",
+    "faq": "Veelgestelde vragen",
+    "contact": "Contact",
+    "consultation": "Gratis consult"
+  },
+  "Hero": {
+    "badge": "Premium haarherstel",
+    "title": "Herstel uw natuurlijke haar, herstel uw zelfvertrouwen",
+    "subtitle": "Hoogwaardige haartransplantaties met bewezen resultaten. Wereldwijd vertrouwd door duizenden patiënten.",
+    "ctaPrimary": "Gratis Consult Aanvragen",
+    "ctaSecondary": "Bekijk Resultaten",
+    "stats": {
+      "patients": "Tevreden patiënten",
+      "experience": "Jaar ervaring",
+      "success": "Succespercentage",
+      "countries": "Landen bediend"
+    }
+  },
+  "Services": {
+    "title": "Onze Diensten",
+    "subtitle": "Uitgebreide haartransplantatie-oplossingen op maat",
+    "viewService": "Bekijk dienst",
+    "priceFrom": "Vanaf",
+    "duration": "Duur"
+  },
+  "WhyUs": {
+    "title": "Waarom Hang Da",
+    "subtitle": "Uitmuntendheid in elk detail van uw haarhersteltraject",
+    "feature1Title": "Ervaren Chirurgen",
+    "feature1Desc": "Gecertificeerde specialisten met tientallen jaren ervaring",
+    "feature2Title": "Nieuwste Technologie",
+    "feature2Desc": "Geavanceerde apparatuur en bewezen technieken",
+    "feature3Title": "Natuurlijke Resultaten",
+    "feature3Desc": "Onzichtbare, permanente resultaten",
+    "feature4Title": "Levenslange Ondersteuning",
+    "feature4Desc": "Doorlopende zorg en follow-up"
+  },
+  "Process": {
+    "title": "Uw Traject Bij Ons",
+    "subtitle": "Een duidelijk pad van consult tot herstel",
+    "step1Title": "Gratis Consult",
+    "step1Desc": "Bespreek uw doelen en haaruitval",
+    "step2Title": "Persoonlijk Plan",
+    "step2Desc": "Behandelplan op maat met realistische uitkomsten",
+    "step3Title": "Behandeldag",
+    "step3Desc": "Comfortabele, professionele behandeling",
+    "step4Title": "Herstel & Resultaten",
+    "step4Desc": "Doorlopende ondersteuning tijdens de groei"
+  },
+  "Gallery": {
+    "title": "Voor & Na",
+    "subtitle": "Echte resultaten van echte patiënten",
+    "before": "Voor",
+    "after": "Na",
+    "grafts": "Grafts",
+    "monthsAfter": "Maanden Na"
+  },
+  "Testimonials": {
+    "title": "Patiëntenverhalen",
+    "subtitle": "Hoor van mensen die hun leven hebben veranderd",
+    "rating": "Beoordeling",
+    "verified": "Geverifieerde patiënt"
+  },
+  "Team": {
+    "title": "Ontmoet Ons Team",
+    "subtitle": "Ervaren professionals die zich inzetten voor uw transformatie"
+  },
+  "Blog": {
+    "title": "Laatste van onze Blog",
+    "subtitle": "Inzichten, tips en verhalen over haarherstel",
+    "readingTime": "min leestijd",
+    "publishedOn": "Gepubliceerd op",
+    "by": "door"
+  },
+  "FAQ": {
+    "title": "Veelgestelde Vragen",
+    "subtitle": "Antwoorden op veelvoorkomende vragen"
+  },
+  "CTA": {
+    "title": "Klaar om uw transformatie te starten?",
+    "subtitle": "Boek vandaag uw gratis, vrijblijvende consult",
+    "button": "Boek Gratis Consult"
+  },
+  "Contact": {
+    "title": "Neem Contact Op",
+    "subtitle": "We staan klaar om uw vragen te beantwoorden",
+    "addressLabel": "Adres",
+    "phoneLabel": "Telefoon",
+    "emailLabel": "E-mail",
+    "hoursLabel": "Openingstijden"
+  },
+  "ContactForm": {
+    "name": "Volledige Naam",
+    "namePlaceholder": "Vul uw volledige naam in",
+    "email": "E-mailadres",
+    "emailPlaceholder": "u@voorbeeld.com",
+    "phone": "Telefoonnummer",
+    "phonePlaceholder": "+31 6 1234 5678",
+    "country": "Land",
+    "countryPlaceholder": "Selecteer uw land",
+    "service": "Gewenste Dienst",
+    "servicePlaceholder": "Kies een dienst",
+    "hairLossType": "Type Haaruitval",
+    "hairLossTypePlaceholder": "Norwood schaal (indien bekend)",
+    "message": "Bericht",
+    "messagePlaceholder": "Vertel ons over uw doelen",
+    "submit": "Verstuur Bericht",
+    "submitting": "Verzenden...",
+    "successTitle": "Bedankt!",
+    "successMessage": "Wij hebben uw bericht ontvangen en nemen binnen 24 uur contact op.",
+    "errorMessage": "Kon het formulier niet verzenden. Probeer opnieuw."
+  },
+  "Footer": {
+    "tagline": "Premium haarherstel wereldwijd vertrouwd",
+    "quickLinks": "Snelle Links",
+    "ourServices": "Onze Diensten",
+    "contactInfo": "Contactgegevens",
+    "followUs": "Volg Ons",
+    "newsletter": "Nieuwsbrief",
+    "newsletterDesc": "Ontvang tips en speciale aanbiedingen",
+    "subscribe": "Abonneren",
+    "emailPlaceholder": "Uw e-mailadres",
+    "copyright": "Alle rechten voorbehouden.",
+    "privacy": "Privacybeleid",
+    "terms": "Algemene voorwaarden",
+    "cookies": "Cookiebeleid"
+  },
+  "Validation": {
+    "required": "Dit veld is verplicht",
+    "invalidEmail": "Voer een geldig e-mailadres in",
+    "invalidPhone": "Voer een geldig telefoonnummer in",
+    "minLength": "Moet minimaal {min} tekens zijn",
+    "maxLength": "Mag maximaal {max} tekens zijn",
+    "acceptTerms": "U moet de voorwaarden accepteren"
+  },
+  "Errors": {
+    "generic": "Er is iets misgegaan. Probeer opnieuw.",
+    "network": "Netwerkfout. Controleer uw verbinding.",
+    "notFound": "Pagina niet gevonden",
+    "unauthorized": "U bent niet bevoegd",
+    "rateLimit": "Te veel verzoeken. Wacht even."
+  },
+  "Admin": {
+    "dashboard": "Dashboard",
+    "services": "Diensten",
+    "gallery": "Galerij",
+    "blog": "Blogberichten",
+    "team": "Teamleden",
+    "testimonials": "Reviews",
+    "faq": "Veelgestelde vragen",
+    "contacts": "Contactaanvragen",
+    "settings": "Site-instellingen",
+    "seo": "Pagina SEO",
+    "forms": "Forminstellingen",
+    "analytics": "Analytics",
+    "logout": "Uitloggen",
+    "login": "Inloggen",
+    "loginTitle": "Adminaanmelding",
+    "loginButton": "Inloggen",
+    "create": "Nieuw aanmaken",
+    "actions": "Acties",
+    "status": "Status",
+    "createdAt": "Aangemaakt op",
+    "saveChanges": "Wijzigingen opslaan",
+    "deleteConfirm": "Weet u zeker dat u dit wilt verwijderen?",
+    "publish": "Publiceren",
+    "unpublish": "Verbergen",
+    "active": "Actief",
+    "inactive": "Inactief"
+  }
+}

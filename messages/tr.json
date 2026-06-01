@@ -1,0 +1,200 @@
+{
+  "Common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "success": "Başarılı",
+    "submit": "Gönder",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "back": "Geri",
+    "next": "İleri",
+    "previous": "Önceki",
+    "viewAll": "Tümünü Gör",
+    "readMore": "Devamını Oku",
+    "learnMore": "Daha Fazla",
+    "getStarted": "Hemen Başla",
+    "freeConsultation": "Ücretsiz Konsültasyon",
+    "whatsapp": "WhatsApp",
+    "call": "Ara",
+    "email": "E-posta"
+  },
+  "Navigation": {
+    "home": "Anasayfa",
+    "about": "Hakkımızda",
+    "services": "Hizmetler",
+    "gallery": "Öncesi & Sonrası",
+    "team": "Ekibimiz",
+    "testimonials": "Yorumlar",
+    "blog": "Blog",
+    "faq": "SSS",
+    "contact": "İletişim",
+    "consultation": "Ücretsiz Konsültasyon"
+  },
+  "Hero": {
+    "badge": "Premium Saç Restorasyonu",
+    "title": "Doğal Saçınızı Geri Kazanın, Özgüveninizi Yeniden Bulun",
+    "subtitle": "Kanıtlanmış sonuçlarla dünya çapında saç ekimi prosedürleri. Binlerce hastanın güvendiği klinik.",
+    "ctaPrimary": "Ücretsiz Konsültasyon Al",
+    "ctaSecondary": "Sonuçları Gör",
+    "stats": {
+      "patients": "Mutlu Hasta",
+      "experience": "Yıl Deneyim",
+      "success": "Başarı Oranı",
+      "countries": "Hizmet Verilen Ülke"
+    }
+  },
+  "Services": {
+    "title": "Hizmetlerimiz",
+    "subtitle": "İhtiyaçlarınıza özel kapsamlı saç restorasyonu",
+    "viewService": "Hizmeti Gör",
+    "priceFrom": "Başlangıç",
+    "duration": "Süre"
+  },
+  "WhyUs": {
+    "title": "Neden Hang Da",
+    "subtitle": "Saç restorasyon yolculuğunuzun her detayında mükemmellik",
+    "feature1Title": "Uzman Cerrahlar",
+    "feature1Desc": "Onlarca yıl deneyime sahip sertifikalı uzmanlar",
+    "feature2Title": "En Son Teknoloji",
+    "feature2Desc": "Son teknoloji ekipman ve kanıtlanmış teknikler",
+    "feature3Title": "Doğal Sonuçlar",
+    "feature3Desc": "Fark edilmez, kalıcı sonuçlar",
+    "feature4Title": "Ömür Boyu Destek",
+    "feature4Desc": "Sürekli takip ve bakım"
+  },
+  "Process": {
+    "title": "Bizimle Yolculuğunuz",
+    "subtitle": "Konsültasyondan iyileşmeye net bir yol",
+    "step1Title": "Ücretsiz Konsültasyon",
+    "step1Desc": "Hedefleriniz ve saç dökülmenizin değerlendirilmesi",
+    "step2Title": "Kişisel Plan",
+    "step2Desc": "Gerçekçi sonuçlarla özel tedavi planı",
+    "step3Title": "Operasyon Günü",
+    "step3Desc": "Konforlu, profesyonel tedavi",
+    "step4Title": "İyileşme & Sonuçlar",
+    "step4Desc": "Saçınız uzarken sürekli destek"
+  },
+  "Gallery": {
+    "title": "Öncesi & Sonrası",
+    "subtitle": "Gerçek hastalardan gerçek sonuçlar",
+    "before": "Öncesi",
+    "after": "Sonrası",
+    "grafts": "Greft",
+    "monthsAfter": "Ay Sonrası"
+  },
+  "Testimonials": {
+    "title": "Hasta Hikayeleri",
+    "subtitle": "Hayatlarını değiştiren insanlardan dinleyin",
+    "rating": "Değerlendirme",
+    "verified": "Doğrulanmış Hasta"
+  },
+  "Team": {
+    "title": "Ekibimizle Tanışın",
+    "subtitle": "Dönüşümünüze kendini adamış deneyimli profesyoneller"
+  },
+  "Blog": {
+    "title": "Blogumuzdan Son Yazılar",
+    "subtitle": "Saç restorasyonu hakkında bilgiler, ipuçları ve hikayeler",
+    "readingTime": "dk okuma",
+    "publishedOn": "Yayın tarihi",
+    "by": "yazan"
+  },
+  "FAQ": {
+    "title": "Sıkça Sorulan Sorular",
+    "subtitle": "Saç ekimi hakkında merak edilenler"
+  },
+  "CTA": {
+    "title": "Dönüşümünüze Hazır mısınız?",
+    "subtitle": "Bugün ücretsiz, bağlayıcı olmayan konsültasyonunuzu ayırtın",
+    "button": "Ücretsiz Konsültasyon Al"
+  },
+  "Contact": {
+    "title": "Bize Ulaşın",
+    "subtitle": "Tüm sorularınızı cevaplamak için buradayız",
+    "addressLabel": "Adres",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-posta",
+    "hoursLabel": "Çalışma Saatleri"
+  },
+  "ContactForm": {
+    "name": "Ad Soyad",
+    "namePlaceholder": "Ad ve soyadınızı giriniz",
+    "email": "E-posta Adresi",
+    "emailPlaceholder": "ornek@mail.com",
+    "phone": "Telefon Numarası",
+    "phonePlaceholder": "+90 555 123 45 67",
+    "country": "Ülke",
+    "countryPlaceholder": "Ülkenizi seçin",
+    "service": "İlgilendiğiniz Hizmet",
+    "servicePlaceholder": "Bir hizmet seçin",
+    "hairLossType": "Saç Dökülme Tipi",
+    "hairLossTypePlaceholder": "Norwood skalası (biliyorsanız)",
+    "message": "Mesaj",
+    "messagePlaceholder": "Hedeflerinizi bize anlatın",
+    "submit": "Mesaj Gönder",
+    "submitting": "Gönderiliyor...",
+    "successTitle": "Teşekkürler!",
+    "successMessage": "Mesajınız ulaştı, 24 saat içinde sizinle iletişime geçeceğiz.",
+    "errorMessage": "Form gönderilemedi. Lütfen tekrar deneyin."
+  },
+  "Footer": {
+    "tagline": "Dünya çapında güvenilen premium saç restorasyonu",
+    "quickLinks": "Hızlı Bağlantılar",
+    "ourServices": "Hizmetlerimiz",
+    "contactInfo": "İletişim Bilgileri",
+    "followUs": "Bizi Takip Edin",
+    "newsletter": "Bülten",
+    "newsletterDesc": "Saç restorasyonu ipuçları ve özel teklifler alın",
+    "subscribe": "Abone Ol",
+    "emailPlaceholder": "E-posta adresiniz",
+    "copyright": "Tüm hakları saklıdır.",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Şartları",
+    "cookies": "Çerez Politikası"
+  },
+  "Validation": {
+    "required": "Bu alan zorunludur",
+    "invalidEmail": "Geçerli bir e-posta giriniz",
+    "invalidPhone": "Geçerli bir telefon numarası giriniz",
+    "minLength": "En az {min} karakter olmalı",
+    "maxLength": "En fazla {max} karakter olmalı",
+    "acceptTerms": "Şartları kabul etmelisiniz"
+  },
+  "Errors": {
+    "generic": "Bir hata oluştu. Tekrar deneyin.",
+    "network": "Ağ hatası. Bağlantınızı kontrol edin.",
+    "notFound": "Sayfa bulunamadı",
+    "unauthorized": "Yetkiniz yok",
+    "rateLimit": "Çok fazla istek. Lütfen bekleyin."
+  },
+  "Admin": {
+    "dashboard": "Yönetim Paneli",
+    "services": "Hizmetler",
+    "gallery": "Galeri",
+    "blog": "Blog Yazıları",
+    "team": "Ekip Üyeleri",
+    "testimonials": "Yorumlar",
+    "faq": "SSS",
+    "contacts": "İletişim Talepleri",
+    "settings": "Site Ayarları",
+    "seo": "Sayfa SEO",
+    "forms": "Form Ayarları",
+    "analytics": "Analitik",
+    "logout": "Çıkış",
+    "login": "Giriş",
+    "loginTitle": "Admin Girişi",
+    "loginButton": "Giriş Yap",
+    "create": "Yeni Oluştur",
+    "actions": "İşlemler",
+    "status": "Durum",
+    "createdAt": "Oluşturma",
+    "saveChanges": "Değişiklikleri Kaydet",
+    "deleteConfirm": "Bunu silmek istediğinize emin misiniz?",
+    "publish": "Yayınla",
+    "unpublish": "Yayından Kaldır",
+    "active": "Aktif",
+    "inactive": "Pasif"
+  }
+}
