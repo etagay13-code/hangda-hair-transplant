@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { createClient } from '@/lib/supabase/server';
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import type { Testimonial } from '@/types';
 
 export async function Testimonials({ locale }: { locale: string }) {
@@ -11,62 +12,80 @@ export async function Testimonials({ locale }: { locale: string }) {
     .eq('is_active', true)
     .order('is_featured', { ascending: false })
     .order('created_at', { ascending: false })
-    .limit(6);
+    .limit(8);
 
   const items = (data ?? []) as Testimonial[];
   const t = await getTranslations('Testimonials');
 
   if (items.length === 0) return null;
 
+  // Duplicate for seamless marquee loop
+  const looped = [...items, ...items];
+
   return (
-    <section id="testimonials" className="section bg-white">
+    <section
+      id="testimonials"
+      className="relative overflow-hidden bg-white py-24 sm:py-32"
+    >
       <div className="container-page">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">
+        <RevealOnScroll className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
             {t('title')}
           </p>
-          <h2 className="heading-display mt-3 text-3xl sm:text-4xl">{t('title')}</h2>
+          <h2 className="heading-display mt-3 text-3xl sm:text-4xl lg:text-5xl">
+            {t('title')}
+          </h2>
           <p className="mt-4 text-base text-slate-600">{t('subtitle')}</p>
-        </div>
+        </RevealOnScroll>
+      </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((it) => (
-            <blockquote
-              key={it.id}
-              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm"
-            >
-              <Stars count={it.rating} />
-              {it.comment && (
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-700">
-                  “{it.comment}”
-                </p>
-              )}
-              <footer className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
-                <div>
-                  <p className="text-sm font-semibold text-[var(--color-primary-darker)]">
-                    {it.name}
-                  </p>
-                  {it.country && (
-                    <p className="text-xs text-slate-500">{it.country}</p>
-                  )}
-                </div>
-                {(it.technique || it.grafts) && (
-                  <p className="text-xs text-slate-500">
-                    {[it.technique, it.grafts ? `${it.grafts.toLocaleString()} grafts` : null]
-                      .filter(Boolean)
-                      .join(' · ')}
+      <RevealOnScroll className="marquee group mt-16 overflow-hidden">
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent"
+          />
+          <div className="marquee-track flex w-max gap-6 px-6">
+            {looped.map((it, i) => (
+              <blockquote
+                key={`${it.id}-${i}`}
+                className="flex w-[340px] shrink-0 flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm sm:w-[400px]"
+              >
+                <Stars count={it.rating} />
+                {it.comment && (
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-700">
+                    “{it.comment}”
                   </p>
                 )}
-              </footer>
-              {it.is_featured && (
-                <span className="mt-3 inline-block w-fit rounded-full bg-[var(--color-primary)]/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--color-primary-darker)]">
-                  {t('verified')}
-                </span>
-              )}
-            </blockquote>
-          ))}
+                <footer className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
+                  <div>
+                    <p className="text-sm font-semibold text-[var(--color-primary-darker)]">
+                      {it.name}
+                    </p>
+                    {it.country && (
+                      <p className="text-xs text-slate-500">{it.country}</p>
+                    )}
+                  </div>
+                  {(it.technique || it.grafts) && (
+                    <p className="text-right text-xs text-slate-500">
+                      {it.technique && <span className="block">{it.technique}</span>}
+                      {it.grafts && (
+                        <span className="block font-semibold text-[var(--color-primary-darker)]">
+                          {it.grafts.toLocaleString()} grafts
+                        </span>
+                      )}
+                    </p>
+                  )}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
   );
 }
@@ -74,7 +93,10 @@ export async function Testimonials({ locale }: { locale: string }) {
 function Stars({ count }: { count: number }) {
   const n = Math.max(0, Math.min(5, count));
   return (
-    <div className="flex gap-0.5 text-[var(--color-primary)]" aria-label={`${n} of 5 stars`}>
+    <div
+      className="flex gap-0.5 text-[var(--color-primary)]"
+      aria-label={`${n} of 5 stars`}
+    >
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
