@@ -94,6 +94,24 @@
     "title": "Ekibimizle Tanışın",
     "subtitle": "Dönüşümünüze kendini adamış deneyimli profesyoneller"
   },
+  "About": {
+    "eyebrow": "Hang Da Hakkında",
+    "title": "Vaatler üzerine değil, sonuçlar üzerine kurulmuş bir klinik",
+    "subtitle": "Yirmi yıllık saç restorasyonu. Bir tek değişmeyen bakım standardı.",
+    "storyTitle": "Hikayemiz",
+    "story": "Hang Da, pazarlama ile tıp arasındaki uçurumun çok genişlediğine inanan bir saç restorasyonu cerrahları ekibi tarafından kuruldu. Misyonumuz basitti: kendisi için konuşan sonuçlar sunmak — şeffaflık, hesap verebilirlik ve ömür boyu bakımla desteklenmiş. Tek bir İstanbul kliniğinden, dünya standardında saç ekimi arayan uluslararası hastalar için en güvenilir adreslerden birine dönüştük.",
+    "missionTitle": "Bakım standardımız",
+    "mission": "Her kritik adımı cerrahlar (teknisyenler değil) yapar. Her hasta kişisel bir tıbbi koordinatör alır. Fiyatlar her şey dahildir ve gelmeden önce yazılı olarak verilir. Her transplantasyon 18 aylık yazılı büyüme garantisiyle desteklenir.",
+    "valuesTitle": "İnandıklarımız",
+    "value1Title": "Hacimden önce sonuç",
+    "value1Desc": "Sektör ortalamasının altında günlük vaka alıyoruz; her işlem ilk kesi'den son grefte kadar cerrah liderliğinde ilgi görür.",
+    "value2Title": "Her zaman şeffaf",
+    "value2Desc": "Her şey dahil fiyatlar, gizli ücret yok, yazılı garanti. Teklifler kalemler halinde ve 30 gün geçerlidir.",
+    "value3Title": "İşlemden önce hasta",
+    "value3Desc": "Ne zaman ameliyat etmememiz gerektiğini söyleriz. Vakanız önce tıbbi tedavi gerektiriyorsa bunu açıklarız.",
+    "value4Title": "Ömür boyu ilişki",
+    "value4Desc": "3, 6, 12 ve 18 aylık takipler her hasta için dahildir; ömür boyu ulaşılabiliriz."
+  },
   "Blog": {
     "title": "Blogumuzdan Son Yazılar",
     "subtitle": "Saç restorasyonu hakkında bilgiler, ipuçları ve hikayeler",

@@ -90,6 +90,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const pixelId = getSetting(settings, 'meta_pixel_id') || undefined;
   const brand = getSetting(settings, 'site_name', 'Hang Da');
   const whatsapp = getSetting(settings, 'contact_whatsapp');
+  const logoUrl = getSetting(settings, 'logo_url') || undefined;
 
   return (
     <>
@@ -98,7 +99,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <MetaPixel pixelId={pixelId} />
       <GoogleTagManagerNoScript gtmId={gtmId} />
       <NextIntlClientProvider locale={locale} messages={messages}>
-        <Navbar brand={brand} whatsapp={whatsapp || undefined} />
+        <Navbar brand={brand} logoUrl={logoUrl} whatsapp={whatsapp || undefined} />
         {children}
         <Footer locale={locale} />
       </NextIntlClientProvider>

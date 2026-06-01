@@ -94,6 +94,24 @@
     "title": "Meet Our Team",
     "subtitle": "Experienced professionals dedicated to your transformation"
   },
+  "About": {
+    "eyebrow": "About Hang Da",
+    "title": "A clinic built on outcomes, not promises",
+    "subtitle": "Two decades of hair restoration. One unwavering standard of care.",
+    "storyTitle": "Our story",
+    "story": "Hang Da was founded by a team of hair restoration surgeons who believed that the gap between marketing and medicine had grown too wide. Our mission was simple: deliver outcomes that speak for themselves, supported by transparency, accountability, and lifetime care. From a single Istanbul clinic, we have grown into one of the most trusted destinations for international patients seeking world-class hair transplantation.",
+    "missionTitle": "Our standard of care",
+    "mission": "Surgeons (not technicians) perform every critical step of your procedure. Every patient receives a personal medical coordinator. Pricing is all-inclusive and printed in writing before you arrive. And every transplant is backed by an 18-month written growth guarantee, because confidence is something you should never have to negotiate for.",
+    "valuesTitle": "What we believe",
+    "value1Title": "Outcome over volume",
+    "value1Desc": "We accept fewer cases per day than the industry average so each procedure gets surgeon-led attention from first cut to final graft.",
+    "value2Title": "Transparent always",
+    "value2Desc": "All-inclusive pricing, no hidden fees, written guarantee. Quotes are itemised and apply for 30 days.",
+    "value3Title": "Patient before procedure",
+    "value3Desc": "We will tell you when not to operate. If your case requires medical management first, we say so.",
+    "value4Title": "Lifelong relationship",
+    "value4Desc": "Follow-ups at 3, 6, 12, and 18 months are included for every patient, and we are reachable for life."
+  },
   "Blog": {
     "title": "Latest from our Blog",
     "subtitle": "Insights, tips, and stories about hair restoration",
