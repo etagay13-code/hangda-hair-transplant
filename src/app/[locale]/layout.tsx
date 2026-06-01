@@ -13,6 +13,7 @@ import {
 import { MetaPixel } from '@/components/analytics/MetaPixel';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -36,7 +37,7 @@ export async function generateMetadata({
     getPageSeo('home', locale),
   ]);
 
-  const siteName = getSetting(settings, 'site_name', 'Hang Da Hair Transplant');
+  const siteName = getSetting(settings, 'site_name', 'MYHAAR Hair Transplant');
   const title = seo?.title || getSetting(settings, 'site_title', siteName);
   const description =
     seo?.description ||
@@ -88,7 +89,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const gaId = getSetting(settings, 'ga_measurement_id') || undefined;
   const gtmId = getSetting(settings, 'gtm_id') || undefined;
   const pixelId = getSetting(settings, 'meta_pixel_id') || undefined;
-  const brand = getSetting(settings, 'site_name', 'Hang Da');
+  const brand = getSetting(settings, 'site_name', 'MYHAAR');
   const whatsapp = getSetting(settings, 'contact_whatsapp');
   const logoUrl = getSetting(settings, 'logo_url') || undefined;
 
@@ -102,6 +103,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <Navbar brand={brand} logoUrl={logoUrl} whatsapp={whatsapp || undefined} />
         {children}
         <Footer locale={locale} />
+        {whatsapp && <FloatingWhatsApp number={whatsapp} />}
       </NextIntlClientProvider>
     </>
   );

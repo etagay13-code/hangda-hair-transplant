@@ -44,6 +44,7 @@ export default async function GalleryPage({ params, searchParams }: Props) {
 
   const t = await getTranslations('Gallery');
   const tNav = await getTranslations('Navigation');
+  const tCommon = await getTranslations('Common');
 
   return (
     <main>
@@ -87,53 +88,104 @@ export default async function GalleryPage({ params, searchParams }: Props) {
           {items.length === 0 ? (
             <p className="text-center text-slate-500">No results yet.</p>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {items.map((item) => (
-                <figure
+                <GalleryCard
                   key={item.id}
-                  className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100"
-                >
-                  <div className="grid grid-cols-2">
-                    <BeforeAfterImage url={item.before_image_url} label={t('before')} />
-                    <BeforeAfterImage url={item.after_image_url} label={t('after')} />
-                  </div>
-                  <figcaption className="space-y-2 p-5">
-                    {item.technique && (
-                      <span className="inline-block rounded-full bg-[var(--color-primary)]/12 px-3 py-1 text-xs font-semibold text-[var(--color-primary-darker)]">
-                        {item.technique}
-                      </span>
-                    )}
-                    <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-slate-600">
-                      {item.grafts != null && (
-                        <span>
-                          <strong className="text-[var(--color-primary-darker)]">
-                            {item.grafts.toLocaleString()}
-                          </strong>{' '}
-                          {t('grafts')}
-                        </span>
-                      )}
-                      {item.months_after != null && (
-                        <span>
-                          <strong className="text-[var(--color-primary-darker)]">{item.months_after}</strong>{' '}
-                          {t('monthsAfter')}
-                        </span>
-                      )}
-                    </div>
-                    {item.description && (
-                      <p className="text-sm text-slate-600">{item.description}</p>
-                    )}
-                  </figcaption>
-                </figure>
+                  item={item}
+                  beforeLabel={t('before')}
+                  afterLabel={t('after')}
+                  graftsLabel={t('grafts')}
+                  monthsLabel={t('monthsAfter')}
+                />
               ))}
             </div>
           )}
+
+          <div className="mt-16 rounded-3xl border border-slate-200 bg-gradient-to-br from-[var(--color-primary)]/15 to-white p-10 text-center">
+            <h2 className="heading-display text-2xl sm:text-3xl">Your result could be next.</h2>
+            <p className="mx-auto mt-3 max-w-xl text-base text-slate-600">
+              Send us your photos for a free, no-obligation surgical assessment. You will receive a personalised plan within 24 hours.
+            </p>
+            <a href={`/${locale}/#contact`} className="btn-primary mt-6">
+              {tCommon('freeConsultation')}
+            </a>
+          </div>
         </div>
       </section>
     </main>
   );
 }
 
-function BeforeAfterImage({ url, label }: { url: string | null; label: string }) {
+function GalleryCard({
+  item,
+  beforeLabel,
+  afterLabel,
+  graftsLabel,
+  monthsLabel,
+}: {
+  item: GalleryItem;
+  beforeLabel: string;
+  afterLabel: string;
+  graftsLabel: string;
+  monthsLabel: string;
+}) {
+  const isCombined =
+    !!item.before_image_url && item.before_image_url === item.after_image_url;
+
+  return (
+    <figure className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100">
+      {isCombined ? (
+        <div className="relative aspect-[4/5] bg-slate-100">
+          <Image
+            src={item.before_image_url!}
+            alt={item.patient_code || `${beforeLabel} / ${afterLabel}`}
+            fill
+            sizes="(min-width: 1024px) 400px, 50vw"
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        <div className="grid grid-cols-2">
+          <SingleImage url={item.before_image_url} label={beforeLabel} />
+          <SingleImage url={item.after_image_url} label={afterLabel} />
+        </div>
+      )}
+      <figcaption className="space-y-2 p-5">
+        <div className="flex items-center justify-between">
+          {item.technique && (
+            <span className="rounded-full bg-[var(--color-primary)]/12 px-3 py-1 text-xs font-semibold text-[var(--color-primary-darker)]">
+              {item.technique}
+            </span>
+          )}
+          {item.patient_code && (
+            <span className="text-[10px] uppercase tracking-wider text-slate-400">
+              {item.patient_code}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-slate-600">
+          {item.grafts != null && (
+            <span>
+              <strong className="text-[var(--color-primary-darker)]">{item.grafts.toLocaleString()}</strong>{' '}
+              {graftsLabel}
+            </span>
+          )}
+          {item.months_after != null && (
+            <span>
+              <strong className="text-[var(--color-primary-darker)]">{item.months_after}</strong> {monthsLabel}
+            </span>
+          )}
+        </div>
+        {item.description && (
+          <p className="text-sm leading-relaxed text-slate-600">{item.description}</p>
+        )}
+      </figcaption>
+    </figure>
+  );
+}
+
+function SingleImage({ url, label }: { url: string | null; label: string }) {
   return (
     <div className="relative aspect-square bg-slate-100">
       {url ? (

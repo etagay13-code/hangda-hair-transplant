@@ -23,7 +23,7 @@ const NAV: NavItem[] = [
   { href: '/gallery', key: 'gallery', type: 'page' },
   { href: '/blog', key: 'blog', type: 'page' },
   { href: '#faq', key: 'faq', type: 'anchor' },
-  { href: '#contact', key: 'contact', type: 'anchor' },
+  { href: '/contact', key: 'contact', type: 'page' },
 ];
 
 export function Navbar({ brand, logoUrl, whatsapp }: Props) {
@@ -123,9 +123,9 @@ export function Navbar({ brand, logoUrl, whatsapp }: Props) {
               {tCommon('whatsapp')}
             </a>
           )}
-          <a href={anchorHref('#contact')} className="btn-outline !px-4 !py-2 text-xs">
+          <Link href="/contact" className="btn-outline !px-4 !py-2 text-xs">
             {t('consultation')}
-          </a>
+          </Link>
         </div>
 
         <button
