@@ -37,7 +37,7 @@ export async function generateMetadata({
     getPageSeo('home', locale),
   ]);
 
-  const siteName = getSetting(settings, 'site_name', 'MYHAAR Hair Transplant');
+  const siteName = getSetting(settings, 'site_name', 'MyHaar Hair Transplant');
   const title = seo?.title || getSetting(settings, 'site_title', siteName);
   const description =
     seo?.description ||
@@ -89,7 +89,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const gaId = getSetting(settings, 'ga_measurement_id') || undefined;
   const gtmId = getSetting(settings, 'gtm_id') || undefined;
   const pixelId = getSetting(settings, 'meta_pixel_id') || undefined;
-  const brand = getSetting(settings, 'site_name', 'MYHAAR');
+  const brand = getSetting(settings, 'site_name', 'MyHaar');
   const whatsapp = getSetting(settings, 'contact_whatsapp');
   const logoUrl = getSetting(settings, 'logo_url') || undefined;
 

@@ -8,7 +8,7 @@ export default function NewBlogPage() {
       <PageHeader title="New post" description="Draft a new blog article." />
       <BlogForm
         action={createBlogPost}
-        defaults={{ locale: 'en', is_published: false, author: 'Hang Da Team' }}
+        defaults={{ locale: 'en', is_published: false, author: 'MyHaar Team' }}
         submitLabel="Create"
       />
     </div>

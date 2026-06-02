@@ -33,7 +33,7 @@ export default async function ProtectedAdminLayout({
     <div className="min-h-screen flex bg-slate-50">
       <aside className="hidden w-64 flex-col bg-[var(--color-primary-darker)] text-slate-100 md:flex">
         <div className="border-b border-slate-700/60 px-6 py-5">
-          <p className="text-xs uppercase tracking-widest text-[var(--color-primary)]">Hang Da</p>
+          <p className="text-xs uppercase tracking-widest text-[var(--color-primary)]">MyHaar</p>
           <h1 className="text-lg font-semibold">Admin Console</h1>
           <p className="mt-1 truncate text-xs text-slate-400">{user.email}</p>
         </div>

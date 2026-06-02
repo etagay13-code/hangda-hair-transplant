@@ -24,7 +24,7 @@ const TECHNIQUES = [
     accent: true,
   },
   {
-    name: 'MYHAAR FUE',
+    name: 'MyHaar FUE',
     slugByLocale: { en: 'sapphire-fue', nl: 'saffier-fue', tr: 'safir-fue' } as Record<string, string>,
     summary: 'Our flagship combined protocol: Sapphire FUE body + DHI front-row finish for maximum naturalness.',
     bestFor: 'Norwood IV–V · Age 40+ · Premium results',
@@ -48,7 +48,7 @@ export function TechniqueComparison({ locale }: { locale: string }) {
             Three techniques. One standard of care.
           </h2>
           <p className="mt-4 text-base text-slate-600">
-            Choose the approach that fits your hair-loss pattern, donor capacity, and lifestyle. Every package is all-inclusive: surgery, hotel, transfers, medication and lifetime follow-up.
+            Choose the approach that fits your hair-loss pattern, donor capacity, and lifestyle. Every package includes the procedure, all medications, the PRP support session, and lifetime follow-up at our Den Haag clinic.
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export function TechniqueComparison({ locale }: { locale: string }) {
               <div className="mt-7 flex items-baseline gap-2">
                 <span className="text-xs uppercase tracking-wider text-slate-500">From</span>
                 <span className="text-3xl font-bold text-[var(--color-primary-darker)]">{tech.price}</span>
-                <span className="text-xs text-slate-500">all-inclusive</span>
+                <span className="text-xs text-slate-500">transparent pricing</span>
               </div>
 
               <Link

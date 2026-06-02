@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || 'https://hangda-hair-transplant.vercel.app'
   ),
   title: {
-    default: 'Hang Da Hair Transplant',
-    template: '%s | Hang Da Hair Transplant',
+    default: 'MyHaar Hair Transplant',
+    template: '%s | MyHaar Hair Transplant',
   },
   description: 'Premium hair restoration trusted worldwide.',
   verification: {

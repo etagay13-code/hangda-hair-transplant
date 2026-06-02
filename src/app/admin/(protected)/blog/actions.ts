@@ -28,7 +28,7 @@ function payload(form: FormData) {
     excerpt: nullable(form.get('excerpt')),
     content: nullable(form.get('content')),
     cover_image_url: nullable(form.get('cover_image_url')),
-    author: str(form.get('author')) || 'Hang Da Team',
+    author: str(form.get('author')) || 'MyHaar Team',
     category: nullable(form.get('category')),
     tags: tags(form.get('tags')),
     locale: str(form.get('locale')) || 'en',

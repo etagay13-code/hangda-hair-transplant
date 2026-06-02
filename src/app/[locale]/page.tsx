@@ -8,7 +8,6 @@ import { Gallery } from '@/components/home/Gallery';
 import { Included } from '@/components/home/Included';
 import { RecoveryTimeline } from '@/components/home/RecoveryTimeline';
 import { Testimonials } from '@/components/home/Testimonials';
-import { Travel } from '@/components/home/Travel';
 import { Faq } from '@/components/home/Faq';
 import { ContactSection } from '@/components/home/ContactSection';
 import { TrustBadges } from '@/components/home/TrustBadges';
@@ -32,7 +31,6 @@ export default async function HomePage({ params }: Props) {
       <Included />
       <RecoveryTimeline />
       <Testimonials locale={locale} />
-      <Travel locale={locale} />
       <Faq locale={locale} />
       <ContactSection locale={locale} />
       <TrustBadges locale={locale} />

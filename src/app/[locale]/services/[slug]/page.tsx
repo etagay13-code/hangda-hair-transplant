@@ -44,15 +44,13 @@ const CANDIDATE_CRITERIA = {
 };
 
 const INCLUDED = [
-  'Surgeon consultation and hairline design',
+  'Free surgeon consultation and hairline design',
   'Pre-operative blood tests',
   'The full procedure with sapphire / Choi instruments',
-  '4★ hotel · 2 nights with breakfast',
-  'VIP airport and clinic transfers',
   'PRP support session same day',
   'All post-op medications and kit',
-  'First clinical wash + recovery briefing',
-  'Multilingual coordinator throughout',
+  'First clinical wash + written recovery briefing',
+  'Multilingual care: Nederlands · English · Türkçe · Deutsch',
   'Follow-ups at 3, 6, 12, and 18 months',
   '18-month written growth guarantee',
 ];

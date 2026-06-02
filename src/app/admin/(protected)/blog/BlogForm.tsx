@@ -17,7 +17,7 @@ export function BlogForm({ action, defaults = {}, submitLabel = 'Save' }: Props)
         <Text name="title" label="Title" required defaultValue={defaults.title ?? ''} />
         <Text name="slug" label="Slug" required defaultValue={defaults.slug ?? ''} />
         <Select name="locale" label="Locale" options={routing.locales} defaultValue={defaults.locale ?? 'en'} />
-        <Text name="author" label="Author" defaultValue={defaults.author ?? 'Hang Da Team'} />
+        <Text name="author" label="Author" defaultValue={defaults.author ?? 'MyHaar Team'} />
         <Text name="category" label="Category" defaultValue={defaults.category ?? ''} />
         <Text name="tags" label="Tags (comma-separated)" defaultValue={tagString} />
       </div>

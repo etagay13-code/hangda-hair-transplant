@@ -23,20 +23,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const TIMELINE = [
-  { year: '2006', event: 'Foundation. First Istanbul clinic opens with two surgeons.' },
+  { year: '2006', event: 'Foundation. The first MyHaar clinic opens in Den Haag.' },
   { year: '2011', event: 'Adoption of the FUE technique. Strip surgery is fully discontinued.' },
-  { year: '2014', event: '5,000th international patient served.' },
+  { year: '2014', event: '5,000th patient served across the Netherlands and Europe.' },
   { year: '2018', event: 'Sapphire FUE and DHI integrated as standard offerings.' },
-  { year: '2020', event: 'JCI accreditation obtained. ISHRS membership confirmed.' },
-  { year: '2023', event: 'MYHAAR FUE combined protocol launched (Sapphire body + DHI front).' },
-  { year: '2025', event: '15,000th patient. Patients from over 60 countries served.' },
+  { year: '2020', event: 'IGJ registration confirmed. ISHRS membership granted.' },
+  { year: '2023', event: 'MyHaar FUE combined protocol launched (Sapphire body + DHI front).' },
+  { year: '2025', event: '15,000th patient. Patients served from over 60 countries via the Den Haag clinic.' },
 ];
 
 const CERTIFICATIONS = [
-  { name: 'JCI', desc: 'Joint Commission International — gold standard for healthcare quality.' },
+  { name: 'IGJ', desc: 'Registered with the Inspectie Gezondheidszorg en Jeugd (Dutch Health & Youth Inspectorate).' },
+  { name: 'BIG', desc: 'Surgeons hold an active BIG-registration (Wet op de Beroepen in de Individuele Gezondheidszorg).' },
   { name: 'ISHRS', desc: 'International Society of Hair Restoration Surgery — surgeon member.' },
   { name: 'ISO 9001:2015', desc: 'Quality management system certification.' },
-  { name: 'T.C. Sağlık Bakanlığı', desc: 'Licensed by the Turkish Ministry of Health.' },
 ];
 
 const EQUIPMENT = [
@@ -105,7 +105,7 @@ export default async function AboutPage({ params }: Props) {
               <div className="relative aspect-[4/5]">
                 <Image
                   src="/services/about-hair-transplant.jpg"
-                  alt="MYHAAR Clinic"
+                  alt="MyHaar Clinic in Den Haag"
                   fill
                   sizes="(min-width: 1024px) 480px, 100vw"
                   className="object-cover"
@@ -191,7 +191,7 @@ export default async function AboutPage({ params }: Props) {
               Equipment we use, every case
             </h2>
             <p className="mt-3 text-sm text-slate-600">
-              Quality comes from the team, but technology amplifies it. These are the instruments behind every MYHAAR procedure.
+              Quality comes from the team, but technology amplifies it. These are the instruments behind every MyHaar procedure.
             </p>
           </div>
           <div className="mt-12 grid gap-5 sm:grid-cols-2">

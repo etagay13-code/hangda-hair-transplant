@@ -80,7 +80,7 @@ export async function Hero() {
                 <div className="relative aspect-[4/5]">
                   <Image
                     src="/gallery/result-3400-sapphire-fue.jpg"
-                    alt="Real MYHAAR patient result"
+                    alt="Real MyHaar patient result"
                     fill
                     sizes="(min-width: 1024px) 480px, 100vw"
                     className="object-cover"
@@ -89,7 +89,7 @@ export async function Hero() {
                 </div>
                 <div className="absolute inset-x-6 bottom-6 rounded-2xl bg-white/95 px-5 py-4 backdrop-blur shadow-lg">
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-                    Recent result · MYHAAR FUE
+                    Recent result · MyHaar FUE
                   </p>
                   <p className="mt-1 text-base font-semibold text-[var(--color-primary-darker)]">
                     3,400 grafts · 12 months

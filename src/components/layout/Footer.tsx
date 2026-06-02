@@ -17,7 +17,7 @@ export async function Footer({ locale }: { locale: string }) {
     getTranslations('Navigation'),
   ]);
 
-  const brand = getSetting(settings, 'site_name', 'Hang Da Hair Transplant');
+  const brand = getSetting(settings, 'site_name', 'MyHaar Hair Transplant');
   const phone = getSetting(settings, 'contact_phone');
   const whatsapp = getSetting(settings, 'contact_whatsapp');
   const email = getSetting(settings, 'contact_email');

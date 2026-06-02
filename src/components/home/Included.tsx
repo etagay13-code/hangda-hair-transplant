@@ -2,14 +2,15 @@ import Image from 'next/image';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 
 const INCLUDED = [
-  { icon: '🛬', title: 'VIP airport transfers', desc: 'Private driver from Istanbul Airport to your hotel, clinic and back.' },
-  { icon: '🏨', title: '4★ hotel accommodation', desc: 'Two nights walking distance from the clinic. Breakfast included.' },
-  { icon: '🩺', title: 'Pre-op blood tests', desc: 'Full preoperative workup completed on arrival.' },
-  { icon: '🌿', title: 'PRP support session', desc: 'A PRP injection at the end of your procedure accelerates healing.' },
-  { icon: '💊', title: 'All medications & kit', desc: 'Pain relief, antibiotics, shampoo, lotion, headband, neck pillow.' },
-  { icon: '🌍', title: 'Multilingual coordinator', desc: 'EN · NL · DE · TR · AR — with you 24/7.' },
+  { icon: '👨‍⚕️', title: 'Free surgeon consultation', desc: 'In-person or video assessment with the lead surgeon, including hairline design.' },
+  { icon: '🩺', title: 'Pre-op blood tests', desc: 'Full preoperative workup at our Den Haag clinic.' },
+  { icon: '✂️', title: 'The full procedure', desc: 'Sapphire FUE or DHI with the senior surgical team — local anaesthesia, all instruments.' },
+  { icon: '🌿', title: 'PRP support session', desc: 'A PRP injection at the end of your procedure to accelerate follicle activation.' },
+  { icon: '💊', title: 'All medications & kit', desc: 'Pain relief, antibiotics, post-op shampoo, lotion, headband, neck pillow.' },
+  { icon: '🧼', title: 'First clinical wash', desc: 'Hands-on first wash next day with your nurse, plus your written recovery briefing.' },
+  { icon: '🌍', title: 'Multilingual care', desc: 'Nederlands · English · Türkçe · Deutsch · العربية — coordinator with you throughout.' },
   { icon: '🛡️', title: '18-month written guarantee', desc: 'If transplanted follicles do not yield, we re-implant at no surgical cost.' },
-  { icon: '📅', title: 'Lifetime follow-up', desc: 'Scheduled at 3, 6, 12, 18 months — and reachable for life after.' },
+  { icon: '📅', title: 'Lifetime follow-up', desc: 'Scheduled at 3, 6, 12 and 18 months — and reachable for life after.' },
 ];
 
 export function Included() {
@@ -20,13 +21,13 @@ export function Included() {
           <div className="lg:sticky lg:top-28">
             <RevealOnScroll>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-                All-inclusive package
+                What is included
               </p>
               <h2 className="heading-display mt-3 text-3xl sm:text-4xl lg:text-5xl">
-                One transparent price. Everything included.
+                One transparent price. No surprises.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-slate-600">
-                No hidden surcharges, no upsells on the day. The number on your written quote is the number you pay — and it covers a great deal more than the surgery itself.
+                The number on your written quote is the number you pay — and it covers everything from your first consultation to your last follow-up appointment, eighteen months later.
               </p>
             </RevealOnScroll>
 
@@ -39,7 +40,7 @@ export function Included() {
                 <div className="relative aspect-[4/5]">
                   <Image
                     src="/gallery/clinic-procedure.jpg"
-                    alt="MYHAAR all-inclusive experience"
+                    alt="MyHaar clinic in Den Haag"
                     fill
                     sizes="(min-width: 1024px) 440px, 100vw"
                     className="object-cover"
@@ -54,7 +55,7 @@ export function Included() {
                     €1,750
                   </p>
                   <p className="mt-1 text-xs text-slate-600">
-                    All-inclusive, written quote valid 30 days
+                    Transparent quote, valid 30 days
                   </p>
                 </div>
               </div>
