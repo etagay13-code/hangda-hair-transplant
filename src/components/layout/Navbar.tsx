@@ -71,18 +71,16 @@ export function Navbar({ brand, logoUrl, whatsapp }: Props) {
       }`}
     >
       <div className="container-page flex h-16 items-center justify-between sm:h-20">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" aria-label={brand} className="flex items-center">
           {logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt={brand} className="h-9 w-auto" />
+            <img src={logoUrl} alt={brand} className="h-12 w-auto sm:h-14" />
           ) : (
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-primary)] text-white font-bold">
-              H
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-primary)] text-white font-bold">
+              M
             </span>
           )}
-          <span className="text-lg font-semibold tracking-tight text-[var(--color-primary-darker)]">
-            {brand}
-          </span>
+          <span className="sr-only">{brand}</span>
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">

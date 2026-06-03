@@ -104,7 +104,7 @@ export default async function AboutPage({ params }: Props) {
             <div className="overflow-hidden rounded-3xl bg-slate-100 shadow-md">
               <div className="relative aspect-[4/5]">
                 <Image
-                  src="/services/about-hair-transplant.jpg"
+                  src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=900&q=80"
                   alt="MyHaar Clinic in Den Haag"
                   fill
                   sizes="(min-width: 1024px) 480px, 100vw"

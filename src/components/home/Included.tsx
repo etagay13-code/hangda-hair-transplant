@@ -39,7 +39,7 @@ export function Included() {
               <div className="relative overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-[var(--color-primary)]/20">
                 <div className="relative aspect-[4/5]">
                   <Image
-                    src="/gallery/clinic-procedure.jpg"
+                    src="https://images.unsplash.com/photo-1580281657527-47f249e8f4df?auto=format&fit=crop&w=900&q=80"
                     alt="MyHaar clinic in Den Haag"
                     fill
                     sizes="(min-width: 1024px) 440px, 100vw"

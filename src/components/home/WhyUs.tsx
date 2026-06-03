@@ -4,22 +4,22 @@ import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 
 const FEATURES = [
   {
-    image: '/gallery/result-3400-sapphire-fue.jpg',
+    image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=80',
     badge: '01',
     accent: 'Surgeons, not technicians',
   },
   {
-    image: '/services/about-hair-transplant.jpg',
+    image: '/gallery/clinic-procedure.jpg',
     badge: '02',
-    accent: 'JCI-grade technology',
+    accent: 'IGJ-grade technology',
   },
   {
-    image: '/gallery/result-natural-density.jpg',
+    image: '/gallery/result-3500-sapphire-fue.jpg',
     badge: '03',
     accent: 'Undetectably natural design',
   },
   {
-    image: '/gallery/clinic-mirror.jpg',
+    image: '/gallery/result-thumbs-up.jpg',
     badge: '04',
     accent: 'Lifetime relationship',
   },
