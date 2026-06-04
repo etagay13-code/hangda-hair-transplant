@@ -2,9 +2,20 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { CountUp } from '@/components/ui/CountUp';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 
-export async function Hero() {
-  const t = await getTranslations('Hero');
+export async function Hero({ locale }: { locale: string }) {
+  const [t, block] = await Promise.all([
+    getTranslations('Hero'),
+    getPageBlock('home', 'hero', locale),
+  ]);
+
+  const eyebrow = blockField(block?.eyebrow, t('badge'));
+  const title = blockField(block?.title, t('title'));
+  const subtitle = blockField(block?.subtitle, t('subtitle'));
+  const ctaLabel = blockField(block?.cta_label, t('ctaPrimary'));
+  const ctaHref = blockField(block?.cta_href, '#contact');
+  const imageUrl = blockField(block?.image_url, '/gallery/result-3400-sapphire-fue.jpg');
 
   const stats: Array<{ label: string; value: number; suffix?: string; prefix?: string }> = [
     { label: t('stats.patients'), value: 15, suffix: 'K+' },
@@ -39,17 +50,17 @@ export async function Hero() {
           <RevealOnScroll className="lg:col-span-7">
             <span className="inline-flex items-center gap-2 rounded-full border border-[var(--color-primary)]/30 bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-primary-darker)] backdrop-blur">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-primary)]" />
-              {t('badge')}
+              {eyebrow}
             </span>
             <h1 className="heading-display mt-6 text-4xl leading-[1.05] sm:text-5xl lg:text-[3.75rem]">
-              {t('title')}
+              {title}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-700">
-              {t('subtitle')}
+              {subtitle}
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a href="#contact" className="btn-primary">
-                {t('ctaPrimary')}
+              <a href={ctaHref} className="btn-primary">
+                {ctaLabel}
               </a>
               <a href="#gallery" className="btn-outline">
                 {t('ctaSecondary')}
@@ -79,7 +90,7 @@ export async function Hero() {
               <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl ring-1 ring-[var(--color-primary)]/20">
                 <div className="relative aspect-[4/5]">
                   <Image
-                    src="/gallery/result-3400-sapphire-fue.jpg"
+                    src={imageUrl}
                     alt="Real MyHaar patient result"
                     fill
                     sizes="(min-width: 1024px) 480px, 100vw"

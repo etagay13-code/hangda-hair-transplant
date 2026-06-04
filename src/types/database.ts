@@ -443,6 +443,60 @@ export interface Database {
         };
         Relationships: EmptyRelationships;
       };
+      page_blocks: {
+        Row: {
+          id: string;
+          page_key: string;
+          section_key: string;
+          locale: string;
+          eyebrow: string | null;
+          title: string | null;
+          subtitle: string | null;
+          body: string | null;
+          image_url: string | null;
+          cta_label: string | null;
+          cta_href: string | null;
+          extra: Json | null;
+          order_index: number;
+          is_active: boolean;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          page_key: string;
+          section_key: string;
+          locale?: string;
+          eyebrow?: string | null;
+          title?: string | null;
+          subtitle?: string | null;
+          body?: string | null;
+          image_url?: string | null;
+          cta_label?: string | null;
+          cta_href?: string | null;
+          extra?: Json | null;
+          order_index?: number;
+          is_active?: boolean;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          page_key?: string;
+          section_key?: string;
+          locale?: string;
+          eyebrow?: string | null;
+          title?: string | null;
+          subtitle?: string | null;
+          body?: string | null;
+          image_url?: string | null;
+          cta_label?: string | null;
+          cta_href?: string | null;
+          extra?: Json | null;
+          order_index?: number;
+          is_active?: boolean;
+          updated_at?: string;
+        };
+        Relationships: EmptyRelationships;
+      };
       analytics_events: {
         Row: {
           id: string;
@@ -496,3 +550,4 @@ export type Faq = Tables<'faq'>;
 export type FormRedirect = Tables<'form_redirects'>;
 export type PageSeo = Tables<'page_seo'>;
 export type AnalyticsEvent = Tables<'analytics_events'>;
+export type PageBlock = Tables<'page_blocks'>;

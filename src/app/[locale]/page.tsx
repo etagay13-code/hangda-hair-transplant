@@ -22,7 +22,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <main>
-      <Hero />
+      <Hero locale={locale} />
       <WhyUs />
       <TechniqueComparison locale={locale} />
       <Services locale={locale} />
