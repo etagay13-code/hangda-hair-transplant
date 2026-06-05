@@ -25,8 +25,16 @@ export async function Testimonials({ locale }: { locale: string }) {
   return (
     <section
       id="testimonials"
-      className="relative overflow-hidden bg-white py-24 sm:py-32"
+      className="relative overflow-hidden bg-slate-50 py-24 sm:py-32"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-32 top-10 h-72 w-72 rounded-full bg-[var(--color-primary)]/10 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-[var(--color-primary-darker)]/10 blur-3xl"
+      />
       <div className="container-page">
         <RevealOnScroll className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
@@ -43,21 +51,24 @@ export async function Testimonials({ locale }: { locale: string }) {
         <div className="relative">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-slate-50 to-transparent"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-slate-50 to-transparent"
           />
           <div className="marquee-track flex w-max gap-6 px-6">
             {looped.map((it, i) => (
               <blockquote
                 key={`${it.id}-${i}`}
-                className="flex w-[340px] shrink-0 flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm sm:w-[400px]"
+                className="flex w-[340px] shrink-0 flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm sm:w-[420px]"
               >
-                <Stars count={it.rating} />
+                <div className="flex items-center justify-between">
+                  <Avatar name={it.name} />
+                  <Stars count={it.rating} />
+                </div>
                 {it.comment && (
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-700">
+                  <p className="mt-5 flex-1 text-sm leading-relaxed text-slate-700">
                     “{it.comment}”
                   </p>
                 )}
@@ -87,6 +98,32 @@ export async function Testimonials({ locale }: { locale: string }) {
         </div>
       </RevealOnScroll>
     </section>
+  );
+}
+
+function Avatar({ name }: { name: string }) {
+  const initials = name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p.charAt(0).toUpperCase())
+    .join('');
+  // Stable colour from name hash
+  const palette = [
+    'bg-emerald-100 text-emerald-800',
+    'bg-amber-100 text-amber-800',
+    'bg-sky-100 text-sky-800',
+    'bg-violet-100 text-violet-800',
+    'bg-rose-100 text-rose-800',
+  ];
+  const idx = name.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % palette.length;
+  return (
+    <span
+      className={`grid h-12 w-12 place-items-center rounded-full text-base font-bold ${palette[idx]}`}
+      aria-hidden="true"
+    >
+      {initials || '★'}
+    </span>
   );
 }
 

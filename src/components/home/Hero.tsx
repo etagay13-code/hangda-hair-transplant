@@ -15,7 +15,10 @@ export async function Hero({ locale }: { locale: string }) {
   const subtitle = blockField(block?.subtitle, t('subtitle'));
   const ctaLabel = blockField(block?.cta_label, t('ctaPrimary'));
   const ctaHref = blockField(block?.cta_href, '#contact');
-  const imageUrl = blockField(block?.image_url, '/gallery/result-3400-sapphire-fue.jpg');
+  const imageUrl = blockField(
+    block?.image_url,
+    'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1000&q=80'
+  );
 
   const stats: Array<{ label: string; value: number; suffix?: string; prefix?: string }> = [
     { label: t('stats.patients'), value: 15, suffix: 'K+' },

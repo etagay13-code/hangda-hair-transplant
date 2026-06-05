@@ -14,12 +14,12 @@ const FEATURES = [
     accent: 'IGJ-grade technology',
   },
   {
-    image: '/gallery/result-3500-sapphire-fue.jpg',
+    image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=900&q=80',
     badge: '03',
     accent: 'Undetectably natural design',
   },
   {
-    image: '/gallery/result-thumbs-up.jpg',
+    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=80',
     badge: '04',
     accent: 'Lifetime relationship',
   },
