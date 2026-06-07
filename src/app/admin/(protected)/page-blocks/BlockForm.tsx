@@ -11,9 +11,24 @@ interface Props {
 
 const KNOWN_PAGES = ['home', 'about', 'services', 'gallery', 'blog', 'contact'];
 
+const LOCALE_LABELS: Record<string, string> = {
+  all: 'All locales (master)',
+  en: 'English (EN)',
+  nl: 'Nederlands (NL)',
+  tr: 'Türkçe (TR)',
+};
+
 export function BlockForm({ action, defaults = {}, lockIdentity = false, submitLabel = 'Save' }: Props) {
+  const currentLocale = defaults.locale ?? 'all';
   return (
     <form action={action} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="rounded-lg border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/8 p-4 text-sm leading-relaxed text-[var(--color-primary-darker)]">
+        <p className="font-semibold">Editing in: {LOCALE_LABELS[currentLocale] ?? currentLocale}</p>
+        <p className="mt-1 text-slate-700">
+          Rows with locale <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs">all</code> apply to every language unless overridden. Leave a text field empty to fall back to the built-in translation. Create a locale-specific row (en / nl / tr) to override a single language.
+        </p>
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-3">
         <label className="block">
           <span className="label-field">Page <span className="text-red-500">*</span></span>
@@ -44,16 +59,16 @@ export function BlockForm({ action, defaults = {}, lockIdentity = false, submitL
           />
         </label>
         <label className="block">
-          <span className="label-field">Locale</span>
+          <span className="label-field">Locale (which language?)</span>
           <select
             name="locale"
             defaultValue={defaults.locale ?? 'all'}
             disabled={lockIdentity}
             className="input-field mt-1.5"
           >
-            <option value="all">all</option>
+            <option value="all">All locales (master)</option>
             {routing.locales.map((l) => (
-              <option key={l} value={l}>{l}</option>
+              <option key={l} value={l}>{LOCALE_LABELS[l] ?? l}</option>
             ))}
           </select>
         </label>

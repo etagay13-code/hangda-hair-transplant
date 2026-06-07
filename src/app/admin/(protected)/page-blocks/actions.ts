@@ -82,3 +82,55 @@ export async function deleteBlock(id: string, page_key: string) {
   revalidatePageInAllLocales(page_key);
   revalidatePath('/admin/page-blocks');
 }
+
+/**
+ * Copy a source block's editable fields into rows for every other locale.
+ * Existing rows are upserted (so editors can re-run after tweaking the source
+ * to push the new copy across NL/TR). Used by the "Sync to all locales" button
+ * on the page-blocks list/edit screens.
+ */
+export async function syncBlockToAllLocales(sourceId: string) {
+  const supabase = await createClient();
+  const { data: src } = await supabase
+    .from('page_blocks')
+    .select('*')
+    .eq('id', sourceId)
+    .maybeSingle();
+  if (!src) throw new Error('Source block not found');
+
+  const targets = routing.locales.filter((l) => l !== src.locale);
+  for (const locale of targets) {
+    const { data: existing } = await supabase
+      .from('page_blocks')
+      .select('id')
+      .eq('page_key', src.page_key)
+      .eq('section_key', src.section_key)
+      .eq('locale', locale)
+      .maybeSingle();
+
+    const data = {
+      page_key: src.page_key,
+      section_key: src.section_key,
+      locale,
+      eyebrow: src.eyebrow,
+      title: src.title,
+      subtitle: src.subtitle,
+      body: src.body,
+      image_url: src.image_url,
+      cta_label: src.cta_label,
+      cta_href: src.cta_href,
+      order_index: src.order_index,
+      is_active: src.is_active,
+      updated_at: new Date().toISOString(),
+    };
+
+    if (existing) {
+      await supabase.from('page_blocks').update(data).eq('id', existing.id);
+    } else {
+      await supabase.from('page_blocks').insert(data);
+    }
+  }
+
+  revalidatePageInAllLocales(src.page_key);
+  revalidatePath('/admin/page-blocks');
+}
