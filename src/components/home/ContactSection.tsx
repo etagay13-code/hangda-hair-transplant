@@ -2,12 +2,13 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { createClient } from '@/lib/supabase/server';
 import { getSetting, getSiteSettings } from '@/lib/settings';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 import type { Service } from '@/types';
 import { ContactForm } from './ContactForm';
 
 export async function ContactSection({ locale }: { locale: string }) {
   const supabase = await createClient();
-  const [{ data: servicesData }, settings, t] = await Promise.all([
+  const [{ data: servicesData }, settings, t, block] = await Promise.all([
     supabase
       .from('services')
       .select('slug,title')
@@ -16,7 +17,12 @@ export async function ContactSection({ locale }: { locale: string }) {
       .order('order_index', { ascending: true }),
     getSiteSettings(locale),
     getTranslations('Contact'),
+    getPageBlock('home', 'contact', locale),
   ]);
+
+  const eyebrow = blockField(block?.eyebrow, t('title'));
+  const title = blockField(block?.title, t('title'));
+  const subtitle = blockField(block?.subtitle, t('subtitle'));
 
   const services = ((servicesData ?? []) as Pick<Service, 'slug' | 'title'>[]).map((s) => ({
     slug: s.slug,
@@ -39,12 +45,12 @@ export async function ContactSection({ locale }: { locale: string }) {
         <div className="grid items-stretch gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-              {t('title')}
+              {eyebrow}
             </p>
             <h2 className="heading-display mt-3 text-3xl sm:text-4xl lg:text-5xl">
-              {t('title')}
+              {title}
             </h2>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-slate-600">{t('subtitle')}</p>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-slate-600">{subtitle}</p>
 
             <div className="relative mt-8 overflow-hidden rounded-3xl shadow-xl ring-1 ring-[var(--color-primary)]/15">
               <div className="relative aspect-[4/3]">

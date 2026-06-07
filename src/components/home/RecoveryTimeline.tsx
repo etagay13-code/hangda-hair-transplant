@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 
 const STAGES = [
   { when: 'Day 0–3', title: 'Surgery & rest', desc: 'Procedure day plus two recovery days. Mild swelling peaks then subsides.' },
@@ -10,20 +11,31 @@ const STAGES = [
   { when: 'Month 12–18', title: 'Final result', desc: 'Final density and texture are assessed. 18-month written growth guarantee covers this period.' },
 ];
 
-export function RecoveryTimeline() {
+export async function RecoveryTimeline({ locale }: { locale: string }) {
+  const block = await getPageBlock('home', 'recovery', locale);
+  const eyebrow = blockField(block?.eyebrow, 'Recovery');
+  const title = blockField(block?.title, 'Your 18-month journey, mapped out');
+  const subtitle = blockField(
+    block?.subtitle,
+    'Hair restoration is a process. Here is exactly what happens, when — so you can plan around it with confidence.'
+  );
+  const image = blockField(
+    block?.image_url,
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80'
+  );
   return (
     <section className="section bg-white">
       <div className="container-page">
         <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-20">
           <RevealOnScroll className="lg:col-span-5 lg:sticky lg:top-28">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-              Recovery
+              {eyebrow}
             </p>
             <h2 className="heading-display mt-3 text-3xl sm:text-4xl lg:text-5xl">
-              Your 18-month journey, mapped out
+              {title}
             </h2>
             <p className="mt-5 text-base leading-relaxed text-slate-600">
-              Hair restoration is a process. Here is exactly what happens, when — so you can plan around it with confidence.
+              {subtitle}
             </p>
 
             <div className="relative mt-10">
@@ -34,7 +46,7 @@ export function RecoveryTimeline() {
               <div className="relative overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-[var(--color-primary)]/15">
                 <div className="relative aspect-[4/5]">
                   <Image
-                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80"
+                    src={image}
                     alt="MyHaar follow-up care"
                     fill
                     sizes="(min-width: 1024px) 420px, 100vw"

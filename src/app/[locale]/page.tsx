@@ -23,13 +23,13 @@ export default async function HomePage({ params }: Props) {
   return (
     <main>
       <Hero locale={locale} />
-      <WhyUs />
+      <WhyUs locale={locale} />
       <TechniqueComparison locale={locale} />
       <Services locale={locale} />
-      <Process />
+      <Process locale={locale} />
       <Gallery locale={locale} />
-      <Included />
-      <RecoveryTimeline />
+      <Included locale={locale} />
+      <RecoveryTimeline locale={locale} />
       <Testimonials locale={locale} />
       <Faq locale={locale} />
       <ContactSection locale={locale} />

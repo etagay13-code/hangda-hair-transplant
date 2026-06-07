@@ -1,21 +1,28 @@
 import { getTranslations } from 'next-intl/server';
 import { createClient } from '@/lib/supabase/server';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 import type { Testimonial } from '@/types';
 
 export async function Testimonials({ locale }: { locale: string }) {
   const supabase = await createClient();
-  const { data } = await supabase
-    .from('testimonials')
-    .select('*')
-    .or(`locale.eq.${locale},locale.eq.en`)
-    .eq('is_active', true)
-    .order('is_featured', { ascending: false })
-    .order('created_at', { ascending: false })
-    .limit(8);
+  const [{ data }, t, block] = await Promise.all([
+    supabase
+      .from('testimonials')
+      .select('*')
+      .or(`locale.eq.${locale},locale.eq.en`)
+      .eq('is_active', true)
+      .order('is_featured', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(8),
+    getTranslations('Testimonials'),
+    getPageBlock('home', 'testimonials', locale),
+  ]);
 
   const items = (data ?? []) as Testimonial[];
-  const t = await getTranslations('Testimonials');
+  const eyebrow = blockField(block?.eyebrow, t('title'));
+  const title = blockField(block?.title, t('title'));
+  const subtitle = blockField(block?.subtitle, t('subtitle'));
 
   if (items.length === 0) return null;
 
@@ -38,12 +45,12 @@ export async function Testimonials({ locale }: { locale: string }) {
       <div className="container-page">
         <RevealOnScroll className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-            {t('title')}
+            {eyebrow}
           </p>
           <h2 className="heading-display mt-3 text-3xl sm:text-4xl lg:text-5xl">
-            {t('title')}
+            {title}
           </h2>
-          <p className="mt-4 text-base text-slate-600">{t('subtitle')}</p>
+          <p className="mt-4 text-base text-slate-600">{subtitle}</p>
         </RevealOnScroll>
       </div>
 

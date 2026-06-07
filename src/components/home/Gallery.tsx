@@ -2,21 +2,28 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 import type { GalleryItem } from '@/types';
 
 export async function Gallery({ locale }: { locale: string }) {
   const supabase = await createClient();
-  const { data } = await supabase
-    .from('gallery')
-    .select('*')
-    .or(`locale.eq.${locale},locale.eq.en`)
-    .eq('is_active', true)
-    .order('order_index', { ascending: true })
-    .limit(6);
+  const [{ data }, t, tCommon, block] = await Promise.all([
+    supabase
+      .from('gallery')
+      .select('*')
+      .or(`locale.eq.${locale},locale.eq.en`)
+      .eq('is_active', true)
+      .order('order_index', { ascending: true })
+      .limit(6),
+    getTranslations('Gallery'),
+    getTranslations('Common'),
+    getPageBlock('home', 'gallery', locale),
+  ]);
 
   const items = (data ?? []) as GalleryItem[];
-  const t = await getTranslations('Gallery');
-  const tCommon = await getTranslations('Common');
+  const eyebrow = blockField(block?.eyebrow, t('title'));
+  const title = blockField(block?.title, t('title'));
+  const subtitle = blockField(block?.subtitle, t('subtitle'));
 
   if (items.length === 0) return null;
 
@@ -25,10 +32,10 @@ export async function Gallery({ locale }: { locale: string }) {
       <div className="container-page">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-            {t('title')}
+            {eyebrow}
           </p>
-          <h2 className="heading-display mt-3 text-3xl sm:text-4xl">{t('title')}</h2>
-          <p className="mt-4 text-base text-slate-600">{t('subtitle')}</p>
+          <h2 className="heading-display mt-3 text-3xl sm:text-4xl">{title}</h2>
+          <p className="mt-4 text-base text-slate-600">{subtitle}</p>
         </div>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

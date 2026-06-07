@@ -3,20 +3,52 @@ import type { ReactNode } from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { ActiveLink } from '@/components/admin/ActiveLink';
 
-const NAV = [
-  { href: '/admin', label: 'Dashboard', exact: true },
-  { href: '/admin/page-blocks', label: 'Page Blocks' },
-  { href: '/admin/menu', label: 'Menus' },
-  { href: '/admin/contacts', label: 'Contact Submissions' },
-  { href: '/admin/services', label: 'Services' },
-  { href: '/admin/gallery', label: 'Gallery' },
-  { href: '/admin/blog', label: 'Blog Posts' },
-  { href: '/admin/team', label: 'Team Members' },
-  { href: '/admin/testimonials', label: 'Testimonials' },
-  { href: '/admin/faq', label: 'FAQ' },
-  { href: '/admin/settings', label: 'Site Settings' },
-  { href: '/admin/seo', label: 'Page SEO' },
-  { href: '/admin/forms', label: 'Form Redirects' },
+interface NavLink {
+  href: string;
+  label: string;
+  exact?: boolean;
+}
+
+interface NavGroup {
+  title: string;
+  items: NavLink[];
+}
+
+const NAV: NavGroup[] = [
+  {
+    title: 'Overview',
+    items: [
+      { href: '/admin', label: 'Dashboard', exact: true },
+      { href: '/admin/contacts', label: 'Contact Submissions' },
+    ],
+  },
+  {
+    title: 'Site content',
+    items: [
+      { href: '/admin/pages', label: 'Pages' },
+      { href: '/admin/menu', label: 'Menus' },
+      { href: '/admin/page-blocks', label: 'Page Blocks (advanced)' },
+    ],
+  },
+  {
+    title: 'Catalog',
+    items: [
+      { href: '/admin/services', label: 'Services' },
+      { href: '/admin/gallery', label: 'Gallery' },
+      { href: '/admin/blog', label: 'Blog Posts' },
+      { href: '/admin/team', label: 'Team Members' },
+      { href: '/admin/testimonials', label: 'Testimonials' },
+      { href: '/admin/faq', label: 'FAQ' },
+    ],
+  },
+  {
+    title: 'Settings',
+    items: [
+      { href: '/admin/settings', label: 'Site Settings' },
+      { href: '/admin/seo', label: 'Page SEO' },
+      { href: '/admin/forms', label: 'Form Redirects' },
+    ],
+  },
 ];
 
 export default async function ProtectedAdminLayout({
@@ -39,11 +71,20 @@ export default async function ProtectedAdminLayout({
           <h1 className="text-lg font-semibold">Admin Console</h1>
           <p className="mt-1 truncate text-xs text-slate-400">{user.email}</p>
         </div>
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-          {NAV.map((item) => (
-            <ActiveLink key={item.href} href={item.href} exact={item.exact}>
-              {item.label}
-            </ActiveLink>
+        <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-4">
+          {NAV.map((group) => (
+            <div key={group.title}>
+              <p className="px-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-500">
+                {group.title}
+              </p>
+              <div className="mt-2 space-y-1">
+                {group.items.map((item) => (
+                  <ActiveLink key={item.href} href={item.href} exact={item.exact}>
+                    {item.label}
+                  </ActiveLink>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
         <form

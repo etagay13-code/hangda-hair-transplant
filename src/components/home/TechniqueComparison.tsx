@@ -1,4 +1,5 @@
 import { Link } from '@/i18n/navigation';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 
 const TECHNIQUES = [
   {
@@ -36,20 +37,23 @@ const TECHNIQUES = [
   },
 ];
 
-export function TechniqueComparison({ locale }: { locale: string }) {
+export async function TechniqueComparison({ locale }: { locale: string }) {
+  const block = await getPageBlock('home', 'techniques', locale);
+  const eyebrow = blockField(block?.eyebrow, 'Compare techniques');
+  const title = blockField(block?.title, 'Three techniques. One standard of care.');
+  const subtitle = blockField(
+    block?.subtitle,
+    'Choose the approach that fits your hair-loss pattern, donor capacity, and lifestyle. Every package includes the procedure, all medications, the PRP support session, and lifetime follow-up at our Den Haag clinic.'
+  );
   return (
     <section className="section bg-white">
       <div className="container-page">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-            Compare techniques
+            {eyebrow}
           </p>
-          <h2 className="heading-display mt-3 text-3xl sm:text-4xl">
-            Three techniques. One standard of care.
-          </h2>
-          <p className="mt-4 text-base text-slate-600">
-            Choose the approach that fits your hair-loss pattern, donor capacity, and lifestyle. Every package includes the procedure, all medications, the PRP support session, and lifetime follow-up at our Den Haag clinic.
-          </p>
+          <h2 className="heading-display mt-3 text-3xl sm:text-4xl">{title}</h2>
+          <p className="mt-4 text-base text-slate-600">{subtitle}</p>
         </div>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-3">

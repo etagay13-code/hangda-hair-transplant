@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 
 const FEATURES = [
   {
@@ -25,8 +26,14 @@ const FEATURES = [
   },
 ];
 
-export async function WhyUs() {
-  const t = await getTranslations('WhyUs');
+export async function WhyUs({ locale }: { locale: string }) {
+  const [t, block] = await Promise.all([
+    getTranslations('WhyUs'),
+    getPageBlock('home', 'why_us', locale),
+  ]);
+  const eyebrow = blockField(block?.eyebrow, t('title'));
+  const title = blockField(block?.title, t('title'));
+  const subtitle = blockField(block?.subtitle, t('subtitle'));
   const features = FEATURES.map((f, i) => ({
     ...f,
     title: t(`feature${i + 1}Title`),
@@ -38,12 +45,12 @@ export async function WhyUs() {
       <div className="container-page">
         <RevealOnScroll className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-            {t('title')}
+            {eyebrow}
           </p>
           <h2 className="heading-display mt-3 text-3xl sm:text-4xl lg:text-5xl">
-            {t('title')}
+            {title}
           </h2>
-          <p className="mt-4 text-base text-slate-600">{t('subtitle')}</p>
+          <p className="mt-4 text-base text-slate-600">{subtitle}</p>
         </RevealOnScroll>
 
         <div className="mt-20 space-y-28 sm:space-y-32">

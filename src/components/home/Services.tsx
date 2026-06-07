@@ -3,19 +3,26 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 import type { Service } from '@/types';
 
 export async function Services({ locale }: { locale: string }) {
   const supabase = await createClient();
-  const { data } = await supabase
-    .from('services')
-    .select('*')
-    .eq('locale', locale)
-    .eq('is_active', true)
-    .order('order_index', { ascending: true });
+  const [{ data }, t, block] = await Promise.all([
+    supabase
+      .from('services')
+      .select('*')
+      .eq('locale', locale)
+      .eq('is_active', true)
+      .order('order_index', { ascending: true }),
+    getTranslations('Services'),
+    getPageBlock('home', 'services', locale),
+  ]);
 
   const services = (data ?? []) as Service[];
-  const t = await getTranslations('Services');
+  const eyebrow = blockField(block?.eyebrow, t('title'));
+  const title = blockField(block?.title, t('title'));
+  const subtitle = blockField(block?.subtitle, t('subtitle'));
 
   if (services.length === 0) return null;
 
@@ -31,12 +38,12 @@ export async function Services({ locale }: { locale: string }) {
       <div className="container-page relative">
         <RevealOnScroll className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-            {t('title')}
+            {eyebrow}
           </p>
           <h2 className="heading-display mt-3 text-3xl sm:text-4xl lg:text-5xl">
-            {t('title')}
+            {title}
           </h2>
-          <p className="mt-4 text-base text-slate-600">{t('subtitle')}</p>
+          <p className="mt-4 text-base text-slate-600">{subtitle}</p>
         </RevealOnScroll>
 
         <div className="mt-20 space-y-24">

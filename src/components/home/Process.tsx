@@ -1,9 +1,17 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
+import { blockField, getPageBlock } from '@/lib/page-blocks';
 
-export async function Process() {
-  const t = await getTranslations('Process');
+export async function Process({ locale }: { locale: string }) {
+  const [t, block] = await Promise.all([
+    getTranslations('Process'),
+    getPageBlock('home', 'process', locale),
+  ]);
+  const eyebrow = blockField(block?.eyebrow, t('title'));
+  const title = blockField(block?.title, t('title'));
+  const subtitle = blockField(block?.subtitle, t('subtitle'));
+  const sideImage = blockField(block?.image_url, '/gallery/clinic-mirror.jpg');
   const steps = [1, 2, 3, 4].map((i) => ({
     title: t(`step${i}Title`),
     desc: t(`step${i}Desc`),
@@ -24,12 +32,12 @@ export async function Process() {
         <div className="grid items-start gap-14 lg:grid-cols-12 lg:gap-20">
           <RevealOnScroll className="lg:col-span-5 lg:sticky lg:top-28">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-              {t('title')}
+              {eyebrow}
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-              {t('title')}
+              {title}
             </h2>
-            <p className="mt-4 text-base text-white/70">{t('subtitle')}</p>
+            <p className="mt-4 text-base text-white/70">{subtitle}</p>
 
             <div className="relative mt-10">
               <div
@@ -39,7 +47,7 @@ export async function Process() {
               <div className="relative overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-white/15">
                 <div className="relative aspect-[4/5]">
                   <Image
-                    src="/gallery/clinic-mirror.jpg"
+                    src={sideImage}
                     alt="Patient consultation at MyHaar"
                     fill
                     sizes="(min-width: 1024px) 420px, 100vw"

@@ -165,9 +165,9 @@ export default async function ServicesIndexPage({ params }: Props) {
 
       <TechniqueComparison locale={locale} />
 
-      <Process />
+      <Process locale={locale} />
 
-      <Included />
+      <Included locale={locale} />
 
       {faqs.length > 0 && (
         <section className="section bg-white">
