@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const HIGHLIGHTS = [
   { kpi: '6', label: 'Treatments under one roof' },
-  { kpi: '€1,750', label: 'Surgeon-led pricing from' },
+  { kpi: 'Surgeon-led', label: 'Hands of the lead surgeon every step' },
   { kpi: 'Local', label: 'Anaesthesia for every procedure' },
   { kpi: '18 mo.', label: 'Written growth guarantee' },
 ];
@@ -135,21 +135,10 @@ export default async function ServicesIndexPage({ params }: Props) {
                           {s.short_description}
                         </p>
                       )}
-                      <div className="mt-7 flex items-end justify-between border-t border-slate-100 pt-5">
-                        {s.price_from != null ? (
-                          <div>
-                            <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
-                              {t('priceFrom')}
-                            </p>
-                            <p className="mt-0.5 text-xl font-bold text-[var(--color-primary-darker)]">
-                              €{s.price_from.toLocaleString()}
-                            </p>
-                          </div>
-                        ) : (
-                          <div className="text-xs uppercase tracking-widest text-slate-400">
-                            Quote on request
-                          </div>
-                        )}
+                      <div className="mt-7 flex items-center justify-between border-t border-slate-100 pt-5">
+                        <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
+                          Free consultation
+                        </span>
                         <span className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--color-primary-dark)] transition group-hover:translate-x-1">
                           {t('viewService')} →
                         </span>

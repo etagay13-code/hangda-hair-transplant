@@ -83,13 +83,13 @@ export async function Services({ locale }: { locale: string }) {
                         )}
                       </div>
                     </div>
-                    {s.price_from != null && (
+                    {s.duration && (
                       <div className="absolute -bottom-6 left-6 rounded-2xl bg-white px-5 py-4 shadow-xl ring-1 ring-slate-200">
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-                          {t('priceFrom')}
+                          {t('duration')}
                         </p>
                         <p className="mt-1 text-2xl font-bold text-[var(--color-primary-darker)]">
-                          €{s.price_from.toLocaleString()}
+                          {s.duration}
                         </p>
                       </div>
                     )}
@@ -167,11 +167,11 @@ export async function Services({ locale }: { locale: string }) {
                       <p className="mt-2 text-sm text-slate-600">{s.short_description}</p>
                     )}
                     <div className="mt-6 flex items-center justify-between text-xs text-slate-500">
-                      {s.price_from != null ? (
+                      {s.duration ? (
                         <span>
-                          {t('priceFrom')}{' '}
+                          {t('duration')}{' '}
                           <strong className="text-[var(--color-primary-darker)]">
-                            €{s.price_from.toLocaleString()}
+                            {s.duration}
                           </strong>
                         </span>
                       ) : <span />}

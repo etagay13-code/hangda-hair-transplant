@@ -61,13 +61,10 @@ export async function Included({ locale }: { locale: string }) {
                 </div>
                 <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/95 px-5 py-4 backdrop-blur">
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-                    From
+                    Free consultation
                   </p>
-                  <p className="mt-1 text-3xl font-bold text-[var(--color-primary-darker)]">
-                    €1,750
-                  </p>
-                  <p className="mt-1 text-xs text-slate-600">
-                    Transparent quote, valid 30 days
+                  <p className="mt-1 text-lg font-bold text-[var(--color-primary-darker)]">
+                    Personalised quote, valid 30 days
                   </p>
                 </div>
               </div>

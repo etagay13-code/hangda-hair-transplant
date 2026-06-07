@@ -81,10 +81,13 @@ export async function TechniqueComparison({ locale }: { locale: string }) {
                 <Row label="Max grafts / session" value={tech.sessionGrafts} />
               </dl>
 
-              <div className="mt-7 flex items-baseline gap-2">
-                <span className="text-xs uppercase tracking-wider text-slate-500">From</span>
-                <span className="text-3xl font-bold text-[var(--color-primary-darker)]">{tech.price}</span>
-                <span className="text-xs text-slate-500">transparent pricing</span>
+              <div className="mt-7 rounded-2xl bg-[var(--color-primary)]/8 px-4 py-3">
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
+                  Quote
+                </p>
+                <p className="mt-1 text-sm font-semibold text-[var(--color-primary-darker)]">
+                  Personalised after free consultation
+                </p>
               </div>
 
               <Link

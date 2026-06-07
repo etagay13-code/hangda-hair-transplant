@@ -147,11 +147,10 @@ export default async function ServiceDetailPage({ params }: Props) {
                 {tNav('gallery')} →
               </Link>
             </div>
-            <dl className="mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4 border-t border-[var(--color-primary)]/20 pt-8">
-              <SpecCell label={t('priceFrom')} value={service.price_from != null ? `€${service.price_from.toLocaleString()}` : '—'} />
+            <dl className="mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3 border-t border-[var(--color-primary)]/20 pt-8">
               <SpecCell label={t('duration')} value={service.duration ?? '—'} />
               <SpecCell label="Anesthesia" value="Local" />
-              <SpecCell label="Stay" value="3 days" />
+              <SpecCell label="Guarantee" value="18 mo." />
             </dl>
           </div>
           <div className="lg:col-span-5">
@@ -371,11 +370,11 @@ export default async function ServiceDetailPage({ params }: Props) {
                   {r.short_description && (
                     <p className="mt-2 text-sm text-slate-600">{r.short_description}</p>
                   )}
-                  {r.price_from != null && (
+                  {r.duration && (
                     <p className="mt-3 text-xs text-slate-500">
-                      {t('priceFrom')}{' '}
+                      {t('duration')}{' '}
                       <strong className="text-[var(--color-primary-darker)]">
-                        €{r.price_from.toLocaleString()}
+                        {r.duration}
                       </strong>
                     </p>
                   )}
