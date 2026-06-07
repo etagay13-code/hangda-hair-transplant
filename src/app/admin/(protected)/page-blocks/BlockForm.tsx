@@ -12,97 +12,175 @@ interface Props {
 const KNOWN_PAGES = ['home', 'about', 'services', 'gallery', 'blog', 'contact'];
 
 const LOCALE_LABELS: Record<string, string> = {
-  all: 'All locales (master)',
-  en: 'English (EN)',
-  nl: 'Nederlands (NL)',
+  all: 'Tüm diller (varsayılan)',
+  en: 'İngilizce (EN)',
+  nl: 'Felemenkçe (NL)',
   tr: 'Türkçe (TR)',
 };
 
-export function BlockForm({ action, defaults = {}, lockIdentity = false, submitLabel = 'Save' }: Props) {
+export function BlockForm({ action, defaults = {}, lockIdentity = false, submitLabel = 'Değişiklikleri Kaydet' }: Props) {
   const currentLocale = defaults.locale ?? 'all';
   return (
-    <form action={action} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="rounded-lg border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/8 p-4 text-sm leading-relaxed text-[var(--color-primary-darker)]">
-        <p className="font-semibold">Editing in: {LOCALE_LABELS[currentLocale] ?? currentLocale}</p>
-        <p className="mt-1 text-slate-700">
-          Rows with locale <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs">all</code> apply to every language unless overridden. Leave a text field empty to fall back to the built-in translation. Create a locale-specific row (en / nl / tr) to override a single language.
+    <form action={action} className="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <div className="rounded-xl border-l-4 border-[var(--color-primary)] bg-[var(--color-primary)]/8 p-5 text-sm leading-relaxed text-slate-700">
+        <p className="text-base font-semibold text-[var(--color-primary-darker)]">
+          📝 Düzenlenen dil: {LOCALE_LABELS[currentLocale] ?? currentLocale}
         </p>
+        <ul className="mt-3 list-disc space-y-1 pl-5">
+          <li>
+            <strong>Boş bırakırsanız</strong> sitedeki yazı çeviri dosyasından gelir
+            (yani şu an sitede gördüğünüz İngilizce/Türkçe/NL metin).
+          </li>
+          <li>
+            <strong>Yazarsanız</strong> siteye onu basar, çeviri devre dışı kalır.
+          </li>
+          <li>
+            <em>Tüm diller</em> satırı 3 dilde de geçerli; sadece bir dili özelleştirmek
+            isterseniz üst kısımdaki dil seçiminden o dile geçip yazın.
+          </li>
+        </ul>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-3">
-        <label className="block">
-          <span className="label-field">Page <span className="text-red-500">*</span></span>
+        <Field label="Sayfa" required>
           <input
             list="known-pages"
             name="page_key"
             required
             readOnly={lockIdentity}
             defaultValue={defaults.page_key ?? ''}
-            className="input-field mt-1.5"
+            className="input-field"
           />
           <datalist id="known-pages">
             {KNOWN_PAGES.map((p) => (
               <option key={p} value={p} />
             ))}
           </datalist>
-        </label>
-        <label className="block">
-          <span className="label-field">Section key <span className="text-red-500">*</span></span>
+        </Field>
+        <Field label="Bölüm anahtarı" required>
           <input
             type="text"
             name="section_key"
             required
             readOnly={lockIdentity}
             defaultValue={defaults.section_key ?? ''}
-            placeholder="hero, why_us, services_intro…"
-            className="input-field mt-1.5"
+            placeholder="hero, why_us, services…"
+            className="input-field"
           />
-        </label>
-        <label className="block">
-          <span className="label-field">Locale (which language?)</span>
+        </Field>
+        <Field label="Dil seçimi">
           <select
             name="locale"
             defaultValue={defaults.locale ?? 'all'}
             disabled={lockIdentity}
-            className="input-field mt-1.5"
+            className="input-field"
           >
-            <option value="all">All locales (master)</option>
+            <option value="all">Tüm diller (varsayılan)</option>
             {routing.locales.map((l) => (
               <option key={l} value={l}>{LOCALE_LABELS[l] ?? l}</option>
             ))}
           </select>
-        </label>
+        </Field>
       </div>
+
+      <div className="h-px bg-slate-100" />
+
+      <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-500">
+        Metin alanları
+      </h3>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Text name="eyebrow" label="Eyebrow (small uppercase line above title)" defaultValue={defaults.eyebrow ?? ''} />
-        <Text name="title" label="Title" defaultValue={defaults.title ?? ''} />
+        <Field label="Üst yazı (Eyebrow)" hint="Başlığın üstündeki küçük büyük harfli yeşil satır">
+          <input
+            type="text"
+            name="eyebrow"
+            defaultValue={defaults.eyebrow ?? ''}
+            placeholder="Örn: PREMIUM SAÇ EKİMİ"
+            className="input-field"
+          />
+        </Field>
+        <Field label="Başlık (Title)" hint="Büyük başlık">
+          <input
+            type="text"
+            name="title"
+            defaultValue={defaults.title ?? ''}
+            placeholder="Örn: Doğal Saçınızı Geri Kazanın"
+            className="input-field"
+          />
+        </Field>
       </div>
 
-      <Text name="subtitle" label="Subtitle" defaultValue={defaults.subtitle ?? ''} />
+      <Field label="Alt başlık (Subtitle)" hint="Başlığın altındaki tanıtım cümlesi">
+        <input
+          type="text"
+          name="subtitle"
+          defaultValue={defaults.subtitle ?? ''}
+          placeholder="Örn: Den Haag'da güvenilir saç restorasyonu, ömür boyu garantili."
+          className="input-field"
+        />
+      </Field>
 
-      <Textarea name="body" label="Body" rows={4} defaultValue={defaults.body ?? ''} />
+      <Field label="Gövde (Body)" hint="Uzun açıklama paragrafı — hero gibi kısa bölümlerde kullanılmaz">
+        <textarea
+          name="body"
+          rows={4}
+          defaultValue={defaults.body ?? ''}
+          className="input-field"
+        />
+      </Field>
+
+      <div className="h-px bg-slate-100" />
+
+      <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-500">
+        Görsel
+      </h3>
 
       <ImageUploadField
         name="image_url"
-        label="Image"
+        label="Bölüm görseli"
         bucket="general"
         folder="blocks"
         defaultUrl={defaults.image_url}
       />
 
+      <div className="h-px bg-slate-100" />
+
+      <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-500">
+        Buton (CTA)
+      </h3>
+
       <div className="grid gap-5 sm:grid-cols-2">
-        <Text name="cta_label" label="CTA label" defaultValue={defaults.cta_label ?? ''} />
-        <Text name="cta_href" label="CTA href (URL or #anchor)" defaultValue={defaults.cta_href ?? ''} />
+        <Field label="Buton metni" hint="Örn: Ücretsiz Konsültasyon">
+          <input
+            type="text"
+            name="cta_label"
+            defaultValue={defaults.cta_label ?? ''}
+            placeholder="Örn: Ücretsiz Konsültasyon"
+            className="input-field"
+          />
+        </Field>
+        <Field label="Buton bağlantısı (URL veya #anchor)" hint="Örn: #contact veya /contact">
+          <input
+            type="text"
+            name="cta_href"
+            defaultValue={defaults.cta_href ?? ''}
+            placeholder="#contact"
+            className="input-field"
+          />
+        </Field>
       </div>
 
+      <div className="h-px bg-slate-100" />
+
       <div className="grid gap-5 sm:grid-cols-3">
-        <Text
-          name="order_index"
-          type="number"
-          label="Order"
-          defaultValue={(defaults.order_index ?? 0).toString()}
-        />
+        <Field label="Sıra" hint="Küçük = üstte">
+          <input
+            type="number"
+            name="order_index"
+            defaultValue={(defaults.order_index ?? 0).toString()}
+            className="input-field"
+          />
+        </Field>
         <label className="flex items-end gap-2 text-sm">
           <input
             type="checkbox"
@@ -110,51 +188,44 @@ export function BlockForm({ action, defaults = {}, lockIdentity = false, submitL
             defaultChecked={defaults.is_active ?? true}
             className="h-4 w-4 rounded border-slate-300"
           />
-          Active
+          Aktif (sitede göster)
         </label>
       </div>
 
-      <div className="flex justify-end">
-        <button type="submit" className="btn-primary">{submitLabel}</button>
+      <div className="flex items-center justify-between border-t border-slate-100 pt-6">
+        <p className="text-xs text-slate-500">
+          Kaydet'e bastıktan sonra 2-3 saniye içinde site güncellenir.
+        </p>
+        <button
+          type="submit"
+          className="rounded-full bg-[var(--color-primary)] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[var(--color-primary-dark)]"
+        >
+          {submitLabel}
+        </button>
       </div>
     </form>
   );
 }
 
-function Text({
-  name,
+function Field({
   label,
-  type = 'text',
-  defaultValue = '',
+  required,
+  hint,
+  children,
 }: {
-  name: string;
   label: string;
-  type?: string;
-  defaultValue?: string;
+  required?: boolean;
+  hint?: string;
+  children: React.ReactNode;
 }) {
   return (
     <label className="block">
-      <span className="label-field">{label}</span>
-      <input type={type} name={name} defaultValue={defaultValue} className="input-field mt-1.5" />
-    </label>
-  );
-}
-
-function Textarea({
-  name,
-  label,
-  rows = 4,
-  defaultValue = '',
-}: {
-  name: string;
-  label: string;
-  rows?: number;
-  defaultValue?: string;
-}) {
-  return (
-    <label className="block">
-      <span className="label-field">{label}</span>
-      <textarea name={name} rows={rows} defaultValue={defaultValue} className="input-field mt-1.5" />
+      <span className="block text-sm font-medium text-slate-700">
+        {label}
+        {required && <span className="text-red-500"> *</span>}
+      </span>
+      {hint && <span className="block text-xs text-slate-500">{hint}</span>}
+      <div className="mt-1.5">{children}</div>
     </label>
   );
 }
