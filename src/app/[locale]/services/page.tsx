@@ -9,7 +9,6 @@ import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { TechniqueComparison } from '@/components/home/TechniqueComparison';
 import { Process } from '@/components/home/Process';
 import { Included } from '@/components/home/Included';
-import { TrustBadges } from '@/components/home/TrustBadges';
 import type { Service, Faq } from '@/types';
 
 interface Props {
@@ -38,8 +37,6 @@ export default async function ServicesIndexPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('Services');
   const tNav = await getTranslations('Navigation');
-  const tCommon = await getTranslations('Common');
-  const tCTA = await getTranslations('CTA');
 
   const supabase = await createClient();
   const [{ data: serviceData }, { data: faqData }] = await Promise.all([
@@ -209,33 +206,6 @@ export default async function ServicesIndexPage({ params }: Props) {
         </section>
       )}
 
-      <TrustBadges locale={locale} />
-
-      <section className="bg-[var(--color-primary-darker)] text-white">
-        <div className="container-page py-20 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-            Ready to begin?
-          </p>
-          <h2 className="heading-display mt-3 text-3xl text-white sm:text-4xl lg:text-5xl">
-            {tCTA('title')}
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-white/75">{tCTA('subtitle')}</p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="btn-primary !bg-white !text-[var(--color-primary-darker)] hover:!bg-slate-100"
-            >
-              {tCommon('freeConsultation')}
-            </Link>
-            <Link
-              href="/gallery"
-              className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              {tNav('gallery')} →
-            </Link>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

@@ -2,14 +2,6 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getSetting, getSiteSettings } from '@/lib/settings';
 
-const SOCIALS: Array<{ key: string; label: string }> = [
-  { key: 'social_instagram', label: 'Instagram' },
-  { key: 'social_facebook', label: 'Facebook' },
-  { key: 'social_youtube', label: 'YouTube' },
-  { key: 'social_tiktok', label: 'TikTok' },
-  { key: 'social_x', label: 'X' },
-];
-
 export async function Footer({ locale }: { locale: string }) {
   const [settings, t, tNav] = await Promise.all([
     getSiteSettings(locale),
@@ -18,6 +10,11 @@ export async function Footer({ locale }: { locale: string }) {
   ]);
 
   const brand = getSetting(settings, 'site_name', 'MyHaar Hair Transplant');
+  // Admin can upload a footer-specific (white) logo via /admin/settings —
+  // key: footer_logo_url. If missing, fall back to the regular logo and
+  // invert it to white via a CSS filter so it stays legible on dark green.
+  const footerLogo = getSetting(settings, 'footer_logo_url');
+  const logoUrl = getSetting(settings, 'logo_url');
   const phone = getSetting(settings, 'contact_phone');
   const whatsapp = getSetting(settings, 'contact_whatsapp');
   const email = getSetting(settings, 'contact_email');
@@ -25,17 +22,26 @@ export async function Footer({ locale }: { locale: string }) {
   const hours = getSetting(settings, 'contact_hours');
   const year = new Date().getFullYear();
 
+  const logo = footerLogo || logoUrl;
+
   return (
     <footer className="bg-[var(--color-primary-darker)] text-slate-200">
       <div className="container-page py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-primary)] text-white font-bold">
-                H
-              </span>
-              <span className="text-lg font-semibold text-white">{brand}</span>
-            </div>
+            <Link href="/" aria-label={brand} className="inline-flex items-center">
+              {logo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={logo}
+                  alt={brand}
+                  className="h-14 w-auto"
+                  style={footerLogo ? undefined : { filter: 'brightness(0) invert(1)' }}
+                />
+              ) : (
+                <span className="text-xl font-semibold text-white">{brand}</span>
+              )}
+            </Link>
             <p className="text-sm leading-relaxed text-slate-300">
               {t('tagline')}
             </p>
@@ -92,30 +98,6 @@ export async function Footer({ locale }: { locale: string }) {
                 </li>
               )}
               {hours && <li className="text-slate-400">{hours}</li>}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
-              {t('followUs')}
-            </h3>
-            <ul className="mt-4 flex flex-wrap gap-2 text-sm">
-              {SOCIALS.map((s) => {
-                const url = getSetting(settings, s.key);
-                if (!url) return null;
-                return (
-                  <li key={s.key}>
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-200 transition hover:border-[var(--color-primary)] hover:text-white"
-                    >
-                      {s.label}
-                    </a>
-                  </li>
-                );
-              })}
             </ul>
           </div>
         </div>
