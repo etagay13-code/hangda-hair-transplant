@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { BlockForm } from '../BlockForm';
-import { updateBlock, syncBlockToAllLocales } from '../actions';
+import { updateBlock } from '../actions';
+import { getRenderedField } from '@/lib/section-defaults';
 import type { PageBlock } from '@/types';
 
 interface Props {
@@ -17,51 +18,47 @@ export default async function EditBlockPage({ params }: Props) {
   if (!data) notFound();
   const block = data as PageBlock;
 
-  const action = updateBlock.bind(null, id);
-  const sync = async () => {
-    'use server';
-    await syncBlockToAllLocales(id);
+  // Pre-fill the form with whatever the public site is currently rendering for
+  // this block. When the DB row has an explicit override the override wins;
+  // otherwise we surface the translation / hardcoded fallback so the editor
+  // sees the live copy and can tweak it in place (WordPress / WPBakery style).
+  const merged: Partial<PageBlock> = {
+    ...block,
+    eyebrow: block.eyebrow ?? getRenderedField(block.page_key, block.section_key, block.locale, 'eyebrow') ?? null,
+    title: block.title ?? getRenderedField(block.page_key, block.section_key, block.locale, 'title') ?? null,
+    subtitle: block.subtitle ?? getRenderedField(block.page_key, block.section_key, block.locale, 'subtitle') ?? null,
+    body: block.body ?? getRenderedField(block.page_key, block.section_key, block.locale, 'body') ?? null,
+    cta_label: block.cta_label ?? getRenderedField(block.page_key, block.section_key, block.locale, 'cta_label') ?? null,
   };
 
+  // Saving an 'all' row should ripple to every locale-specific row that
+  // already exists, so editing the master block always updates every
+  // language in one shot (the user's main ask). For locale-specific rows
+  // we only update that locale.
+  const action = updateBlock.bind(null, id);
+
+  const pageBack = `/admin/pages/${block.page_key}?locale=${block.locale}`;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-8 py-8">
       <PageHeader
         title={`${block.page_key} · ${block.section_key}`}
-        description={`Locale: ${block.locale}`}
+        description={
+          block.locale === 'all'
+            ? '"Tüm diller" satırı — kaydettiğinizde değişiklikler 3 dilde de yansır.'
+            : `Sadece "${block.locale.toUpperCase()}" dilinde geçerli. Tüm dillerde aynı olmasını isterseniz "Tüm diller" satırını düzenleyin.`
+        }
         actions={
           <Link
-            href="/admin/page-blocks"
+            href={pageBack}
             className="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
           >
-            ← Back
+            ← Bölüm listesine dön
           </Link>
         }
       />
 
-      <BlockForm action={action} defaults={block} lockIdentity submitLabel="Save changes" />
-
-      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-primary-darker)]">
-          Copy this content to other locales
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-slate-600">
-          Push the current eyebrow, title, subtitle, body, image and CTA values from
-          this <strong>{block.locale}</strong> row into the matching{' '}
-          {block.locale === 'all'
-            ? 'EN, NL and TR rows'
-            : 'rows for the other locales'}{' '}
-          for <code className="rounded bg-slate-100 px-1 py-0.5 text-xs font-mono">{block.page_key}/{block.section_key}</code>.
-          Existing locale rows are overwritten — make sure this row is the version you want everywhere first.
-        </p>
-        <form action={sync} className="mt-5">
-          <button
-            type="submit"
-            className="rounded-md border border-[var(--color-primary)] bg-white px-4 py-2 text-sm font-semibold text-[var(--color-primary-darker)] transition hover:bg-[var(--color-primary)]/10"
-          >
-            Sync to other locales
-          </button>
-        </form>
-      </div>
+      <BlockForm action={action} defaults={merged} lockIdentity submitLabel="Değişiklikleri Kaydet" />
     </div>
   );
 }

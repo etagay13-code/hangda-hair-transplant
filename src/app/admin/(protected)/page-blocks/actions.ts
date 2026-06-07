@@ -69,10 +69,46 @@ export async function updateBlock(id: string, form: FormData) {
   const data = payload(form);
   const { error } = await supabase.from('page_blocks').update(data).eq('id', id);
   if (error) throw new Error(error.message);
+
+  // If the editor just touched the 'all' (master) row, push the same values
+  // into the EN / NL / TR specific rows so every language picks up the change
+  // immediately — this is the "edit once → all languages update" UX.
+  // Locale-specific edits stay scoped to that locale.
+  if (data.locale === 'all') {
+    for (const locale of routing.locales) {
+      const sibling = {
+        page_key: data.page_key,
+        section_key: data.section_key,
+        locale,
+        eyebrow: data.eyebrow,
+        title: data.title,
+        subtitle: data.subtitle,
+        body: data.body,
+        image_url: data.image_url,
+        cta_label: data.cta_label,
+        cta_href: data.cta_href,
+        order_index: data.order_index,
+        is_active: data.is_active,
+        updated_at: new Date().toISOString(),
+      };
+      const { data: existing } = await supabase
+        .from('page_blocks')
+        .select('id')
+        .eq('page_key', data.page_key)
+        .eq('section_key', data.section_key)
+        .eq('locale', locale)
+        .maybeSingle();
+      if (existing) {
+        await supabase.from('page_blocks').update(sibling).eq('id', existing.id);
+      }
+    }
+  }
+
   revalidatePageInAllLocales(data.page_key);
   revalidatePath('/admin/page-blocks');
   revalidatePath(`/admin/page-blocks/${id}`);
-  redirect('/admin/page-blocks');
+  revalidatePath(`/admin/pages/${data.page_key}`);
+  redirect(`/admin/pages/${data.page_key}?locale=${data.locale}`);
 }
 
 export async function deleteBlock(id: string, page_key: string) {
