@@ -443,6 +443,42 @@ export interface Database {
         };
         Relationships: EmptyRelationships;
       };
+      nav_items: {
+        Row: {
+          id: string;
+          label: string;
+          href: string;
+          target: string;
+          locale: string;
+          group_key: string;
+          order_index: number;
+          is_active: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          label: string;
+          href: string;
+          target?: string;
+          locale?: string;
+          group_key?: string;
+          order_index?: number;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          label?: string;
+          href?: string;
+          target?: string;
+          locale?: string;
+          group_key?: string;
+          order_index?: number;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Relationships: EmptyRelationships;
+      };
       page_blocks: {
         Row: {
           id: string;
@@ -551,3 +587,4 @@ export type FormRedirect = Tables<'form_redirects'>;
 export type PageSeo = Tables<'page_seo'>;
 export type AnalyticsEvent = Tables<'analytics_events'>;
 export type PageBlock = Tables<'page_blocks'>;
+export type NavItem = Tables<'nav_items'>;

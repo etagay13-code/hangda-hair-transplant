@@ -6,6 +6,7 @@ import { ActiveLink } from '@/components/admin/ActiveLink';
 const NAV = [
   { href: '/admin', label: 'Dashboard', exact: true },
   { href: '/admin/page-blocks', label: 'Page Blocks' },
+  { href: '/admin/menu', label: 'Menus' },
   { href: '/admin/contacts', label: 'Contact Submissions' },
   { href: '/admin/services', label: 'Services' },
   { href: '/admin/gallery', label: 'Gallery' },

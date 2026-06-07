@@ -14,6 +14,7 @@ import { MetaPixel } from '@/components/analytics/MetaPixel';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
+import { getNavItems } from '@/lib/nav';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -81,9 +82,10 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
 
-  const [messages, settings] = await Promise.all([
+  const [messages, settings, navRows] = await Promise.all([
     getMessages(),
     getSiteSettings(locale),
+    getNavItems('primary', locale),
   ]);
 
   const gaId = getSetting(settings, 'ga_measurement_id') || undefined;
@@ -93,18 +95,45 @@ export default async function LocaleLayout({ children, params }: Props) {
   const whatsapp = getSetting(settings, 'contact_whatsapp');
   const logoUrl = getSetting(settings, 'logo_url') || undefined;
 
+  const customHead = getSetting(settings, 'custom_head_html');
+  const customBody = getSetting(settings, 'custom_body_html');
+  const searchConsole = getSetting(settings, 'search_console_verification');
+  const bingVerify = getSetting(settings, 'bing_site_verification');
+  const yandexVerify = getSetting(settings, 'yandex_verification');
+
+  const navItems = navRows.map((row) => ({
+    href: row.href,
+    label: row.label,
+    target: row.target,
+  }));
+
   return (
     <>
+      {searchConsole && <meta name="google-site-verification" content={searchConsole} />}
+      {bingVerify && <meta name="msvalidate.01" content={bingVerify} />}
+      {yandexVerify && <meta name="yandex-verification" content={yandexVerify} />}
+      {customHead && (
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: customHead }}
+        />
+      )}
       <GoogleTagManager gtmId={gtmId} />
       <GoogleAnalytics measurementId={gaId} />
       <MetaPixel pixelId={pixelId} />
       <GoogleTagManagerNoScript gtmId={gtmId} />
       <NextIntlClientProvider locale={locale} messages={messages}>
-        <Navbar brand={brand} logoUrl={logoUrl} whatsapp={whatsapp || undefined} />
+        <Navbar brand={brand} logoUrl={logoUrl} whatsapp={whatsapp || undefined} items={navItems} />
         {children}
         <Footer locale={locale} />
         {whatsapp && <FloatingWhatsApp number={whatsapp} />}
       </NextIntlClientProvider>
+      {customBody && (
+        <div
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: customBody }}
+        />
+      )}
     </>
   );
 }

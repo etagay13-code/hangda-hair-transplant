@@ -9,15 +9,22 @@ interface Props {
   brand: string;
   logoUrl?: string;
   whatsapp?: string;
+  items?: NavLink[];
 }
 
-interface NavItem {
+export interface NavLink {
+  href: string;
+  label: string;
+  target?: string;
+}
+
+interface NavbarItem {
   href: string;
   key: 'about' | 'services' | 'gallery' | 'blog' | 'faq' | 'contact';
   type: 'page' | 'anchor';
 }
 
-const NAV: NavItem[] = [
+const FALLBACK_NAV: NavbarItem[] = [
   { href: '/about', key: 'about', type: 'page' },
   { href: '/services', key: 'services', type: 'page' },
   { href: '/gallery', key: 'gallery', type: 'page' },
@@ -26,7 +33,7 @@ const NAV: NavItem[] = [
   { href: '/contact', key: 'contact', type: 'page' },
 ];
 
-export function Navbar({ brand, logoUrl, whatsapp }: Props) {
+export function Navbar({ brand, logoUrl, whatsapp, items }: Props) {
   const t = useTranslations('Navigation');
   const tCommon = useTranslations('Common');
   const locale = useLocale();
@@ -61,6 +68,7 @@ export function Navbar({ brand, logoUrl, whatsapp }: Props) {
   }
 
   const wa = whatsapp ? whatsapp.replace(/[^0-9]/g, '') : '';
+  const useDb = items && items.length > 0;
 
   return (
     <header
@@ -84,29 +92,64 @@ export function Navbar({ brand, logoUrl, whatsapp }: Props) {
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
-          {NAV.map((item) =>
-            item.type === 'page' ? (
-              <Link
-                key={item.key}
-                href={item.href}
-                className={`text-sm font-medium transition hover:text-[var(--color-primary-darker)] ${
-                  isActive(item.href)
-                    ? 'text-[var(--color-primary-darker)]'
-                    : 'text-slate-700'
-                }`}
-              >
-                {t(item.key)}
-              </Link>
-            ) : (
-              <a
-                key={item.key}
-                href={anchorHref(item.href)}
-                className="text-sm font-medium text-slate-700 transition hover:text-[var(--color-primary-darker)]"
-              >
-                {t(item.key)}
-              </a>
-            )
-          )}
+          {useDb
+            ? items!.map((item) =>
+                item.href.startsWith('#') ? (
+                  <a
+                    key={item.href + item.label}
+                    href={anchorHref(item.href)}
+                    target={item.target ?? '_self'}
+                    className="text-sm font-medium text-slate-700 transition hover:text-[var(--color-primary-darker)]"
+                  >
+                    {item.label}
+                  </a>
+                ) : item.href.startsWith('http') ? (
+                  <a
+                    key={item.href + item.label}
+                    href={item.href}
+                    target={item.target ?? '_blank'}
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-slate-700 transition hover:text-[var(--color-primary-darker)]"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href + item.label}
+                    href={item.href}
+                    className={`text-sm font-medium transition hover:text-[var(--color-primary-darker)] ${
+                      isActive(item.href)
+                        ? 'text-[var(--color-primary-darker)]'
+                        : 'text-slate-700'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )
+            : FALLBACK_NAV.map((item) =>
+                item.type === 'page' ? (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    className={`text-sm font-medium transition hover:text-[var(--color-primary-darker)] ${
+                      isActive(item.href)
+                        ? 'text-[var(--color-primary-darker)]'
+                        : 'text-slate-700'
+                    }`}
+                  >
+                    {t(item.key)}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.key}
+                    href={anchorHref(item.href)}
+                    className="text-sm font-medium text-slate-700 transition hover:text-[var(--color-primary-darker)]"
+                  >
+                    {t(item.key)}
+                  </a>
+                )
+              )}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
@@ -156,27 +199,61 @@ export function Navbar({ brand, logoUrl, whatsapp }: Props) {
         <div id="mobile-menu" className="lg:hidden">
           <div className="container-page space-y-4 border-t border-slate-100 py-6">
             <nav className="flex flex-col gap-1" aria-label="Mobile">
-              {NAV.map((item) =>
-                item.type === 'page' ? (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
-                  >
-                    {t(item.key)}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.key}
-                    href={anchorHref(item.href)}
-                    onClick={() => setOpen(false)}
-                    className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
-                  >
-                    {t(item.key)}
-                  </a>
-                )
-              )}
+              {useDb
+                ? items!.map((item) =>
+                    item.href.startsWith('#') ? (
+                      <a
+                        key={item.href + item.label}
+                        href={anchorHref(item.href)}
+                        onClick={() => setOpen(false)}
+                        target={item.target ?? '_self'}
+                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+                      >
+                        {item.label}
+                      </a>
+                    ) : item.href.startsWith('http') ? (
+                      <a
+                        key={item.href + item.label}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        target={item.target ?? '_blank'}
+                        rel="noopener noreferrer"
+                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        key={item.href + item.label}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  )
+                : FALLBACK_NAV.map((item) =>
+                    item.type === 'page' ? (
+                      <Link
+                        key={item.key}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+                      >
+                        {t(item.key)}
+                      </Link>
+                    ) : (
+                      <a
+                        key={item.key}
+                        href={anchorHref(item.href)}
+                        onClick={() => setOpen(false)}
+                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+                      >
+                        {t(item.key)}
+                      </a>
+                    )
+                  )}
             </nav>
             <div className="flex items-center justify-between">
               <LocaleSwitcher />
