@@ -10,12 +10,18 @@ interface Props {
   logoUrl?: string;
   whatsapp?: string;
   items?: NavLink[];
+  serviceSubmenu?: SubmenuItem[];
 }
 
 export interface NavLink {
   href: string;
   label: string;
   target?: string;
+}
+
+export interface SubmenuItem {
+  href: string;
+  label: string;
 }
 
 interface NavbarItem {
@@ -33,12 +39,13 @@ const FALLBACK_NAV: NavbarItem[] = [
   { href: '/contact', key: 'contact', type: 'page' },
 ];
 
-export function Navbar({ brand, logoUrl, whatsapp, items }: Props) {
+export function Navbar({ brand, logoUrl, whatsapp, items, serviceSubmenu }: Props) {
   const t = useTranslations('Navigation');
   const tCommon = useTranslations('Common');
   const locale = useLocale();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [mobileSubmenu, setMobileSubmenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -57,7 +64,6 @@ export function Navbar({ brand, logoUrl, whatsapp, items }: Props) {
     };
   }, [open]);
 
-  // For anchor links, always link to /[locale]/#hash so they work from any page.
   function anchorHref(hash: string) {
     return `/${locale}/${hash}`;
   }
@@ -69,6 +75,7 @@ export function Navbar({ brand, logoUrl, whatsapp, items }: Props) {
 
   const wa = whatsapp ? whatsapp.replace(/[^0-9]/g, '') : '';
   const useDb = items && items.length > 0;
+  const submenu = serviceSubmenu ?? [];
 
   return (
     <header
@@ -94,61 +101,10 @@ export function Navbar({ brand, logoUrl, whatsapp, items }: Props) {
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
           {useDb
             ? items!.map((item) =>
-                item.href.startsWith('#') ? (
-                  <a
-                    key={item.href + item.label}
-                    href={anchorHref(item.href)}
-                    target={item.target ?? '_self'}
-                    className="text-sm font-medium text-slate-700 transition hover:text-[var(--color-primary-darker)]"
-                  >
-                    {item.label}
-                  </a>
-                ) : item.href.startsWith('http') ? (
-                  <a
-                    key={item.href + item.label}
-                    href={item.href}
-                    target={item.target ?? '_blank'}
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-slate-700 transition hover:text-[var(--color-primary-darker)]"
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={item.href + item.label}
-                    href={item.href}
-                    className={`text-sm font-medium transition hover:text-[var(--color-primary-darker)] ${
-                      isActive(item.href)
-                        ? 'text-[var(--color-primary-darker)]'
-                        : 'text-slate-700'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                )
+                renderDesktopItem(item.label, item.href, item.target, isActive, anchorHref, submenu)
               )
             : FALLBACK_NAV.map((item) =>
-                item.type === 'page' ? (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    className={`text-sm font-medium transition hover:text-[var(--color-primary-darker)] ${
-                      isActive(item.href)
-                        ? 'text-[var(--color-primary-darker)]'
-                        : 'text-slate-700'
-                    }`}
-                  >
-                    {t(item.key)}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.key}
-                    href={anchorHref(item.href)}
-                    className="text-sm font-medium text-slate-700 transition hover:text-[var(--color-primary-darker)]"
-                  >
-                    {t(item.key)}
-                  </a>
-                )
+                renderDesktopItem(t(item.key), item.href, '_self', isActive, anchorHref, submenu)
               )}
         </nav>
 
@@ -199,61 +155,91 @@ export function Navbar({ brand, logoUrl, whatsapp, items }: Props) {
         <div id="mobile-menu" className="lg:hidden">
           <div className="container-page space-y-4 border-t border-slate-100 py-6">
             <nav className="flex flex-col gap-1" aria-label="Mobile">
-              {useDb
-                ? items!.map((item) =>
-                    item.href.startsWith('#') ? (
-                      <a
-                        key={item.href + item.label}
-                        href={anchorHref(item.href)}
-                        onClick={() => setOpen(false)}
-                        target={item.target ?? '_self'}
-                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+              {(useDb ? items! : FALLBACK_NAV).map((rawItem) => {
+                const label = 'label' in rawItem ? rawItem.label : t((rawItem as NavbarItem).key);
+                const href = rawItem.href;
+                const target = ('target' in rawItem ? rawItem.target : '_self') as string;
+                const isServices = href === '/services' && submenu.length > 0;
+                if (isServices) {
+                  return (
+                    <div key={href + label}>
+                      <button
+                        type="button"
+                        onClick={() => setMobileSubmenu((v) => !v)}
+                        className="flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
                       >
-                        {item.label}
-                      </a>
-                    ) : item.href.startsWith('http') ? (
-                      <a
-                        key={item.href + item.label}
-                        href={item.href}
-                        onClick={() => setOpen(false)}
-                        target={item.target ?? '_blank'}
-                        rel="noopener noreferrer"
-                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
-                      >
-                        {item.label}
-                      </a>
-                    ) : (
-                      <Link
-                        key={item.href + item.label}
-                        href={item.href}
-                        onClick={() => setOpen(false)}
-                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
-                      >
-                        {item.label}
-                      </Link>
-                    )
-                  )
-                : FALLBACK_NAV.map((item) =>
-                    item.type === 'page' ? (
-                      <Link
-                        key={item.key}
-                        href={item.href}
-                        onClick={() => setOpen(false)}
-                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
-                      >
-                        {t(item.key)}
-                      </Link>
-                    ) : (
-                      <a
-                        key={item.key}
-                        href={anchorHref(item.href)}
-                        onClick={() => setOpen(false)}
-                        className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
-                      >
-                        {t(item.key)}
-                      </a>
-                    )
-                  )}
+                        <span>{label}</span>
+                        <span
+                          aria-hidden="true"
+                          className={`text-[var(--color-primary)] transition ${
+                            mobileSubmenu ? 'rotate-180' : ''
+                          }`}
+                        >
+                          ▾
+                        </span>
+                      </button>
+                      {mobileSubmenu && (
+                        <div className="mt-1 ml-3 flex flex-col gap-1 border-l-2 border-[var(--color-primary)]/30 pl-3">
+                          <Link
+                            href="/services"
+                            onClick={() => setOpen(false)}
+                            className="rounded-md px-3 py-1.5 text-sm font-semibold text-[var(--color-primary-darker)] hover:bg-[var(--color-primary)]/10"
+                          >
+                            All services
+                          </Link>
+                          {submenu.map((s) => (
+                            <Link
+                              key={s.href}
+                              href={s.href}
+                              onClick={() => setOpen(false)}
+                              className="rounded-md px-3 py-1.5 text-sm text-slate-700 hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary-darker)]"
+                            >
+                              {s.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                if (href.startsWith('#')) {
+                  return (
+                    <a
+                      key={href + label}
+                      href={anchorHref(href)}
+                      target={target}
+                      onClick={() => setOpen(false)}
+                      className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+                    >
+                      {label}
+                    </a>
+                  );
+                }
+                if (href.startsWith('http')) {
+                  return (
+                    <a
+                      key={href + label}
+                      href={href}
+                      target={target || '_blank'}
+                      rel="noopener noreferrer"
+                      onClick={() => setOpen(false)}
+                      className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+                    >
+                      {label}
+                    </a>
+                  );
+                }
+                return (
+                  <Link
+                    key={href + label}
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    className="rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-[var(--color-primary)]/10"
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
             </nav>
             <div className="flex items-center justify-between">
               <LocaleSwitcher />
@@ -273,5 +259,94 @@ export function Navbar({ brand, logoUrl, whatsapp, items }: Props) {
         </div>
       )}
     </header>
+  );
+}
+
+function renderDesktopItem(
+  label: string,
+  href: string,
+  target: string | undefined,
+  isActive: (href: string) => boolean,
+  anchorHref: (hash: string) => string,
+  submenu: SubmenuItem[]
+) {
+  const baseCls = `text-sm font-medium transition hover:text-[var(--color-primary-darker)] ${
+    isActive(href) ? 'text-[var(--color-primary-darker)]' : 'text-slate-700'
+  }`;
+
+  if (href === '/services' && submenu.length > 0) {
+    return (
+      <div key={href + label} className="group relative">
+        <Link href={href} className={`inline-flex items-center gap-1 ${baseCls}`}>
+          {label}
+          <svg
+            aria-hidden="true"
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="transition group-hover:rotate-180"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </Link>
+
+        {/* Bridge to prevent flicker between trigger and dropdown */}
+        <div className="absolute left-0 top-full h-3 w-full" />
+
+        <div className="invisible absolute left-1/2 top-full z-50 mt-3 w-72 -translate-x-1/2 translate-y-1 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl ring-1 ring-black/5">
+            <Link
+              href="/services"
+              className="block bg-[var(--color-primary)]/8 px-5 py-3 text-xs font-semibold uppercase tracking-widest text-[var(--color-primary-darker)] hover:bg-[var(--color-primary)]/15"
+            >
+              All services →
+            </Link>
+            <ul className="py-2">
+              {submenu.map((s) => (
+                <li key={s.href}>
+                  <Link
+                    href={s.href}
+                    className="block px-5 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary-darker)]"
+                  >
+                    {s.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (href.startsWith('#')) {
+    return (
+      <a key={href + label} href={anchorHref(href)} target={target ?? '_self'} className={baseCls}>
+        {label}
+      </a>
+    );
+  }
+  if (href.startsWith('http')) {
+    return (
+      <a
+        key={href + label}
+        href={href}
+        target={target ?? '_blank'}
+        rel="noopener noreferrer"
+        className={baseCls}
+      >
+        {label}
+      </a>
+    );
+  }
+  return (
+    <Link key={href + label} href={href} className={baseCls}>
+      {label}
+    </Link>
   );
 }

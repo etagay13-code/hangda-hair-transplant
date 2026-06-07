@@ -15,6 +15,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
 import { getNavItems } from '@/lib/nav';
+import { createClient } from '@/lib/supabase/server';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -82,11 +83,24 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
 
-  const [messages, settings, navRows] = await Promise.all([
+  const supabase = await createClient();
+
+  const [messages, settings, navRows, { data: serviceRows }] = await Promise.all([
     getMessages(),
     getSiteSettings(locale),
     getNavItems('primary', locale),
+    supabase
+      .from('services')
+      .select('slug,title')
+      .eq('locale', locale)
+      .eq('is_active', true)
+      .order('order_index', { ascending: true }),
   ]);
+
+  const serviceSubmenu = (serviceRows ?? []).map((s) => ({
+    href: `/services/${s.slug}`,
+    label: s.title,
+  }));
 
   const gaId = getSetting(settings, 'ga_measurement_id') || undefined;
   const gtmId = getSetting(settings, 'gtm_id') || undefined;
@@ -123,7 +137,13 @@ export default async function LocaleLayout({ children, params }: Props) {
       <MetaPixel pixelId={pixelId} />
       <GoogleTagManagerNoScript gtmId={gtmId} />
       <NextIntlClientProvider locale={locale} messages={messages}>
-        <Navbar brand={brand} logoUrl={logoUrl} whatsapp={whatsapp || undefined} items={navItems} />
+        <Navbar
+          brand={brand}
+          logoUrl={logoUrl}
+          whatsapp={whatsapp || undefined}
+          items={navItems}
+          serviceSubmenu={serviceSubmenu}
+        />
         {children}
         <Footer locale={locale} />
         {whatsapp && <FloatingWhatsApp number={whatsapp} />}
