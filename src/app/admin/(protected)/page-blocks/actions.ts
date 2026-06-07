@@ -134,3 +134,25 @@ export async function syncBlockToAllLocales(sourceId: string) {
   revalidatePageInAllLocales(src.page_key);
   revalidatePath('/admin/page-blocks');
 }
+
+/**
+ * Bump a block's order_index up or down (±15) so editors can rearrange the
+ * section order on the per-page editor without dragging. Components fetch
+ * blocks order_index ascending, so 'up' moves the section earlier on screen.
+ */
+export async function reorderBlock(id: string, direction: 'up' | 'down') {
+  const supabase = await createClient();
+  const { data: current } = await supabase
+    .from('page_blocks')
+    .select('order_index, page_key')
+    .eq('id', id)
+    .maybeSingle();
+  if (!current) return;
+  const delta = direction === 'up' ? -15 : 15;
+  await supabase
+    .from('page_blocks')
+    .update({ order_index: Math.max(0, (current.order_index ?? 0) + delta) })
+    .eq('id', id);
+  revalidatePageInAllLocales(current.page_key);
+  revalidatePath('/admin/page-blocks');
+}

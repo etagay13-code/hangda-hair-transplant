@@ -95,6 +95,131 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────
+   Admin console theme — dark + airy
+   ───────────────────────────────────────────────────────── */
+.admin-shell {
+  background: #0f172a;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+.admin-sidebar {
+  background: #0b1220;
+  border-right: 1px solid #1e293b;
+}
+.admin-group-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #64748b;
+  padding: 0 14px;
+}
+.admin-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #cbd5e1;
+  transition: background 0.15s, color 0.15s;
+}
+.admin-link:hover {
+  background: #1e293b;
+  color: #fff;
+}
+.admin-link.is-active {
+  background: linear-gradient(90deg, rgba(120,159,125,0.20), transparent);
+  color: #fff;
+  position: relative;
+}
+.admin-link.is-active::before {
+  content: "";
+  position: absolute;
+  left: -4px; top: 6px; bottom: 6px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+.admin-topbar {
+  background: rgba(15,23,42,0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1e293b;
+}
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(34,197,94,0.12);
+  color: #4ade80;
+  border: 1px solid rgba(34,197,94,0.25);
+}
+.admin-pill .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.18);
+}
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s, border-color 0.15s;
+}
+.admin-btn-ghost {
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+}
+.admin-btn-ghost:hover { background: #1e293b; color: #fff; }
+.admin-btn-primary {
+  background: var(--color-primary);
+  color: #0f172a;
+  font-weight: 700;
+}
+.admin-btn-primary:hover { background: #6c9572; }
+.admin-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 14px;
+}
+.admin-card-hover:hover {
+  border-color: var(--color-primary);
+  background: #243349;
+}
+.admin-input {
+  background: #0b1220;
+  border: 1px solid #334155;
+  color: #f1f5f9;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  width: 100%;
+}
+.admin-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(120,159,125,0.20);
+}
+.admin-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+  margin-bottom: 4px;
+  display: block;
+}
+.admin-divider { height: 1px; background: #1e293b; }
+
+/* ─────────────────────────────────────────────────────────
    Animation primitives
    ───────────────────────────────────────────────────────── */
 
