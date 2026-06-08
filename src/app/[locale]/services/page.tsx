@@ -25,13 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const HIGHLIGHTS = [
-  { kpi: '6', label: 'Treatments under one roof' },
-  { kpi: 'Surgeon-led', label: 'Hands of the lead surgeon every step' },
-  { kpi: 'Local', label: 'Anaesthesia for every procedure' },
-  { kpi: '18 mo.', label: 'Written growth guarantee' },
-];
-
 export default async function ServicesIndexPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -65,16 +58,7 @@ export default async function ServicesIndexPage({ params }: Props) {
         title={t('title')}
         subtitle={t('subtitle')}
         crumbs={[{ label: tNav('home'), href: '/' }, { label: tNav('services') }]}
-      >
-        <dl className="mt-2 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-5 border-t border-[var(--color-primary)]/20 pt-8 sm:grid-cols-4">
-          {HIGHLIGHTS.map((h) => (
-            <div key={h.label}>
-              <dt className="text-[10px] uppercase tracking-[0.3em] text-slate-500">{h.label}</dt>
-              <dd className="mt-1 text-2xl font-bold text-[var(--color-primary-darker)]">{h.kpi}</dd>
-            </div>
-          ))}
-        </dl>
-      </PageHero>
+      />
 
       <section className="section bg-white">
         <div className="container-page">
