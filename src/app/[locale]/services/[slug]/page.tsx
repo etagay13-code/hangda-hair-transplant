@@ -14,12 +14,20 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   const supabase = await createClient();
-  const { data } = await supabase
+  let { data } = await supabase
     .from('services')
     .select('title,meta_title,meta_description,short_description,image_url')
     .eq('locale', locale)
     .eq('slug', slug)
     .maybeSingle();
+  if (!data && locale !== 'en') {
+    ({ data } = await supabase
+      .from('services')
+      .select('title,meta_title,meta_description,short_description,image_url')
+      .eq('locale', 'en')
+      .eq('slug', slug)
+      .maybeSingle());
+  }
   if (!data) return {};
   return {
     title: data.meta_title || data.title,
@@ -81,7 +89,7 @@ export default async function ServiceDetailPage({ params }: Props) {
   setRequestLocale(locale);
 
   const supabase = await createClient();
-  const [{ data: serviceData }, t, tNav, tCommon, tCTA] = await Promise.all([
+  const [{ data: localeService }, t, tNav, tCommon, tCTA] = await Promise.all([
     supabase
       .from('services')
       .select('*')
@@ -94,6 +102,22 @@ export default async function ServiceDetailPage({ params }: Props) {
     getTranslations('Common'),
     getTranslations('CTA'),
   ]);
+
+  // If no localized row exists for this slug, fall back to the EN row so
+  // /tr/services/dhi-hair-transplant and /nl/... don't 404. Localized rows
+  // can be added later from the admin; until then visitors get the EN copy
+  // wrapped in the localized UI shell.
+  let serviceData = localeService;
+  if (!serviceData && locale !== 'en') {
+    const { data: enFallback } = await supabase
+      .from('services')
+      .select('*')
+      .eq('locale', 'en')
+      .eq('slug', slug)
+      .eq('is_active', true)
+      .maybeSingle();
+    serviceData = enFallback;
+  }
   if (!serviceData) notFound();
   const service = serviceData as Service;
 
@@ -103,10 +127,12 @@ export default async function ServiceDetailPage({ params }: Props) {
     { data: galleryData },
     { data: testimonialData },
   ] = await Promise.all([
+    // Related services: try locale first, fall back to EN (services table
+    // currently only has EN rows for most slugs).
     supabase
       .from('services')
       .select('*')
-      .eq('locale', locale)
+      .or(`locale.eq.${locale},locale.eq.en`)
       .eq('is_active', true)
       .neq('slug', slug)
       .order('order_index', { ascending: true })
@@ -114,7 +140,7 @@ export default async function ServiceDetailPage({ params }: Props) {
     supabase
       .from('faq')
       .select('*')
-      .eq('locale', locale)
+      .or(`locale.eq.${locale},locale.eq.en`)
       .eq('is_active', true)
       .order('order_index', { ascending: true })
       .limit(8),

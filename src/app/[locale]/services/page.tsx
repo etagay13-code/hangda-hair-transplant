@@ -32,24 +32,37 @@ export default async function ServicesIndexPage({ params }: Props) {
   const tNav = await getTranslations('Navigation');
 
   const supabase = await createClient();
+  // Fetch both locale and EN rows; we'll keep one per slug, preferring the
+  // current locale, falling back to EN. Same for FAQ.
   const [{ data: serviceData }, { data: faqData }] = await Promise.all([
     supabase
       .from('services')
       .select('*')
-      .eq('locale', locale)
+      .or(`locale.eq.${locale},locale.eq.en`)
       .eq('is_active', true)
       .order('order_index', { ascending: true }),
     supabase
       .from('faq')
       .select('*')
-      .eq('locale', locale)
+      .or(`locale.eq.${locale},locale.eq.en`)
       .eq('is_active', true)
       .order('order_index', { ascending: true })
-      .limit(6),
+      .limit(12),
   ]);
 
-  const services = (serviceData ?? []) as Service[];
-  const faqs = (faqData ?? []) as Faq[];
+  // Dedupe: prefer the current-locale row when both exist for the same slug.
+  const allServices = (serviceData ?? []) as Service[];
+  const byPreferredLocale = new Map<string, Service>();
+  for (const s of allServices) {
+    const existing = byPreferredLocale.get(s.slug);
+    if (!existing || s.locale === locale) byPreferredLocale.set(s.slug, s);
+  }
+  const services = Array.from(byPreferredLocale.values()).slice(0, 6);
+  const faqs = ((faqData ?? []) as Faq[]).filter(
+    // FAQ has no unique slug — dedupe by question text.
+    (item, i, arr) =>
+      arr.findIndex((other) => other.question === item.question) === i
+  );
 
   return (
     <main>
