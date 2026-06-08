@@ -28,22 +28,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const CANDIDATE_CRITERIA = {
-  yes: [
-    'Stable hair-loss pattern (Norwood 2–6 or female-pattern)',
-    'Sufficient donor density at the back and sides',
-    'Realistic expectations about coverage and timeline',
-    'Good general health (medical clearance during pre-op blood tests)',
-  ],
-  no: [
-    'Active autoimmune hair-loss (untreated alopecia areata)',
-    'Uncontrolled diabetes or bleeding disorder',
-    'Severe donor depletion from previous strip surgery',
-    'Body dysmorphia or unrealistic expectations',
-  ],
-};
-
-const INCLUDED = [
+const DEFAULT_CANDIDATE_YES = [
+  'Stable hair-loss pattern (Norwood 2–6 or female-pattern)',
+  'Sufficient donor density at the back and sides',
+  'Realistic expectations about coverage and timeline',
+  'Good general health (medical clearance during pre-op blood tests)',
+];
+const DEFAULT_CANDIDATE_NO = [
+  'Active autoimmune hair-loss (untreated alopecia areata)',
+  'Uncontrolled diabetes or bleeding disorder',
+  'Severe donor depletion from previous strip surgery',
+  'Body dysmorphia or unrealistic expectations',
+];
+const DEFAULT_INCLUDED = [
   'Free surgeon consultation and hairline design',
   'Pre-operative blood tests',
   'The full procedure with sapphire / Choi instruments',
@@ -54,6 +51,30 @@ const INCLUDED = [
   'Follow-ups at 3, 6, 12, and 18 months',
   '18-month written growth guarantee',
 ];
+
+interface ContentSection {
+  title: string;
+  body: string;
+}
+
+function asStringArray(value: unknown, fallback: string[]): string[] {
+  if (Array.isArray(value) && value.length > 0) {
+    const filtered = value.filter((v): v is string => typeof v === 'string' && v.trim().length > 0);
+    if (filtered.length > 0) return filtered;
+  }
+  return fallback;
+}
+
+function asSectionArray(value: unknown): ContentSection[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((v): v is { title?: unknown; body?: unknown } => v != null && typeof v === 'object')
+    .map((v) => ({
+      title: typeof v.title === 'string' ? v.title : '',
+      body: typeof v.body === 'string' ? v.body : '',
+    }))
+    .filter((s) => s.title.length > 0 || s.body.length > 0);
+}
 
 export default async function ServiceDetailPage({ params }: Props) {
   const { locale, slug } = await params;
@@ -97,13 +118,18 @@ export default async function ServiceDetailPage({ params }: Props) {
       .eq('is_active', true)
       .order('order_index', { ascending: true })
       .limit(8),
+    // Per-service before/after: prefer cases tagged with this service_slug.
+    // If none are tagged we fall back to no gallery section (rather than
+    // showing unrelated random results), which the admin can fix by tagging
+    // a case to this service.
     supabase
       .from('gallery')
       .select('*')
       .or(`locale.eq.${locale},locale.eq.en`)
       .eq('is_active', true)
+      .eq('service_slug' as never, slug as never)
       .order('order_index', { ascending: true })
-      .limit(3),
+      .limit(6),
     supabase
       .from('testimonials')
       .select('*')
@@ -117,6 +143,26 @@ export default async function ServiceDetailPage({ params }: Props) {
   const faqs = (faqData ?? []) as Faq[];
   const gallery = (galleryData ?? []) as GalleryItem[];
   const testimonials = (testimonialData ?? []) as Testimonial[];
+
+  // Structured sections (admin-edited) win over the legacy HTML content.
+  const svcExtras = service as Service & {
+    content_sections?: unknown;
+    included_items?: unknown;
+    eligibility_yes?: unknown;
+    eligibility_no?: unknown;
+    who_for_eyebrow?: string | null;
+    who_for_title?: string | null;
+    who_for_subtitle?: string | null;
+  };
+  const sections = asSectionArray(svcExtras.content_sections);
+  const included = asStringArray(svcExtras.included_items, DEFAULT_INCLUDED);
+  const eligibilityYes = asStringArray(svcExtras.eligibility_yes, DEFAULT_CANDIDATE_YES);
+  const eligibilityNo = asStringArray(svcExtras.eligibility_no, DEFAULT_CANDIDATE_NO);
+  const whoForEyebrow = svcExtras.who_for_eyebrow || 'Are you a candidate?';
+  const whoForTitle = svcExtras.who_for_title || 'Who this procedure is for';
+  const whoForSubtitle =
+    svcExtras.who_for_subtitle ||
+    'We turn down patients when the procedure is not right for them. Honesty over volume is part of our standard of care.';
 
   return (
     <main>
@@ -176,8 +222,25 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       <section className="section bg-white">
         <div className="container-page grid gap-12 lg:grid-cols-3">
-          <article className="lg:col-span-2">
-            {service.content ? (
+          <article className="lg:col-span-2 space-y-10">
+            {sections.length > 0 ? (
+              sections.map((sec, i) => (
+                <div key={i}>
+                  {sec.title && (
+                    <h2 className="heading-display text-2xl sm:text-3xl text-[var(--color-primary-darker)]">
+                      {sec.title}
+                    </h2>
+                  )}
+                  {sec.body && (
+                    <div className="mt-4 space-y-4 text-base leading-relaxed text-slate-700">
+                      {sec.body.split(/\n\s*\n/).map((para, j) => (
+                        <p key={j}>{para}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : service.content ? (
               <div className="prose-content" dangerouslySetInnerHTML={{ __html: service.content }} />
             ) : (
               <p className="text-slate-600">{service.description}</p>
@@ -201,7 +264,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                   What is included
                 </h3>
                 <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                  {INCLUDED.map((item) => (
+                  {included.map((item) => (
                     <li key={item} className="flex items-start gap-2">
                       <span className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-primary)]" />
                       <span>{item}</span>
@@ -218,24 +281,20 @@ export default async function ServiceDetailPage({ params }: Props) {
         <div className="container-page">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-              Are you a candidate?
+              {whoForEyebrow}
             </p>
-            <h2 className="heading-display mt-3 text-3xl sm:text-4xl">
-              Who this procedure is for
-            </h2>
-            <p className="mt-4 text-base text-slate-600">
-              We turn down patients when the procedure is not right for them. Honesty over volume is part of our standard of care.
-            </p>
+            <h2 className="heading-display mt-3 text-3xl sm:text-4xl">{whoForTitle}</h2>
+            <p className="mt-4 text-base text-slate-600">{whoForSubtitle}</p>
           </div>
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             <CriteriaCard
               title="Likely a good fit"
-              items={CANDIDATE_CRITERIA.yes}
+              items={eligibilityYes}
               variant="yes"
             />
             <CriteriaCard
               title="We may decline or refer"
-              items={CANDIDATE_CRITERIA.no}
+              items={eligibilityNo}
               variant="no"
             />
           </div>

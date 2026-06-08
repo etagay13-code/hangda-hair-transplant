@@ -2,13 +2,19 @@ import { ImageUploadField } from '@/components/admin/ImageUploadField';
 import { routing } from '@/i18n/routing';
 import type { GalleryItem } from '@/types';
 
-interface Props {
-  action: (formData: FormData) => Promise<void>;
-  defaults?: Partial<GalleryItem>;
-  submitLabel?: string;
+interface ServiceOption {
+  slug: string;
+  title: string;
 }
 
-export function GalleryForm({ action, defaults = {}, submitLabel = 'Save' }: Props) {
+interface Props {
+  action: (formData: FormData) => Promise<void>;
+  defaults?: Partial<GalleryItem> & { service_slug?: string | null };
+  submitLabel?: string;
+  services?: ServiceOption[];
+}
+
+export function GalleryForm({ action, defaults = {}, submitLabel = 'Save', services = [] }: Props) {
   return (
     <form action={action} className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -43,6 +49,26 @@ export function GalleryForm({ action, defaults = {}, submitLabel = 'Save' }: Pro
       </div>
 
       <Textarea name="description" label="Description" rows={3} defaultValue={defaults.description ?? ''} />
+
+      <label className="block">
+        <span className="label-field">Bu vaka hangi hizmet detay sayfasında gösterilsin?</span>
+        <select
+          name="service_slug"
+          defaultValue={defaults.service_slug ?? ''}
+          className="input-field mt-1.5"
+        >
+          <option value="">— Hiçbiri (sadece /gallery sayfasında) —</option>
+          {services.map((s) => (
+            <option key={s.slug} value={s.slug}>
+              {s.title} ({s.slug})
+            </option>
+          ))}
+        </select>
+        <span className="mt-1 block text-xs text-slate-500">
+          Seçtiğiniz hizmetin detay sayfasındaki &quot;Real results&quot; bölümünde görünür.
+          Boş bırakırsanız sadece genel galeri sayfasında çıkar.
+        </span>
+      </label>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <ImageUploadField

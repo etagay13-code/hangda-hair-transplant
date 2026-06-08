@@ -13,9 +13,17 @@ interface Props {
 export default async function EditGalleryPage({ params }: Props) {
   const { id } = await params;
   const supabase = await createClient();
-  const { data } = await supabase.from('gallery').select('*').eq('id', id).maybeSingle();
+  const [{ data }, { data: services }] = await Promise.all([
+    supabase.from('gallery').select('*').eq('id', id).maybeSingle(),
+    supabase
+      .from('services')
+      .select('slug,title')
+      .eq('locale', 'en')
+      .order('order_index', { ascending: true }),
+  ]);
   if (!data) notFound();
-  const item = data as GalleryItem;
+  const item = data as GalleryItem & { service_slug?: string | null };
+  const serviceOptions = (services ?? []).map((s) => ({ slug: s.slug, title: s.title }));
 
   const action = updateGallery.bind(null, id);
 
@@ -33,7 +41,12 @@ export default async function EditGalleryPage({ params }: Props) {
           </Link>
         }
       />
-      <GalleryForm action={action} defaults={item} submitLabel="Save changes" />
+      <GalleryForm
+        action={action}
+        defaults={item}
+        services={serviceOptions}
+        submitLabel="Save changes"
+      />
     </div>
   );
 }

@@ -21,6 +21,34 @@ function bool(v: FormDataEntryValue | null) {
   return str(v) === 'on' || str(v) === 'true';
 }
 
+// Multiline textareas — each non-empty line is a separate bullet point.
+function lines(v: FormDataEntryValue | null): string[] {
+  return str(v)
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0);
+}
+
+// The ContentSectionsEditor hidden input is a JSON-stringified array of
+// { title, body } pairs. Empty / malformed → [].
+function parseSections(v: FormDataEntryValue | null): Array<{ title: string; body: string }> {
+  const raw = str(v);
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter((s) => s && typeof s === 'object')
+      .map((s) => ({
+        title: typeof s.title === 'string' ? s.title.trim() : '',
+        body: typeof s.body === 'string' ? s.body.trim() : '',
+      }))
+      .filter((s) => s.title.length > 0 || s.body.length > 0);
+  } catch {
+    return [];
+  }
+}
+
 function payload(form: FormData) {
   return {
     slug: str(form.get('slug')),
@@ -37,6 +65,13 @@ function payload(form: FormData) {
     is_active: bool(form.get('is_active')),
     meta_title: nullable(form.get('meta_title')),
     meta_description: nullable(form.get('meta_description')),
+    content_sections: parseSections(form.get('content_sections')) as never,
+    included_items: lines(form.get('included_items')) as never,
+    eligibility_yes: lines(form.get('eligibility_yes')) as never,
+    eligibility_no: lines(form.get('eligibility_no')) as never,
+    who_for_eyebrow: nullable(form.get('who_for_eyebrow')),
+    who_for_title: nullable(form.get('who_for_title')),
+    who_for_subtitle: nullable(form.get('who_for_subtitle')),
   };
 }
 
@@ -44,9 +79,10 @@ export async function createService(form: FormData) {
   const supabase = await createClient();
   const data = payload(form);
   if (!data.slug || !data.title) throw new Error('Slug and title are required');
-  const { error } = await supabase.from('services').insert(data);
+  const { error } = await supabase.from('services').insert(data as never);
   if (error) throw new Error(error.message);
   revalidatePath('/admin/services');
+  revalidatePath('/', 'layout');
   redirect(`/admin/services?locale=${data.locale}`);
 }
 
@@ -54,10 +90,11 @@ export async function updateService(id: string, form: FormData) {
   const supabase = await createClient();
   const data = payload(form);
   if (!data.slug || !data.title) throw new Error('Slug and title are required');
-  const { error } = await supabase.from('services').update(data).eq('id', id);
+  const { error } = await supabase.from('services').update(data as never).eq('id', id);
   if (error) throw new Error(error.message);
   revalidatePath('/admin/services');
   revalidatePath(`/admin/services/${id}`);
+  revalidatePath('/', 'layout');
   redirect(`/admin/services?locale=${data.locale}`);
 }
 
@@ -66,4 +103,5 @@ export async function deleteService(id: string) {
   const { error } = await supabase.from('services').delete().eq('id', id);
   if (error) throw new Error(error.message);
   revalidatePath('/admin/services');
+  revalidatePath('/', 'layout');
 }

@@ -34,23 +34,26 @@ function payload(form: FormData) {
     locale: str(form.get('locale')) || 'en',
     is_active: bool(form.get('is_active')),
     order_index: int(form.get('order_index')) ?? 0,
+    service_slug: nullable(form.get('service_slug')),
   };
 }
 
 export async function createGallery(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from('gallery').insert(payload(form));
+  const { error } = await supabase.from('gallery').insert(payload(form) as never);
   if (error) throw new Error(error.message);
   revalidatePath('/admin/gallery');
+  revalidatePath('/', 'layout'); // gallery shows on home + service detail pages
   redirect('/admin/gallery');
 }
 
 export async function updateGallery(id: string, form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from('gallery').update(payload(form)).eq('id', id);
+  const { error } = await supabase.from('gallery').update(payload(form) as never).eq('id', id);
   if (error) throw new Error(error.message);
   revalidatePath('/admin/gallery');
   revalidatePath(`/admin/gallery/${id}`);
+  revalidatePath('/', 'layout');
   redirect('/admin/gallery');
 }
 
@@ -59,4 +62,5 @@ export async function deleteGallery(id: string) {
   const { error } = await supabase.from('gallery').delete().eq('id', id);
   if (error) throw new Error(error.message);
   revalidatePath('/admin/gallery');
+  revalidatePath('/', 'layout');
 }
