@@ -289,6 +289,7 @@ function InlineBlockForm({
           bucket="general"
           folder={`page-blocks/${pageKey}/${block.section_key}`}
           defaultUrl={block.image_url}
+          variant="dark"
         />
         <Field
           label="CTA buton bağlantısı"
