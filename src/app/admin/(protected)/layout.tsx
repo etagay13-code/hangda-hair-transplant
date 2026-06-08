@@ -45,6 +45,7 @@ const NAV: NavGroup[] = [
     title: 'Settings',
     items: [
       { href: '/admin/settings', label: 'Site Settings' },
+      { href: '/admin/integrations', label: 'Entegrasyonlar' },
       { href: '/admin/seo', label: 'Page SEO' },
       { href: '/admin/forms', label: 'Form Redirects' },
     ],
