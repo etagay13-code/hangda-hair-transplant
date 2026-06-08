@@ -46,6 +46,8 @@ const NAV: NavGroup[] = [
     title: 'Settings',
     items: [
       { href: '/admin/settings', label: 'Site Settings' },
+      { href: '/admin/footer', label: 'Footer & Trust Badges' },
+      { href: '/admin/popup', label: 'Kampanya Pop-up' },
       { href: '/admin/integrations', label: 'Entegrasyonlar' },
       { href: '/admin/seo', label: 'Page SEO' },
       { href: '/admin/forms', label: 'Form Redirects' },

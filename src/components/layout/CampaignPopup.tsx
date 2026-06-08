@@ -1,15 +1,31 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { gaEvent, pushDataLayer } from '@/lib/analytics';
+
+export interface PopupCopy {
+  lineOne: string;
+  lineTwo: string;
+  lineThree: string;
+  check1: string;
+  check2: string;
+  cta: string;
+  disclaimer: string;
+  rightTitle: string;
+  card1: string;
+  card2: string;
+  card3: string;
+  card4: string;
+  whatsappMessage: string;
+  closeLabel: string;
+}
 
 interface Props {
   whatsapp?: string;
-  /** When to show the popup, ms after first visit. */
   delayMs?: number;
-  /** Dismissed state survives this many hours before showing again. */
   dismissHours?: number;
+  copy: PopupCopy;
 }
 
 const STORAGE_KEY = 'myhaar:popup:dismissed_until';
@@ -18,8 +34,8 @@ export function CampaignPopup({
   whatsapp,
   delayMs = 6000,
   dismissHours = 24,
+  copy,
 }: Props) {
-  const t = useTranslations('Popup');
   const locale = useLocale();
   const [visible, setVisible] = useState(false);
 
@@ -28,7 +44,7 @@ export function CampaignPopup({
       const until = Number(window.localStorage.getItem(STORAGE_KEY) || '0');
       if (until > Date.now()) return;
     } catch {
-      // localStorage blocked — proceed anyway, popup shows once per session.
+      // localStorage blocked — proceed.
     }
     const timer = window.setTimeout(() => {
       setVisible(true);
@@ -53,7 +69,7 @@ export function CampaignPopup({
   if (!visible) return null;
 
   const waNumber = whatsapp ? whatsapp.replace(/[^0-9]/g, '') : '';
-  const waMessage = encodeURIComponent(t('whatsappMessage'));
+  const waMessage = encodeURIComponent(copy.whatsappMessage);
   const waHref = waNumber
     ? `https://wa.me/${waNumber}?text=${waMessage}`
     : `/${locale}/contact`;
@@ -62,7 +78,7 @@ export function CampaignPopup({
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={t('lineOne')}
+      aria-label={copy.lineOne}
       className="fixed inset-0 z-[60] flex items-end justify-center bg-black/60 p-3 backdrop-blur-sm sm:items-center sm:p-6"
       onClick={() => dismiss('close')}
     >
@@ -70,11 +86,10 @@ export function CampaignPopup({
         onClick={(e) => e.stopPropagation()}
         className="relative grid w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-2xl sm:rounded-3xl lg:grid-cols-2"
       >
-        {/* Close button */}
         <button
           type="button"
           onClick={() => dismiss('close')}
-          aria-label={t('close')}
+          aria-label={copy.closeLabel}
           className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-white text-slate-700 shadow-md ring-1 ring-slate-200 transition hover:bg-slate-50 hover:text-black"
         >
           <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round">
@@ -82,22 +97,21 @@ export function CampaignPopup({
           </svg>
         </button>
 
-        {/* LEFT — headline + checklist + CTA */}
         <div className="flex flex-col justify-center gap-6 bg-white p-6 sm:p-8 lg:p-10">
           <h2 className="text-2xl font-black uppercase leading-tight tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
-            <span className="block">{t('lineOne')}</span>
-            <span className="block text-[var(--color-primary)]">{t('lineTwo')}</span>
-            <span className="block">{t('lineThree')}</span>
+            <span className="block">{copy.lineOne}</span>
+            <span className="block text-[var(--color-primary)]">{copy.lineTwo}</span>
+            <span className="block">{copy.lineThree}</span>
           </h2>
 
           <ul className="space-y-3 text-sm font-medium text-slate-700 sm:text-base">
             <li className="flex items-center gap-3">
               <CheckBadge />
-              <span>{t('checks.summer')}</span>
+              <span>{copy.check1}</span>
             </li>
             <li className="flex items-center gap-3">
               <CheckBadge />
-              <span>{t('checks.slots')}</span>
+              <span>{copy.check2}</span>
             </li>
           </ul>
 
@@ -108,24 +122,23 @@ export function CampaignPopup({
             onClick={() => dismiss('cta')}
             className="block w-full rounded-xl bg-[var(--color-primary-darker)] px-6 py-4 text-center text-sm font-bold uppercase tracking-wider text-white shadow-lg transition hover:bg-[var(--color-primary-dark)] sm:text-base"
           >
-            {t('cta')}
+            {copy.cta}
           </a>
 
           <p className="text-[11px] leading-relaxed text-slate-500">
-            {t('disclaimer')}
+            {copy.disclaimer}
           </p>
         </div>
 
-        {/* RIGHT — package cards */}
         <div className="bg-[var(--color-primary)]/15 p-6 sm:p-8 lg:p-10">
           <h3 className="text-center text-lg font-extrabold text-[var(--color-primary-darker)] sm:text-xl lg:text-2xl">
-            {t('rightTitle')}
+            {copy.rightTitle}
           </h3>
           <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4">
-            <PackageCard icon={<PlanIcon />} label={t('cards.plan')} />
-            <PackageCard icon={<ClinicIcon />} label={t('cards.clinic')} />
-            <PackageCard icon={<ConsultIcon />} label={t('cards.consult')} />
-            <PackageCard icon={<GuaranteeIcon />} label={t('cards.guarantee')} />
+            <PackageCard icon={<PlanIcon />} label={copy.card1} />
+            <PackageCard icon={<ClinicIcon />} label={copy.card2} />
+            <PackageCard icon={<ConsultIcon />} label={copy.card3} />
+            <PackageCard icon={<GuaranteeIcon />} label={copy.card4} />
           </div>
         </div>
       </div>

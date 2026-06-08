@@ -14,7 +14,7 @@ import { MetaPixel } from '@/components/analytics/MetaPixel';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
-import { CampaignPopup } from '@/components/layout/CampaignPopup';
+import { CampaignPopupServer } from '@/components/layout/CampaignPopupServer';
 import { getNavItems } from '@/lib/nav';
 import { createClient } from '@/lib/supabase/server';
 
@@ -148,7 +148,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         {children}
         <Footer locale={locale} />
         {whatsapp && <FloatingWhatsApp number={whatsapp} />}
-        <CampaignPopup whatsapp={whatsapp || undefined} />
+        <CampaignPopupServer locale={locale} />
       </NextIntlClientProvider>
       {customBody && (
         <div
