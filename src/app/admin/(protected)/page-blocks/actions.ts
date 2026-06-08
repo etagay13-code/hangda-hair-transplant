@@ -4,6 +4,9 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { routing } from '@/i18n/routing';
+import { getRenderedField } from '@/lib/section-defaults';
+
+type DefaultedField = 'eyebrow' | 'title' | 'subtitle' | 'body' | 'cta_label';
 
 function str(v: FormDataEntryValue | null) {
   return ((v as string | null) ?? '').trim();
@@ -11,6 +14,25 @@ function str(v: FormDataEntryValue | null) {
 function nullable(v: FormDataEntryValue | null) {
   const s = str(v);
   return s.length > 0 ? s : null;
+}
+
+// The edit form pre-fills text fields with the current translation / static
+// fallback so editors see live copy in place. Without this guard a save
+// would persist the pre-filled English copy as an override and freeze every
+// locale to English. So: if the submitted value matches what the public
+// site would render anyway, store NULL and let translation fallback work.
+function smartNullable(
+  v: FormDataEntryValue | null,
+  pageKey: string,
+  sectionKey: string,
+  locale: string,
+  field: DefaultedField
+) {
+  const s = str(v);
+  if (!s) return null;
+  const rendered = getRenderedField(pageKey, sectionKey, locale, field).trim();
+  if (rendered && rendered === s) return null;
+  return s;
 }
 function int(v: FormDataEntryValue | null): number {
   const s = str(v);
@@ -59,16 +81,17 @@ function parseExtra(form: FormData, pageKey: string, sectionKey: string): Record
 function payload(form: FormData) {
   const page_key = str(form.get('page_key'));
   const section_key = str(form.get('section_key'));
+  const locale = str(form.get('locale')) || 'all';
   return {
     page_key,
     section_key,
-    locale: str(form.get('locale')) || 'all',
-    eyebrow: nullable(form.get('eyebrow')),
-    title: nullable(form.get('title')),
-    subtitle: nullable(form.get('subtitle')),
-    body: nullable(form.get('body')),
+    locale,
+    eyebrow: smartNullable(form.get('eyebrow'), page_key, section_key, locale, 'eyebrow'),
+    title: smartNullable(form.get('title'), page_key, section_key, locale, 'title'),
+    subtitle: smartNullable(form.get('subtitle'), page_key, section_key, locale, 'subtitle'),
+    body: smartNullable(form.get('body'), page_key, section_key, locale, 'body'),
     image_url: nullable(form.get('image_url')),
-    cta_label: nullable(form.get('cta_label')),
+    cta_label: smartNullable(form.get('cta_label'), page_key, section_key, locale, 'cta_label'),
     cta_href: nullable(form.get('cta_href')),
     extra: parseExtra(form, page_key, section_key) as never,
     order_index: int(form.get('order_index')),

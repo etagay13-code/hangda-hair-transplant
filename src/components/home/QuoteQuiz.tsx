@@ -1,24 +1,24 @@
 'use client';
 
 import { useState } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { trackConsultationRequest, trackFormSubmit } from '@/lib/analytics';
 
 const SERVICE_OPTIONS = [
-  { value: 'sapphire-fue', label: 'Sapphire FUE', sub: 'Modern FUE with sapphire blades' },
-  { value: 'dhi-hair-transplant', label: 'DHI Hair Transplant', sub: 'Choi implanters · precise hairline' },
-  { value: 'women-hair-transplant', label: "Women's Hair Restoration", sub: 'Female-pattern · no-shave DHI' },
-  { value: 'beard-transplant', label: 'Beard Transplant', sub: 'Density · shape · jawline' },
-  { value: 'eyebrow-transplant', label: 'Eyebrow Transplant', sub: 'Single-hair grafts · permanent' },
-  { value: 'prp-treatment', label: 'PRP Therapy', sub: 'Non-surgical · 45 min · no downtime' },
-  { value: 'not-sure', label: 'Not sure yet', sub: "Let's explore options together" },
+  { value: 'sapphire-fue', key: 'fue' },
+  { value: 'dhi-hair-transplant', key: 'dhi' },
+  { value: 'women-hair-transplant', key: 'women' },
+  { value: 'beard-transplant', key: 'beard' },
+  { value: 'eyebrow-transplant', key: 'eyebrow' },
+  { value: 'prp-treatment', key: 'prp' },
+  { value: 'not-sure', key: 'unsure' },
 ];
 
 const TIMELINE_OPTIONS = [
-  { value: 'next-month', label: 'Next month', sub: "I'm ready" },
-  { value: '1-3-months', label: '1–3 months', sub: 'Soon' },
-  { value: '3-6-months', label: '3–6 months', sub: 'Planning ahead' },
-  { value: 'flexible', label: 'Flexible', sub: 'Just exploring' },
+  { value: 'next-month', key: 'asap' },
+  { value: '1-3-months', key: 'soon' },
+  { value: '3-6-months', key: 'later' },
+  { value: 'flexible', key: 'flexible' },
 ];
 
 const COUNTRIES = [
@@ -29,6 +29,7 @@ const COUNTRIES = [
 ];
 
 export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
+  const t = useTranslations('QuoteQuiz');
   const locale = useLocale();
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [service, setService] = useState('');
@@ -73,10 +74,10 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
         trackConsultationRequest({ service, timeline });
         setStep(4);
       } else {
-        setError(json.error || 'Could not submit. Please try again.');
+        setError(json.error || t('errorMessage'));
       }
     } catch {
-      setError('Network error. Please try again.');
+      setError(t('errorMessage'));
     } finally {
       setSubmitting(false);
     }
@@ -85,23 +86,16 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
   const wa = whatsapp ? whatsapp.replace(/[^0-9]/g, '') : '';
 
   return (
-    <section
-      id="quote"
-      className="relative overflow-hidden bg-white py-20 sm:py-28"
-    >
+    <section id="quote" className="relative overflow-hidden bg-white py-20 sm:py-28">
       <div className="container-page">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-            Get Your Plan
+            {t('eyebrow')}
           </span>
           <h2 className="heading-display mt-4 text-3xl sm:text-4xl lg:text-5xl leading-tight">
-            <span>Three quick questions.</span>
-            <br />
-            <span className="text-[var(--color-primary)]">One personal plan.</span>
+            {t('title')}
           </h2>
-          <p className="mt-5 text-base text-slate-600">
-            Takes 30 seconds. We respond with your transparent quote within 24 hours.
-          </p>
+          <p className="mt-5 text-base text-slate-600">{t('subtitle')}</p>
         </div>
 
         <div className="mx-auto mt-12 max-w-3xl rounded-3xl border border-slate-200 bg-white p-6 shadow-lg sm:p-10">
@@ -114,15 +108,15 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
                 />
               </div>
               <span className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-                {String(step).padStart(2, '0')} / 0{total}
+                {t('progress', { step: String(step).padStart(2, '0') })}
               </span>
             </div>
           )}
 
           {step === 1 && (
             <Step
-              question="What treatment are you considering?"
-              help="Pick the area that interests you most. You can refine specifics later."
+              question={t('steps.treatmentTitle')}
+              help={t('steps.treatmentSubtitle')}
             >
               <div className="grid gap-3 sm:grid-cols-2">
                 {SERVICE_OPTIONS.map((opt) => (
@@ -138,9 +132,8 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
                   >
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-[var(--color-primary-darker)]">
-                        {opt.label}
+                        {t(`treatments.${opt.key}`)}
                       </p>
-                      <p className="mt-0.5 text-xs text-slate-500">{opt.sub}</p>
                     </div>
                     {service === opt.value && (
                       <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--color-primary)] text-white">
@@ -156,14 +149,16 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
                 backDisabled
                 nextDisabled={!service}
                 onNext={() => setStep(2)}
+                backLabel={t('actions.back')}
+                nextLabel={t('actions.next')}
               />
             </Step>
           )}
 
           {step === 2 && (
             <Step
-              question="When would you like to plan your procedure?"
-              help="We design around your timeline — pick the window that fits you best."
+              question={t('steps.timelineTitle')}
+              help={t('steps.timelineSubtitle')}
             >
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {TIMELINE_OPTIONS.map((opt) => (
@@ -178,15 +173,14 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
                     }`}
                   >
                     <p className="text-sm font-bold text-[var(--color-primary-darker)]">
-                      {opt.label}
+                      {t(`timelines.${opt.key}`)}
                     </p>
-                    <p className="mt-0.5 text-xs text-slate-500">{opt.sub}</p>
                   </button>
                 ))}
               </div>
               <label className="mt-6 block">
                 <span className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-                  Where will you be travelling from?
+                  {t('steps.countryTitle')}
                 </span>
                 <select
                   required
@@ -194,7 +188,7 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
                   onChange={(e) => setCountry(e.target.value)}
                   className="input-field mt-2 w-full"
                 >
-                  <option value="">Select your country…</option>
+                  <option value="">{t('fields.countryPlaceholder')}</option>
                   {COUNTRIES.map((c) => (
                     <option key={c} value={c}>{c}</option>
                   ))}
@@ -204,53 +198,55 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
                 onBack={() => setStep(1)}
                 nextDisabled={!timeline || !country}
                 onNext={() => setStep(3)}
+                backLabel={t('actions.back')}
+                nextLabel={t('actions.next')}
               />
             </Step>
           )}
 
           {step === 3 && (
             <Step
-              question="Where should we send your plan?"
-              help="A coordinator replies within 24 hours with a personalised, transparent quote."
+              question={t('steps.contactTitle')}
+              help={t('steps.contactSubtitle')}
             >
               <div className="space-y-4">
                 <label className="block">
                   <span className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-                    Your full name
+                    {t('fields.name')}
                   </span>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Lars de Vries"
+                    placeholder={t('fields.namePlaceholder')}
                     className="input-field mt-2 w-full"
                   />
                 </label>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block">
                     <span className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-                      Email address
+                      {t('fields.email')}
                     </span>
                     <input
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="lars@email.com"
+                      placeholder={t('fields.emailPlaceholder')}
                       className="input-field mt-2 w-full"
                     />
                   </label>
                   <label className="block">
                     <span className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-                      Phone (with country code)
+                      {t('fields.phone')}
                     </span>
                     <input
                       type="tel"
                       required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+31 70 123 4567"
+                      placeholder={t('fields.phonePlaceholder')}
                       className="input-field mt-2 w-full"
                     />
                   </label>
@@ -263,12 +259,13 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
               )}
               <Nav
                 onBack={() => setStep(2)}
-                nextLabel={submitting ? 'Sending…' : 'Get my personal plan'}
+                nextLabel={submitting ? t('actions.submitting') : t('actions.submit')}
                 nextDisabled={!name || !email || !phone || submitting}
                 onNext={submit}
+                backLabel={t('actions.back')}
               />
               <p className="mt-5 text-center text-[10px] uppercase tracking-widest text-slate-400">
-                GDPR-compliant · Your information is never shared with third parties.
+                {t('consent')}
               </p>
             </Step>
           )}
@@ -281,11 +278,10 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
                 </svg>
               </div>
               <h3 className="mt-6 text-2xl font-semibold text-[var(--color-primary-darker)]">
-                Your plan is on its way
+                {t('successTitle')}
               </h3>
               <p className="mx-auto mt-3 max-w-md text-sm text-slate-600">
-                A dedicated coordinator from our Den Haag clinic will contact you within
-                24 hours. We&apos;re preparing your transparent treatment quote now.
+                {t('successBody')}
               </p>
               {wa && (
                 <a
@@ -294,7 +290,7 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
                   rel="noopener noreferrer"
                   className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
                 >
-                  Or chat now on WhatsApp
+                  {t('successWhatsapp')}
                   <svg width={14} height={14} viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth={1.6}>
                     <path d="M3 7h8M7 3l4 4-4 4" />
                   </svg>
@@ -333,13 +329,15 @@ function Nav({
   backDisabled,
   onNext,
   nextDisabled,
-  nextLabel = 'Next step',
+  nextLabel,
+  backLabel,
 }: {
   onBack?: () => void;
   backDisabled?: boolean;
   onNext: () => void;
   nextDisabled?: boolean;
-  nextLabel?: string;
+  nextLabel: string;
+  backLabel: string;
 }) {
   return (
     <div className="mt-8 flex items-center justify-between gap-3">
@@ -352,7 +350,7 @@ function Nav({
         <svg width={14} height={14} viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth={1.6}>
           <path d="M11 7H3M7 3L3 7l4 4" />
         </svg>
-        Back
+        {backLabel}
       </button>
       <button
         type="button"

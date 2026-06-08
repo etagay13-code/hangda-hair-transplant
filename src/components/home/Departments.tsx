@@ -2,24 +2,18 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface Procedure {
   slug: string;
-  title: string;
+  titleKey: string;
 }
 
 interface Department {
   key: string;
-  title: string;
-  navTitle: string;
-  navSub: string;
-  description: string;
-  badge?: string;
-  stats: { label: string; value: string; em?: string }[];
   procedures: Procedure[];
-  featureTitle: string;
-  featureSub: string;
-  ctaHref: string;
+  badge?: boolean;
+  stats: { labelKey: string; valueKey: string; em?: string }[];
   icon: React.ReactNode;
 }
 
@@ -46,74 +40,50 @@ const PrpIcon = (
 const DEPARTMENTS: Department[] = [
   {
     key: 'surgical',
-    title: 'Surgical Hair Restoration',
-    navTitle: 'Surgical Hair Restoration',
-    navSub: '3 procedures · FUE & DHI',
-    badge: 'Most popular',
-    description:
-      'Follicular unit extraction performed in our Den Haag clinic using sapphire-tipped blades and Choi DHI implanters. Surgeon-led, local anaesthesia, natural density with minimal scarring and faster healing.',
+    badge: true,
     stats: [
-      { label: 'Avg. duration', value: '6–8', em: 'hrs' },
-      { label: 'Setting', value: 'Day clinic' },
-      { label: 'Recovery', value: '10–14', em: 'days' },
-      { label: 'Patients / yr', value: '1,500', em: '+' },
+      { labelKey: 'duration', valueKey: 'hours6to8', em: 'hrs' },
+      { labelKey: 'setting', valueKey: 'dayClinic' },
+      { labelKey: 'recovery', valueKey: 'days10to14', em: 'days' },
+      { labelKey: 'patientsPerYear', valueKey: 'patients', em: '+' },
     ],
     procedures: [
-      { slug: 'sapphire-fue', title: 'Sapphire FUE' },
-      { slug: 'dhi-hair-transplant', title: 'DHI Hair Transplant' },
-      { slug: 'women-hair-transplant', title: "Women's Hair Transplant" },
+      { slug: 'sapphire-fue', titleKey: 'fue' },
+      { slug: 'dhi-hair-transplant', titleKey: 'dhi' },
+      { slug: 'women-hair-transplant', titleKey: 'women' },
     ],
-    featureTitle: 'Sapphire blade technique',
-    featureSub: 'Finer channels · faster healing',
-    ctaHref: '/services',
     icon: HairIcon,
   },
   {
     key: 'specialty',
-    title: 'Specialty Restorations',
-    navTitle: 'Specialty Restorations',
-    navSub: '2 procedures · Beard & eyebrow',
-    description:
-      'Facial-hair restoration with the same FUE / DHI precision used on the scalp — sculpted beard lines, natural-angle eyebrow grafts. Performed at our Den Haag clinic with single-hair follicular units.',
     stats: [
-      { label: 'Avg. duration', value: '3–6', em: 'hrs' },
-      { label: 'Setting', value: 'Day clinic' },
-      { label: 'Recovery', value: '7–10', em: 'days' },
-      { label: 'Grafts / brow', value: '250–500' },
+      { labelKey: 'duration', valueKey: 'hours3to6', em: 'hrs' },
+      { labelKey: 'setting', valueKey: 'dayClinic' },
+      { labelKey: 'recovery', valueKey: 'days7to10', em: 'days' },
+      { labelKey: 'graftsPerBrow', valueKey: 'grafts' },
     ],
     procedures: [
-      { slug: 'beard-transplant', title: 'Beard Transplant' },
-      { slug: 'eyebrow-transplant', title: 'Eyebrow Transplant' },
+      { slug: 'beard-transplant', titleKey: 'beard' },
+      { slug: 'eyebrow-transplant', titleKey: 'eyebrow' },
     ],
-    featureTitle: 'Single-hair grafting',
-    featureSub: 'Natural angle · undetectable result',
-    ctaHref: '/services',
     icon: BeardIcon,
   },
   {
     key: 'wellness',
-    title: 'Hair Wellness',
-    navTitle: 'Hair Wellness',
-    navSub: '1 procedure · PRP therapy',
-    description:
-      'Non-surgical regenerative therapy using your own platelet-rich plasma — stimulates dormant follicles, slows active loss, accelerates post-transplant healing. 45-minute sessions, zero downtime.',
     stats: [
-      { label: 'Avg. duration', value: '45–60', em: 'min' },
-      { label: 'Downtime', value: 'None' },
-      { label: 'Course', value: '3 sessions' },
-      { label: 'Spacing', value: '4 weeks' },
+      { labelKey: 'duration', valueKey: 'min45to60', em: 'min' },
+      { labelKey: 'downtime', valueKey: 'none' },
+      { labelKey: 'course', valueKey: 'sessions3' },
+      { labelKey: 'spacing', valueKey: 'weeks4' },
     ],
-    procedures: [
-      { slug: 'prp-treatment', title: 'PRP Hair Treatment' },
-    ],
-    featureTitle: 'Drawn from your own blood',
-    featureSub: 'No drugs · no synthetic growth factors',
-    ctaHref: '/services',
+    procedures: [{ slug: 'prp-treatment', titleKey: 'prp' }],
     icon: PrpIcon,
   },
 ];
 
 export function Departments({ locale }: { locale: string }) {
+  const t = useTranslations('Departments');
+  const tTreat = useTranslations('QuoteQuiz.treatments');
   const [active, setActive] = useState(DEPARTMENTS[0].key);
   const current = DEPARTMENTS.find((d) => d.key === active) ?? DEPARTMENTS[0];
 
@@ -122,26 +92,22 @@ export function Departments({ locale }: { locale: string }) {
       <div className="container-page">
         <div className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">
-            Specialty Departments
+            {t('eyebrow')}
           </span>
           <h2 className="heading-display mt-4 text-3xl sm:text-4xl lg:text-5xl leading-tight">
-            <span>Leaders in</span>{' '}
-            <span className="text-[var(--color-primary)]">hair restoration</span>
+            <span>{t('titlePre')}</span>{' '}
+            <span className="text-[var(--color-primary)]">{t('titleHighlight')}</span>
             <br />
-            <span>in Den Haag.</span>
+            <span>{t('titlePost')}</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-slate-600">
-            Six surgeon-led treatments under one roof in Den Haag, organised across three
-            dedicated departments. All performed personally by the lead surgical team —
-            no factory clinic, no franchised partners.
-          </p>
+          <p className="mx-auto mt-5 max-w-2xl text-base text-slate-600">{t('subtitle')}</p>
         </div>
 
         <div className="mt-12 grid gap-6 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm lg:grid-cols-[320px_1fr] lg:p-6">
           {/* Sidebar */}
           <aside className="rounded-2xl bg-slate-50 p-4">
             <p className="px-2 pb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-500">
-              Select a department
+              {t('sidebarLabel')}
             </p>
             <div className="space-y-2">
               {DEPARTMENTS.map((dept) => {
@@ -169,16 +135,16 @@ export function Departments({ locale }: { locale: string }) {
                     <span className="min-w-0 flex-1">
                       <span className="flex items-center gap-1.5">
                         <span className="text-sm font-semibold text-[var(--color-primary-darker)] truncate">
-                          {dept.navTitle}
+                          {t(`${dept.key}.title`)}
                         </span>
                         {dept.badge && (
                           <span className="rounded-full bg-[var(--color-primary)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white">
-                            {dept.badge}
+                            {t(`${dept.key}.badge`)}
                           </span>
                         )}
                       </span>
                       <span className="block text-xs text-slate-500 truncate">
-                        {dept.navSub}
+                        {t(`${dept.key}.navSub`)}
                       </span>
                     </span>
                     <svg
@@ -200,7 +166,7 @@ export function Departments({ locale }: { locale: string }) {
             </div>
             <div className="mt-4 flex items-center gap-2 rounded-xl bg-emerald-500/10 px-3 py-2 text-xs text-emerald-700 ring-1 ring-emerald-500/20">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-              All departments accept new patients
+              {t('acceptingNew')}
             </div>
           </aside>
 
@@ -211,23 +177,23 @@ export function Departments({ locale }: { locale: string }) {
                 <path d="M9 12l2 2 4-4" />
                 <circle cx={12} cy={12} r={9} />
               </svg>
-              Specialist-led department
+              {t('panelBadge')}
             </span>
             <h3 className="mt-4 text-3xl font-semibold text-[var(--color-primary-darker)] sm:text-4xl">
-              {current.title}
+              {t(`${current.key}.title`)}
             </h3>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
-              {current.description}
+              {t(`${current.key}.description`)}
             </p>
 
             <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-slate-200 sm:grid-cols-4">
               {current.stats.map((s) => (
-                <div key={s.label} className="bg-slate-50 p-4">
+                <div key={s.labelKey} className="bg-slate-50 p-4">
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">
-                    {s.label}
+                    {t(`stat.${s.labelKey}`)}
                   </p>
                   <p className="mt-1 text-xl font-bold text-[var(--color-primary-darker)]">
-                    {s.value}
+                    {t(`value.${s.valueKey}`)}
                     {s.em && <em className="ml-1 text-xs font-medium not-italic text-slate-500">{s.em}</em>}
                   </p>
                 </div>
@@ -235,7 +201,7 @@ export function Departments({ locale }: { locale: string }) {
             </div>
 
             <p className="mt-10 text-[10px] font-semibold uppercase tracking-widest text-slate-500">
-              Procedures in this department
+              {t('proceduresLabel')}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {current.procedures.map((p) => (
@@ -244,7 +210,7 @@ export function Departments({ locale }: { locale: string }) {
                   href={`/${locale}/services/${p.slug}`}
                   className="group inline-flex items-center gap-2 rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-[var(--color-primary-darker)] transition hover:bg-[var(--color-primary)]/15"
                 >
-                  {p.title}
+                  {tTreat(p.titleKey)}
                   <svg
                     width={12}
                     height={12}
@@ -270,16 +236,16 @@ export function Departments({ locale }: { locale: string }) {
                 </span>
                 <div>
                   <p className="text-sm font-bold text-[var(--color-primary-darker)]">
-                    {current.featureTitle}
+                    {t(`${current.key}.featureTitle`)}
                   </p>
-                  <p className="text-xs text-slate-600">{current.featureSub}</p>
+                  <p className="text-xs text-slate-600">{t(`${current.key}.featureSub`)}</p>
                 </div>
               </div>
               <Link
-                href={`/${locale}${current.ctaHref}`}
+                href={`/${locale}/services`}
                 className="inline-flex items-center gap-2 rounded-full bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--color-primary-dark)]"
               >
-                Explore department
+                {t('ctaLabel')}
                 <svg width={14} height={14} viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth={1.6}>
                   <path d="M3 7h8M7 3l4 4-4 4" />
                 </svg>

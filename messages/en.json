@@ -187,6 +187,114 @@
     "unauthorized": "You are not authorized",
     "rateLimit": "Too many requests. Please wait a moment."
   },
+  "Departments": {
+    "eyebrow": "Specialty Departments",
+    "titlePre": "Leaders in",
+    "titleHighlight": "hair restoration",
+    "titlePost": "in Den Haag.",
+    "subtitle": "Six surgeon-led treatments under one roof in Den Haag, organised across three dedicated departments. All performed personally by the lead surgical team — no factory clinic, no franchised partners.",
+    "sidebarLabel": "Select a department",
+    "panelBadge": "Specialist-led department",
+    "proceduresLabel": "Procedures in this department",
+    "ctaLabel": "Explore department",
+    "acceptingNew": "All departments accept new patients",
+    "stat": {
+      "duration": "Avg. duration",
+      "setting": "Setting",
+      "recovery": "Recovery",
+      "patientsPerYear": "Patients / yr",
+      "downtime": "Downtime",
+      "course": "Course",
+      "spacing": "Spacing",
+      "graftsPerBrow": "Grafts / brow"
+    },
+    "value": {
+      "dayClinic": "Day clinic",
+      "none": "None",
+      "sessions3": "3 sessions",
+      "weeks4": "4 weeks",
+      "hours6to8": "6–8",
+      "hours3to6": "3–6",
+      "min45to60": "45–60",
+      "days10to14": "10–14",
+      "days7to10": "7–10",
+      "grafts": "250–500",
+      "patients": "1,500"
+    },
+    "surgical": {
+      "title": "Surgical Hair Restoration",
+      "navSub": "3 procedures · FUE & DHI",
+      "badge": "Most popular",
+      "description": "Follicular unit extraction performed in our Den Haag clinic using sapphire-tipped blades and Choi DHI implanters. Surgeon-led, local anaesthesia, natural density with minimal scarring and faster healing.",
+      "featureTitle": "Sapphire blade technique",
+      "featureSub": "Finer channels · faster healing"
+    },
+    "specialty": {
+      "title": "Specialty Restorations",
+      "navSub": "2 procedures · Beard & eyebrow",
+      "description": "Facial-hair restoration with the same FUE / DHI precision used on the scalp — sculpted beard lines, natural-angle eyebrow grafts. Performed at our Den Haag clinic with single-hair follicular units.",
+      "featureTitle": "Single-hair grafting",
+      "featureSub": "Natural angle · undetectable result"
+    },
+    "wellness": {
+      "title": "Hair Wellness",
+      "navSub": "1 procedure · PRP therapy",
+      "description": "Non-surgical regenerative therapy using your own platelet-rich plasma — stimulates dormant follicles, slows active loss, accelerates post-transplant healing. 45-minute sessions, zero downtime.",
+      "featureTitle": "Drawn from your own blood",
+      "featureSub": "No drugs · no synthetic growth factors"
+    }
+  },
+  "QuoteQuiz": {
+    "eyebrow": "3 quick questions",
+    "title": "Three quick questions. One personal plan.",
+    "subtitle": "Take 60 seconds and we'll match you with the right treatment plus a personalised quote from the surgical team.",
+    "progress": "{step} / 03",
+    "steps": {
+      "treatmentTitle": "What treatment are you considering?",
+      "treatmentSubtitle": "If you are not sure, our specialists figure it out with you.",
+      "timelineTitle": "When are you hoping to start?",
+      "timelineSubtitle": "Helps us route you to the right surgeon's calendar.",
+      "countryTitle": "Where are you based?",
+      "contactTitle": "How should we reach you?",
+      "contactSubtitle": "You'll receive a personalised plan and quote from our surgeon — within 24 hours."
+    },
+    "treatments": {
+      "fue": "Sapphire FUE Transplant",
+      "dhi": "DHI Hair Transplant",
+      "beard": "Beard Transplant",
+      "eyebrow": "Eyebrow Transplant",
+      "women": "Women's Hair Transplant",
+      "prp": "PRP Treatment",
+      "unsure": "Not sure yet"
+    },
+    "timelines": {
+      "asap": "Next month",
+      "soon": "Within 1–3 months",
+      "later": "3–6 months",
+      "flexible": "Flexible / just researching"
+    },
+    "fields": {
+      "name": "Full name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "phone": "Phone (WhatsApp)",
+      "phonePlaceholder": "+31 6 12 34 56 78",
+      "country": "Country",
+      "countryPlaceholder": "Select a country"
+    },
+    "actions": {
+      "back": "Back",
+      "next": "Continue",
+      "submit": "Get my personal plan",
+      "submitting": "Sending..."
+    },
+    "consent": "Your details are used only to prepare a personalised quote — never shared with third parties.",
+    "successTitle": "Your plan is on its way",
+    "successBody": "Thank you. Our surgical team will review your case and share a personalised plan and quote within 24 hours. WhatsApp is the fastest channel if you'd like a quicker reply.",
+    "successWhatsapp": "Fast-track on WhatsApp",
+    "errorMessage": "Something went wrong. Please reach us directly at info@myhaar.com."
+  },
   "Admin": {
     "dashboard": "Dashboard",
     "services": "Services",

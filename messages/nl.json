@@ -187,6 +187,114 @@
     "unauthorized": "U bent niet bevoegd",
     "rateLimit": "Te veel verzoeken. Wacht even."
   },
+  "Departments": {
+    "eyebrow": "Specialistische Afdelingen",
+    "titlePre": "Leiders in",
+    "titleHighlight": "haarrestauratie",
+    "titlePost": "in Den Haag.",
+    "subtitle": "Zes door chirurgen geleide behandelingen onder één dak in Den Haag, verdeeld over drie gespecialiseerde afdelingen. Allemaal persoonlijk uitgevoerd door het hoofdchirurgenteam — geen fabriekskliniek, geen franchisepartners.",
+    "sidebarLabel": "Kies een afdeling",
+    "panelBadge": "Specialist-geleide afdeling",
+    "proceduresLabel": "Behandelingen in deze afdeling",
+    "ctaLabel": "Bekijk afdeling",
+    "acceptingNew": "Alle afdelingen nemen nieuwe patiënten aan",
+    "stat": {
+      "duration": "Gem. duur",
+      "setting": "Setting",
+      "recovery": "Herstel",
+      "patientsPerYear": "Patiënten / jaar",
+      "downtime": "Hersteltijd",
+      "course": "Kuur",
+      "spacing": "Tussenpoos",
+      "graftsPerBrow": "Grafts / wenkbrauw"
+    },
+    "value": {
+      "dayClinic": "Dagkliniek",
+      "none": "Geen",
+      "sessions3": "3 sessies",
+      "weeks4": "4 weken",
+      "hours6to8": "6–8",
+      "hours3to6": "3–6",
+      "min45to60": "45–60",
+      "days10to14": "10–14",
+      "days7to10": "7–10",
+      "grafts": "250–500",
+      "patients": "1.500"
+    },
+    "surgical": {
+      "title": "Chirurgische Haarrestauratie",
+      "navSub": "3 behandelingen · FUE & DHI",
+      "badge": "Meest gekozen",
+      "description": "Folliculaire-eenheid-extractie uitgevoerd in onze Den Haag-kliniek met saffieren mesjes en Choi DHI-implanters. Chirurg-geleid, lokale verdoving, natuurlijke dichtheid met minimale littekens en sneller herstel.",
+      "featureTitle": "Sapphire-bladtechniek",
+      "featureSub": "Fijnere kanalen · sneller herstel"
+    },
+    "specialty": {
+      "title": "Specialistische Restauraties",
+      "navSub": "2 behandelingen · Baard & wenkbrauw",
+      "description": "Gezichtshaarrestauratie met dezelfde FUE / DHI-precisie als op de schedel — strak ontworpen baardlijnen, wenkbrauwen met natuurlijke hoek. Uitgevoerd in onze Den Haag-kliniek met enkelvoudige haargrafts.",
+      "featureTitle": "Enkelvoudige haargrafts",
+      "featureSub": "Natuurlijke hoek · niet te detecteren resultaat"
+    },
+    "wellness": {
+      "title": "Haargezondheid",
+      "navSub": "1 behandeling · PRP-therapie",
+      "description": "Niet-chirurgische regeneratieve therapie met uw eigen plaatjesrijk plasma — stimuleert slapende follikels, vertraagt actief verlies, versnelt het herstel na een transplantatie. Sessies van 45 minuten, geen hersteltijd.",
+      "featureTitle": "Uit uw eigen bloed",
+      "featureSub": "Geen medicijnen · geen synthetische groeifactoren"
+    }
+  },
+  "QuoteQuiz": {
+    "eyebrow": "3 korte vragen",
+    "title": "Drie korte vragen. Eén persoonlijk plan.",
+    "subtitle": "Neem 60 seconden en wij matchen u met de juiste behandeling plus een persoonlijke offerte van het chirurgenteam.",
+    "progress": "{step} / 03",
+    "steps": {
+      "treatmentTitle": "Welke behandeling overweegt u?",
+      "treatmentSubtitle": "Niet zeker? Onze specialisten denken met u mee.",
+      "timelineTitle": "Wanneer wilt u starten?",
+      "timelineSubtitle": "Zo weten we welke chirurgenagenda we delen.",
+      "countryTitle": "Waar woont u?",
+      "contactTitle": "Hoe kunnen we u bereiken?",
+      "contactSubtitle": "U ontvangt een persoonlijk plan en offerte van onze chirurg — binnen 24 uur."
+    },
+    "treatments": {
+      "fue": "Sapphire FUE Transplantatie",
+      "dhi": "DHI Haartransplantatie",
+      "beard": "Baardtransplantatie",
+      "eyebrow": "Wenkbrauwtransplantatie",
+      "women": "Vrouwen Haartransplantatie",
+      "prp": "PRP-behandeling",
+      "unsure": "Nog niet zeker"
+    },
+    "timelines": {
+      "asap": "Volgende maand",
+      "soon": "Binnen 1–3 maanden",
+      "later": "3–6 maanden",
+      "flexible": "Flexibel / oriënterend"
+    },
+    "fields": {
+      "name": "Volledige naam",
+      "namePlaceholder": "Uw naam",
+      "email": "E-mail",
+      "emailPlaceholder": "u@voorbeeld.com",
+      "phone": "Telefoon (WhatsApp)",
+      "phonePlaceholder": "+31 6 12 34 56 78",
+      "country": "Land",
+      "countryPlaceholder": "Selecteer een land"
+    },
+    "actions": {
+      "back": "Terug",
+      "next": "Doorgaan",
+      "submit": "Stuur mijn persoonlijke plan",
+      "submitting": "Verzenden..."
+    },
+    "consent": "Uw gegevens worden alleen gebruikt om een persoonlijke offerte voor u op te stellen — nooit gedeeld met derden.",
+    "successTitle": "Uw plan is onderweg",
+    "successBody": "Bedankt. Ons chirurgenteam beoordeelt uw situatie en deelt binnen 24 uur een persoonlijk plan en offerte. WhatsApp is het snelste kanaal voor een sneller antwoord.",
+    "successWhatsapp": "Versnel via WhatsApp",
+    "errorMessage": "Er is iets misgegaan. Bereik ons direct via info@myhaar.com."
+  },
   "Admin": {
     "dashboard": "Dashboard",
     "services": "Diensten",
