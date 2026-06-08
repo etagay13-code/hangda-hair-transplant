@@ -1,0 +1,9 @@
+# Bu dosya supabase/ klasörünü bir projeye bağlar. project_id, Supabase
+# dashboard URL'inizdeki proje referansıdır (supabase.com/dashboard/project/<bu>).
+# CLI bunu kullanarak hangi remote DB'ye push edeceğini bilir.
+project_id = "mzivbchjfcjxgrvdhcuk"
+
+[db]
+# Yerel geliştirme yapmıyoruz; bu sadece supabase CLI'nin migration sırasını
+# anlaması için var (timestamp tabanlı).
+major_version = 15
