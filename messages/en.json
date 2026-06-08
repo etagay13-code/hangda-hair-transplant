@@ -328,6 +328,26 @@
     "successWhatsapp": "Fast-track on WhatsApp",
     "errorMessage": "Something went wrong. Please reach us directly at info@myhaar.com."
   },
+  "Popup": {
+    "lineOne": "THE BEST TIME FOR",
+    "lineTwo": "A HAIR RESTORATION?",
+    "lineThree": "NOW IS THE TIME!",
+    "checks": {
+      "summer": "Before summer begins",
+      "slots": "Before consultation slots fill up"
+    },
+    "cta": "Book My Free Consultation",
+    "whatsappMessage": "Hello, I'd like more info about a hair restoration consultation at your MyHaar Den Haag clinic.",
+    "disclaimer": "*Offer valid for bookings and procedures until the end of June 2026.",
+    "rightTitle": "Your exclusive package",
+    "cards": {
+      "plan": "Personalised Treatment Plan",
+      "clinic": "Den Haag City-Centre Clinic",
+      "consult": "Free Surgeon Consultation",
+      "guarantee": "18-Month Written Guarantee"
+    },
+    "close": "Close"
+  },
   "Admin": {
     "dashboard": "Dashboard",
     "services": "Services",

@@ -328,6 +328,26 @@
     "successWhatsapp": "WhatsApp'tan hızlandır",
     "errorMessage": "Bir şeyler ters gitti. Doğrudan info@myhaar.com adresinden bize ulaşabilirsiniz."
   },
+  "Popup": {
+    "lineOne": "SAÇ EKİMİ İÇİN",
+    "lineTwo": "EN İYİ ZAMAN?",
+    "lineThree": "HEMEN ŞİMDİ!",
+    "checks": {
+      "summer": "Yaz başlamadan önce",
+      "slots": "Konsültasyon kontenjanı dolmadan"
+    },
+    "cta": "Hemen Ücretsiz Konsültasyon Al",
+    "whatsappMessage": "Merhaba, MyHaar Den Haag kliniğinizdeki saç ekimi konsültasyonu hakkında bilgi almak istiyorum.",
+    "disclaimer": "*Kampanya Haziran 2026 sonuna kadar yapılan rezervasyon ve işlemler için geçerlidir.",
+    "rightTitle": "Size özel paketi alın",
+    "cards": {
+      "plan": "Kişisel Tedavi Planı",
+      "clinic": "Den Haag Merkez Klinik",
+      "consult": "Cerrahla Ücretsiz Konsültasyon",
+      "guarantee": "18 Aylık Yazılı Garanti"
+    },
+    "close": "Kapat"
+  },
   "Admin": {
     "dashboard": "Yönetim Paneli",
     "services": "Hizmetler",

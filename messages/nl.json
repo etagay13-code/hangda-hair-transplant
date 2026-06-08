@@ -328,6 +328,26 @@
     "successWhatsapp": "Versnel via WhatsApp",
     "errorMessage": "Er is iets misgegaan. Bereik ons direct via info@myhaar.com."
   },
+  "Popup": {
+    "lineOne": "DE BESTE TIJD VOOR",
+    "lineTwo": "EEN HAARRESTAURATIE?",
+    "lineThree": "NU IS HET MOMENT!",
+    "checks": {
+      "summer": "Voordat de zomer begint",
+      "slots": "Voordat de consultplekken vol zitten"
+    },
+    "cta": "Boek mijn gratis consult",
+    "whatsappMessage": "Hallo, ik wil meer informatie over een haarrestauratie-consult in uw MyHaar kliniek in Den Haag.",
+    "disclaimer": "*Aanbod geldig voor boekingen en behandelingen tot eind juni 2026.",
+    "rightTitle": "Uw exclusieve pakket",
+    "cards": {
+      "plan": "Persoonlijk behandelplan",
+      "clinic": "Den Haag centrumkliniek",
+      "consult": "Gratis chirurg-consult",
+      "guarantee": "18 maanden schriftelijke garantie"
+    },
+    "close": "Sluiten"
+  },
   "Admin": {
     "dashboard": "Dashboard",
     "services": "Diensten",
