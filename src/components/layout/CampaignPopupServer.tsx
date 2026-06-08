@@ -31,7 +31,7 @@ export async function CampaignPopupServer({ locale }: { locale: string }) {
   if (!bool(getSetting(settings, 'popup_enabled'), true)) return null;
 
   const whatsapp = getSetting(settings, 'contact_whatsapp');
-  const delaySeconds = num(getSetting(settings, 'popup_delay_seconds'), 6);
+  const delaySeconds = num(getSetting(settings, 'popup_delay_seconds'), 3);
   const dismissHours = num(getSetting(settings, 'popup_dismiss_hours'), 24);
 
   // Resolve each editable string. Empty/null DB value → translation.

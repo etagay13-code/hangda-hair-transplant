@@ -114,7 +114,7 @@ export default async function PopupAdminPage() {
     const v = get('popup_enabled', 'all').toLowerCase().trim();
     return v === '' ? true : !(v === 'false' || v === '0' || v === 'no' || v === 'off');
   })();
-  const delay = get('popup_delay_seconds', 'all') || '6';
+  const delay = get('popup_delay_seconds', 'all') || '3';
   const dismiss = get('popup_dismiss_hours', 'all') || '24';
 
   return (
