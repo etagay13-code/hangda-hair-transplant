@@ -21,10 +21,47 @@ function bool(v: FormDataEntryValue | null) {
   return str(v) === 'on' || str(v) === 'true';
 }
 
+function parseExtra(form: FormData, pageKey: string, sectionKey: string): Record<string, unknown> | null {
+  // Section-specific 'extra' fields. For the homepage hero block we expose
+  // stats + floating badges + result-card caption via the form, then bundle
+  // them into a JSON-serialisable object that lives in page_blocks.extra.
+  if (pageKey === 'home' && sectionKey === 'hero') {
+    const stats: Array<{ label: string; value: string; visible: boolean }> = [];
+    for (let i = 0; i < 4; i++) {
+      stats.push({
+        label: str(form.get(`stat_${i}_label`)),
+        value: str(form.get(`stat_${i}_value`)),
+        visible: bool(form.get(`stat_${i}_visible`)),
+      });
+    }
+    return {
+      stats,
+      badgeTopLeft: {
+        label: str(form.get('badgeTopLeft_label')),
+        value: str(form.get('badgeTopLeft_value')),
+        visible: bool(form.get('badgeTopLeft_visible')),
+      },
+      badgeBottomRight: {
+        label: str(form.get('badgeBottomRight_label')),
+        value: str(form.get('badgeBottomRight_value')),
+        visible: bool(form.get('badgeBottomRight_visible')),
+      },
+      resultCard: {
+        eyebrow: str(form.get('resultCard_eyebrow')),
+        title: str(form.get('resultCard_title')),
+        visible: bool(form.get('resultCard_visible')),
+      },
+    };
+  }
+  return null;
+}
+
 function payload(form: FormData) {
+  const page_key = str(form.get('page_key'));
+  const section_key = str(form.get('section_key'));
   return {
-    page_key: str(form.get('page_key')),
-    section_key: str(form.get('section_key')),
+    page_key,
+    section_key,
     locale: str(form.get('locale')) || 'all',
     eyebrow: nullable(form.get('eyebrow')),
     title: nullable(form.get('title')),
@@ -33,6 +70,7 @@ function payload(form: FormData) {
     image_url: nullable(form.get('image_url')),
     cta_label: nullable(form.get('cta_label')),
     cta_href: nullable(form.get('cta_href')),
+    extra: parseExtra(form, page_key, section_key) as never,
     order_index: int(form.get('order_index')),
     is_active: bool(form.get('is_active')),
     updated_at: new Date().toISOString(),
@@ -87,6 +125,7 @@ export async function updateBlock(id: string, form: FormData) {
         image_url: data.image_url,
         cta_label: data.cta_label,
         cta_href: data.cta_href,
+        extra: data.extra,
         order_index: data.order_index,
         is_active: data.is_active,
         updated_at: new Date().toISOString(),

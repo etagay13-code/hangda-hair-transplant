@@ -192,6 +192,10 @@ export function BlockForm({ action, defaults = {}, lockIdentity = false, submitL
         </label>
       </div>
 
+      {defaults.page_key === 'home' && defaults.section_key === 'hero' && (
+        <HeroExtras defaults={defaults.extra as HeroExtra | null} />
+      )}
+
       <div className="flex items-center justify-between border-t border-slate-100 pt-6">
         <p className="text-xs text-slate-500">
           Kaydet'e bastıktan sonra 2-3 saniye içinde site güncellenir.
@@ -204,6 +208,177 @@ export function BlockForm({ action, defaults = {}, lockIdentity = false, submitL
         </button>
       </div>
     </form>
+  );
+}
+
+interface HeroStat { label: string; value: string; visible?: boolean }
+interface HeroBadge { label: string; value: string; visible?: boolean }
+interface HeroResultCard { eyebrow: string; title: string; visible?: boolean }
+interface HeroExtra {
+  stats?: HeroStat[];
+  badgeTopLeft?: HeroBadge;
+  badgeBottomRight?: HeroBadge;
+  resultCard?: HeroResultCard;
+}
+
+function HeroExtras({ defaults }: { defaults: HeroExtra | null }) {
+  const d = defaults ?? {};
+  const stats: HeroStat[] = d.stats ?? [
+    { label: 'Happy Patients', value: '15K+', visible: true },
+    { label: 'Years Experience', value: '20+', visible: true },
+    { label: 'Success Rate', value: '98%', visible: true },
+    { label: 'Countries Served', value: '60+', visible: true },
+  ];
+  while (stats.length < 4) stats.push({ label: '', value: '', visible: false });
+  const badgeTL = d.badgeTopLeft ?? { label: 'Success rate', value: '98%', visible: true };
+  const badgeBR = d.badgeBottomRight ?? { label: 'Written guarantee', value: '18 mo.', visible: true };
+  const resultCard = d.resultCard ?? {
+    eyebrow: 'Recent result · MyHaar FUE',
+    title: '3,400 grafts · 12 months',
+    visible: true,
+  };
+
+  return (
+    <>
+      <div className="h-px bg-slate-100" />
+
+      <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-500">
+        Hero özel alanları
+      </h3>
+
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+        <h4 className="text-sm font-bold text-[var(--color-primary-darker)]">
+          📊 İstatistik şeridi
+        </h4>
+        <p className="mt-1 text-xs text-slate-600">
+          Hero altındaki 4 istatistik kutusu. Etiket boş bırakırsanız veya "Göster" kapalıysa o sütun gizlenir. Değer alanına <code className="rounded bg-white px-1 py-0.5 font-mono text-[11px]">15K+</code> / <code className="rounded bg-white px-1 py-0.5 font-mono text-[11px]">98%</code> gibi yazın; rakam kısmı say-sayım animasyonu ile çıkar.
+        </p>
+        <div className="mt-4 space-y-3">
+          {stats.slice(0, 4).map((s, i) => (
+            <div key={i} className="grid gap-3 sm:grid-cols-[1fr_140px_100px]">
+              <input
+                type="text"
+                name={`stat_${i}_label`}
+                defaultValue={s.label}
+                placeholder={`Etiket ${i + 1}`}
+                className="input-field"
+              />
+              <input
+                type="text"
+                name={`stat_${i}_value`}
+                defaultValue={s.value}
+                placeholder="15K+"
+                className="input-field"
+              />
+              <label className="inline-flex items-center gap-2 text-xs text-slate-600">
+                <input
+                  type="checkbox"
+                  name={`stat_${i}_visible`}
+                  defaultChecked={s.visible !== false}
+                  className="h-4 w-4 rounded border-slate-300"
+                />
+                Göster
+              </label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <BadgeEditor
+        prefix="badgeTopLeft"
+        title="🎖 Sol üst rozet (görselin üstünde)"
+        defaults={badgeTL}
+        labelExample="Success rate"
+        valueExample="98%"
+      />
+
+      <BadgeEditor
+        prefix="badgeBottomRight"
+        title="🛡 Sağ alt rozet (görselin üstünde)"
+        defaults={badgeBR}
+        labelExample="Written guarantee"
+        valueExample="18 mo."
+      />
+
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+        <h4 className="text-sm font-bold text-[var(--color-primary-darker)]">
+          🏷 Sonuç kartı (görselin altındaki kutu)
+        </h4>
+        <p className="mt-1 text-xs text-slate-600">
+          Hero görselinin altındaki beyaz kutu — "Recent result · MyHaar FUE / 3,400 grafts · 12 months".
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <input
+            type="text"
+            name="resultCard_eyebrow"
+            defaultValue={resultCard.eyebrow}
+            placeholder="Recent result · MyHaar FUE"
+            className="input-field"
+          />
+          <input
+            type="text"
+            name="resultCard_title"
+            defaultValue={resultCard.title}
+            placeholder="3,400 grafts · 12 months"
+            className="input-field"
+          />
+        </div>
+        <label className="mt-3 inline-flex items-center gap-2 text-xs text-slate-600">
+          <input
+            type="checkbox"
+            name="resultCard_visible"
+            defaultChecked={resultCard.visible !== false}
+            className="h-4 w-4 rounded border-slate-300"
+          />
+          Bu kutuyu göster
+        </label>
+      </div>
+    </>
+  );
+}
+
+function BadgeEditor({
+  prefix,
+  title,
+  defaults,
+  labelExample,
+  valueExample,
+}: {
+  prefix: string;
+  title: string;
+  defaults: HeroBadge;
+  labelExample: string;
+  valueExample: string;
+}) {
+  return (
+    <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+      <h4 className="text-sm font-bold text-[var(--color-primary-darker)]">{title}</h4>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <input
+          type="text"
+          name={`${prefix}_label`}
+          defaultValue={defaults.label}
+          placeholder={labelExample}
+          className="input-field"
+        />
+        <input
+          type="text"
+          name={`${prefix}_value`}
+          defaultValue={defaults.value}
+          placeholder={valueExample}
+          className="input-field"
+        />
+      </div>
+      <label className="mt-3 inline-flex items-center gap-2 text-xs text-slate-600">
+        <input
+          type="checkbox"
+          name={`${prefix}_visible`}
+          defaultChecked={defaults.visible !== false}
+          className="h-4 w-4 rounded border-slate-300"
+        />
+        Bu rozeti göster
+      </label>
+    </div>
   );
 }
 

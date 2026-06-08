@@ -4,6 +4,39 @@ import { CountUp } from '@/components/ui/CountUp';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { blockField, getPageBlock } from '@/lib/page-blocks';
 
+interface HeroStat {
+  label: string;
+  value: string; // e.g. "15K+", "98%", "20+"
+  visible?: boolean;
+}
+interface HeroBadge {
+  label: string;
+  value: string;
+  visible?: boolean;
+}
+interface HeroResultCard {
+  eyebrow: string;
+  title: string;
+  visible?: boolean;
+}
+interface HeroExtra {
+  stats?: HeroStat[];
+  badgeTopLeft?: HeroBadge;
+  badgeBottomRight?: HeroBadge;
+  resultCard?: HeroResultCard;
+}
+
+function parseNumericValue(raw: string): { value: number; suffix: string; prefix: string } {
+  const m = raw.match(/^([^\d.]*)([\d.,]+)(.*)$/);
+  if (!m) return { value: 0, suffix: raw, prefix: '' };
+  const num = Number(m[2].replace(',', '.'));
+  return {
+    prefix: m[1] ?? '',
+    value: Number.isFinite(num) ? num : 0,
+    suffix: m[3] ?? '',
+  };
+}
+
 export async function Hero({ locale }: { locale: string }) {
   const [t, block] = await Promise.all([
     getTranslations('Hero'),
@@ -20,19 +53,33 @@ export async function Hero({ locale }: { locale: string }) {
     'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1000&q=80'
   );
 
-  const stats: Array<{ label: string; value: number; suffix?: string; prefix?: string }> = [
-    { label: t('stats.patients'), value: 15, suffix: 'K+' },
-    { label: t('stats.experience'), value: 20, suffix: '+' },
-    { label: t('stats.success'), value: 98, suffix: '%' },
-    { label: t('stats.countries'), value: 60, suffix: '+' },
-  ];
+  const extra = (block?.extra as HeroExtra | null) ?? {};
+
+  const stats: HeroStat[] =
+    extra.stats && extra.stats.length > 0
+      ? extra.stats
+      : [
+          { label: t('stats.patients'), value: '15K+', visible: true },
+          { label: t('stats.experience'), value: '20+', visible: true },
+          { label: t('stats.success'), value: '98%', visible: true },
+          { label: t('stats.countries'), value: '60+', visible: true },
+        ];
+
+  const badgeTopLeft: HeroBadge =
+    extra.badgeTopLeft ?? { label: 'Success rate', value: '98%', visible: true };
+  const badgeBottomRight: HeroBadge =
+    extra.badgeBottomRight ?? { label: 'Written guarantee', value: '18 mo.', visible: true };
+  const resultCard: HeroResultCard =
+    extra.resultCard ?? {
+      eyebrow: 'Recent result · MyHaar FUE',
+      title: '3,400 grafts · 12 months',
+      visible: true,
+    };
+
+  const visibleStats = stats.filter((s) => s.visible !== false);
 
   return (
-    <section
-      id="top"
-      className="relative isolate overflow-hidden bg-white"
-    >
-      {/* Animated blobs */}
+    <section id="top" className="relative isolate overflow-hidden bg-white">
       <div
         aria-hidden="true"
         className="blob pointer-events-none absolute -left-32 -top-32 -z-10 h-[480px] w-[480px] rounded-full bg-[var(--color-primary)]/30"
@@ -70,18 +117,35 @@ export async function Hero({ locale }: { locale: string }) {
               </a>
             </div>
 
-            <dl className="mt-16 grid grid-cols-2 gap-x-8 gap-y-8 border-t border-[var(--color-primary)]/20 pt-10 sm:grid-cols-4">
-              {stats.map((s, i) => (
-                <RevealOnScroll key={s.label} delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
-                  <dt className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-500">
-                    {s.label}
-                  </dt>
-                  <dd className="mt-1 text-3xl font-bold text-[var(--color-primary-darker)] sm:text-4xl">
-                    <CountUp value={s.value} suffix={s.suffix ?? ''} prefix={s.prefix ?? ''} />
-                  </dd>
-                </RevealOnScroll>
-              ))}
-            </dl>
+            {visibleStats.length > 0 && (
+              <dl
+                className={`mt-16 grid gap-x-8 gap-y-8 border-t border-[var(--color-primary)]/20 pt-10 ${
+                  visibleStats.length >= 4
+                    ? 'grid-cols-2 sm:grid-cols-4'
+                    : visibleStats.length === 3
+                    ? 'grid-cols-3'
+                    : 'grid-cols-2'
+                }`}
+              >
+                {visibleStats.map((s, i) => {
+                  const parsed = parseNumericValue(s.value);
+                  return (
+                    <RevealOnScroll key={s.label + i} delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
+                      <dt className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-500">
+                        {s.label}
+                      </dt>
+                      <dd className="mt-1 text-3xl font-bold text-[var(--color-primary-darker)] sm:text-4xl">
+                        {parsed.value > 0 ? (
+                          <CountUp value={parsed.value} prefix={parsed.prefix} suffix={parsed.suffix} />
+                        ) : (
+                          s.value
+                        )}
+                      </dd>
+                    </RevealOnScroll>
+                  );
+                })}
+              </dl>
+            )}
           </RevealOnScroll>
 
           <RevealOnScroll delay={2} className="hidden lg:col-span-5 lg:block">
@@ -101,36 +165,40 @@ export async function Hero({ locale }: { locale: string }) {
                     priority
                   />
                 </div>
-                <div className="absolute inset-x-6 bottom-6 rounded-2xl bg-white/95 px-5 py-4 backdrop-blur shadow-lg">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-                    Recent result · MyHaar FUE
-                  </p>
-                  <p className="mt-1 text-base font-semibold text-[var(--color-primary-darker)]">
-                    3,400 grafts · 12 months
-                  </p>
-                </div>
+                {resultCard.visible !== false && (
+                  <div className="absolute inset-x-6 bottom-6 rounded-2xl bg-white/95 px-5 py-4 backdrop-blur shadow-lg">
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
+                      {resultCard.eyebrow}
+                    </p>
+                    <p className="mt-1 text-base font-semibold text-[var(--color-primary-darker)]">
+                      {resultCard.title}
+                    </p>
+                  </div>
+                )}
               </div>
 
-              {/* floating badge */}
-              <div className="absolute -left-6 top-12 rotate-[-6deg] rounded-2xl bg-[var(--color-primary-darker)] px-4 py-3 text-white shadow-xl">
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-                  Success rate
-                </p>
-                <p className="mt-0.5 text-2xl font-bold">98%</p>
-              </div>
-              <div className="absolute -right-4 bottom-32 rotate-[5deg] rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-slate-200">
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-                  Written guarantee
-                </p>
-                <p className="mt-0.5 text-2xl font-bold text-[var(--color-primary-darker)]">
-                  18 mo.
-                </p>
-              </div>
+              {badgeTopLeft.visible !== false && (
+                <div className="absolute -left-6 top-12 rotate-[-6deg] rounded-2xl bg-[var(--color-primary-darker)] px-4 py-3 text-white shadow-xl">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
+                    {badgeTopLeft.label}
+                  </p>
+                  <p className="mt-0.5 text-2xl font-bold">{badgeTopLeft.value}</p>
+                </div>
+              )}
+              {badgeBottomRight.visible !== false && (
+                <div className="absolute -right-4 bottom-32 rotate-[5deg] rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-slate-200">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
+                    {badgeBottomRight.label}
+                  </p>
+                  <p className="mt-0.5 text-2xl font-bold text-[var(--color-primary-darker)]">
+                    {badgeBottomRight.value}
+                  </p>
+                </div>
+              )}
             </div>
           </RevealOnScroll>
         </div>
 
-        {/* scroll indicator */}
         <div className="mt-16 flex justify-center sm:mt-20">
           <a
             href="#services"
