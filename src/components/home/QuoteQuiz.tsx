@@ -86,7 +86,7 @@ export function QuoteQuiz({ whatsapp }: { whatsapp?: string }) {
   const wa = whatsapp ? whatsapp.replace(/[^0-9]/g, '') : '';
 
   return (
-    <section id="quote" className="relative overflow-hidden bg-white py-20 sm:py-28">
+    <section id="quote" className="relative overflow-hidden bg-white py-14 sm:py-20 lg:py-28">
       <div className="container-page">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">

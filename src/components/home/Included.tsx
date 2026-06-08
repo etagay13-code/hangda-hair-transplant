@@ -23,8 +23,8 @@ export async function Included({ locale }: { locale: string }) {
     'https://images.unsplash.com/photo-1580281657527-47f249e8f4df?auto=format&fit=crop&w=900&q=80'
   );
   return (
-    <section className="relative overflow-hidden bg-slate-50 py-24 sm:py-32">
-      <div className="container-page grid gap-16 lg:grid-cols-12 lg:gap-20">
+    <section className="relative overflow-hidden bg-slate-50 py-16 sm:py-24 lg:py-32">
+      <div className="container-page grid gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-20">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
             <RevealOnScroll>

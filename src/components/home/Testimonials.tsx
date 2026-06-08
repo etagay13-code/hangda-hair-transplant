@@ -26,13 +26,13 @@ export async function Testimonials({ locale }: { locale: string }) {
 
   if (items.length === 0) return null;
 
-  // Duplicate for seamless marquee loop
+  // Duplicate for seamless marquee loop on desktop
   const looped = [...items, ...items];
 
   return (
     <section
       id="testimonials"
-      className="relative overflow-hidden bg-slate-50 py-24 sm:py-32"
+      className="relative overflow-hidden bg-slate-50 py-16 sm:py-24 lg:py-32"
     >
       <div
         aria-hidden="true"
@@ -54,7 +54,50 @@ export async function Testimonials({ locale }: { locale: string }) {
         </RevealOnScroll>
       </div>
 
-      <RevealOnScroll className="marquee group mt-16 overflow-hidden">
+      {/* Mobile: native horizontal scroll with snap (user-controlled swipe) */}
+      <RevealOnScroll className="mt-10 overflow-x-auto pb-4 lg:hidden">
+        <div className="flex w-max gap-4 px-5 snap-x snap-mandatory">
+          {items.map((it) => (
+            <blockquote
+              key={it.id}
+              className="flex w-[85vw] max-w-[340px] shrink-0 snap-center flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            >
+              <div className="flex items-center justify-between">
+                <Avatar name={it.name} />
+                <Stars count={it.rating} />
+              </div>
+              {it.comment && (
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-700">
+                  &ldquo;{it.comment}&rdquo;
+                </p>
+              )}
+              <footer className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3">
+                <div>
+                  <p className="text-sm font-semibold text-[var(--color-primary-darker)]">
+                    {it.name}
+                  </p>
+                  {it.country && (
+                    <p className="text-xs text-slate-500">{it.country}</p>
+                  )}
+                </div>
+                {(it.technique || it.grafts) && (
+                  <p className="text-right text-xs text-slate-500">
+                    {it.technique && <span className="block">{it.technique}</span>}
+                    {it.grafts && (
+                      <span className="block font-semibold text-[var(--color-primary-darker)]">
+                        {it.grafts.toLocaleString()} grafts
+                      </span>
+                    )}
+                  </p>
+                )}
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </RevealOnScroll>
+
+      {/* Desktop: auto-scrolling marquee */}
+      <RevealOnScroll className="marquee group mt-16 hidden overflow-hidden lg:block">
         <div className="relative">
           <div
             aria-hidden="true"
@@ -68,7 +111,7 @@ export async function Testimonials({ locale }: { locale: string }) {
             {looped.map((it, i) => (
               <blockquote
                 key={`${it.id}-${i}`}
-                className="flex w-[340px] shrink-0 flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm sm:w-[420px]"
+                className="flex w-[420px] shrink-0 flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm"
               >
                 <div className="flex items-center justify-between">
                   <Avatar name={it.name} />

@@ -88,7 +88,7 @@ export function Departments({ locale }: { locale: string }) {
   const current = DEPARTMENTS.find((d) => d.key === active) ?? DEPARTMENTS[0];
 
   return (
-    <section className="relative bg-slate-50 py-20 sm:py-28">
+    <section className="relative bg-slate-50 py-14 sm:py-20 lg:py-28">
       <div className="container-page">
         <div className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-primary)]">

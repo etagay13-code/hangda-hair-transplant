@@ -95,8 +95,8 @@ export async function Hero({ locale }: { locale: string }) {
         style={{ animationDelay: '-4s' }}
       />
 
-      <div className="container-page flex min-h-[92vh] flex-col justify-center pt-20 pb-24 sm:pt-28">
-        <div className="grid items-center gap-12 lg:grid-cols-12">
+      <div className="container-page flex min-h-[80vh] flex-col justify-center pt-20 pb-12 sm:pt-24 sm:pb-20 lg:min-h-[92vh] lg:pt-28 lg:pb-24">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <RevealOnScroll className="lg:col-span-7">
             <span className="inline-flex items-center gap-2 rounded-full border border-[var(--color-primary)]/30 bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-primary-darker)] backdrop-blur">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-primary)]" />
@@ -119,7 +119,7 @@ export async function Hero({ locale }: { locale: string }) {
 
             {visibleStats.length > 0 && (
               <dl
-                className={`mt-16 grid gap-x-8 gap-y-8 border-t border-[var(--color-primary)]/20 pt-10 ${
+                className={`mt-10 grid gap-x-6 gap-y-6 border-t border-[var(--color-primary)]/20 pt-8 sm:mt-16 sm:gap-x-8 sm:gap-y-8 sm:pt-10 ${
                   visibleStats.length >= 4
                     ? 'grid-cols-2 sm:grid-cols-4'
                     : visibleStats.length === 3
@@ -134,7 +134,7 @@ export async function Hero({ locale }: { locale: string }) {
                       <dt className="text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-500">
                         {s.label}
                       </dt>
-                      <dd className="mt-1 text-3xl font-bold text-[var(--color-primary-darker)] sm:text-4xl">
+                      <dd className="mt-1 text-2xl font-bold text-[var(--color-primary-darker)] sm:text-3xl lg:text-4xl">
                         {parsed.value > 0 ? (
                           <CountUp value={parsed.value} prefix={parsed.prefix} suffix={parsed.suffix} />
                         ) : (
@@ -148,37 +148,38 @@ export async function Hero({ locale }: { locale: string }) {
             )}
           </RevealOnScroll>
 
-          <RevealOnScroll delay={2} className="hidden lg:col-span-5 lg:block">
-            <div className="relative">
+          <RevealOnScroll delay={2} className="lg:col-span-5">
+            <div className="relative mx-auto max-w-sm lg:max-w-none">
               <div
                 aria-hidden="true"
-                className="pulse-glow absolute -inset-8 -z-10 rounded-[3rem] bg-[var(--color-primary)]/30 blur-3xl"
+                className="pulse-glow absolute -inset-6 -z-10 rounded-[3rem] bg-[var(--color-primary)]/30 blur-3xl sm:-inset-8"
               />
-              <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl ring-1 ring-[var(--color-primary)]/20">
+              <div className="relative overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-[var(--color-primary)]/20 sm:rounded-[2.5rem]">
                 <div className="relative aspect-[4/5]">
                   <Image
                     src={imageUrl}
                     alt="Real MyHaar patient result"
                     fill
-                    sizes="(min-width: 1024px) 480px, 100vw"
+                    sizes="(min-width: 1024px) 480px, (min-width: 640px) 400px, 90vw"
                     className="object-cover"
                     priority
                   />
                 </div>
                 {resultCard.visible !== false && (
-                  <div className="absolute inset-x-6 bottom-6 rounded-2xl bg-white/95 px-5 py-4 backdrop-blur shadow-lg">
+                  <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-white/95 px-4 py-3 shadow-lg backdrop-blur sm:inset-x-6 sm:bottom-6 sm:px-5 sm:py-4">
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
                       {resultCard.eyebrow}
                     </p>
-                    <p className="mt-1 text-base font-semibold text-[var(--color-primary-darker)]">
+                    <p className="mt-1 text-sm font-semibold text-[var(--color-primary-darker)] sm:text-base">
                       {resultCard.title}
                     </p>
                   </div>
                 )}
               </div>
 
+              {/* Floating badges only on lg+ — they overflow on mobile */}
               {badgeTopLeft.visible !== false && (
-                <div className="absolute -left-6 top-12 rotate-[-6deg] rounded-2xl bg-[var(--color-primary-darker)] px-4 py-3 text-white shadow-xl">
+                <div className="absolute -left-6 top-12 hidden rotate-[-6deg] rounded-2xl bg-[var(--color-primary-darker)] px-4 py-3 text-white shadow-xl lg:block">
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
                     {badgeTopLeft.label}
                   </p>
@@ -186,7 +187,7 @@ export async function Hero({ locale }: { locale: string }) {
                 </div>
               )}
               {badgeBottomRight.visible !== false && (
-                <div className="absolute -right-4 bottom-32 rotate-[5deg] rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-slate-200">
+                <div className="absolute -right-4 bottom-32 hidden rotate-[5deg] rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-slate-200 lg:block">
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
                     {badgeBottomRight.label}
                   </p>
