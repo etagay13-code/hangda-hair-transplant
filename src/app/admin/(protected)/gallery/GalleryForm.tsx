@@ -70,22 +70,53 @@ export function GalleryForm({ action, defaults = {}, submitLabel = 'Save', servi
         </span>
       </label>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <ImageUploadField
-          name="before_image_url"
-          label="Before image"
-          bucket="gallery"
-          folder="before"
-          defaultUrl={defaults.before_image_url}
-        />
-        <ImageUploadField
-          name="after_image_url"
-          label="After image"
-          bucket="gallery"
-          folder="after"
-          defaultUrl={defaults.after_image_url}
-        />
-      </div>
+      <ImageUploadField
+        name="image_url"
+        label="Vaka görseli (öncesi/sonrası yan yana hazırlanmış tek görsel)"
+        bucket="gallery"
+        folder="cases"
+        defaultUrl={defaults.before_image_url || defaults.after_image_url || null}
+      />
+      <p className="-mt-3 text-xs text-slate-500">
+        Tek bir görsel yükleyin — öncesi ve sonrası bu görselin içinde yan yana
+        olmalı. Site bu görseli olduğu gibi gösterir.
+      </p>
+
+      <details className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+        <summary className="cursor-pointer text-xs font-semibold text-slate-600">
+          Gelişmiş: ayrı öncesi + sonrası yüklemek istiyorum
+        </summary>
+        <div className="mt-3 grid gap-4 lg:grid-cols-2">
+          <ImageUploadField
+            name="before_image_url_explicit"
+            label="Sadece öncesi"
+            bucket="gallery"
+            folder="before"
+            defaultUrl={
+              defaults.before_image_url &&
+              defaults.before_image_url !== defaults.after_image_url
+                ? defaults.before_image_url
+                : null
+            }
+          />
+          <ImageUploadField
+            name="after_image_url_explicit"
+            label="Sadece sonrası"
+            bucket="gallery"
+            folder="after"
+            defaultUrl={
+              defaults.after_image_url &&
+              defaults.after_image_url !== defaults.before_image_url
+                ? defaults.after_image_url
+                : null
+            }
+          />
+          <p className="lg:col-span-2 text-[11px] text-slate-500">
+            İkisini ayrı yüklerseniz site 2 sütunlu kart olarak gösterir. Bu
+            alanları doldurursanız yukarıdaki tek görsel ihmal edilir.
+          </p>
+        </div>
+      </details>
 
       <div className="flex justify-end">
         <button type="submit" className="btn-primary">{submitLabel}</button>
