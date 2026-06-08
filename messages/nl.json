@@ -187,6 +187,39 @@
     "unauthorized": "U bent niet bevoegd",
     "rateLimit": "Te veel verzoeken. Wacht even."
   },
+  "Included": {
+    "eyebrow": "Wat is inbegrepen",
+    "title": "Eén transparante prijs. Geen verrassingen.",
+    "subtitle": "Het bedrag op uw schriftelijke offerte is wat u betaalt — en dekt alles van uw eerste consult tot uw laatste controle, achttien maanden later.",
+    "floatEyebrow": "Gratis consult",
+    "floatTitle": "Persoonlijke offerte, 30 dagen geldig",
+    "items": [
+      { "icon": "👨‍⚕️", "title": "Gratis chirurg consult", "desc": "Persoonlijk of via video met de hoofdchirurg, inclusief haarlijnontwerp." },
+      { "icon": "🩺", "title": "Preoperatief bloedonderzoek", "desc": "Volledige preoperatieve evaluatie in onze Den Haag-kliniek." },
+      { "icon": "✂️", "title": "De volledige ingreep", "desc": "Sapphire FUE of DHI met het hoofdchirurgenteam — lokale verdoving, alle instrumenten." },
+      { "icon": "🌿", "title": "PRP-ondersteuningssessie", "desc": "Een PRP-injectie aan het einde van uw ingreep om follikelactivering te versnellen." },
+      { "icon": "💊", "title": "Alle medicatie & kit", "desc": "Pijnstillers, antibiotica, postoperatieve shampoo, lotion, hoofdband, nekkussen." },
+      { "icon": "🧼", "title": "Eerste klinische wassing", "desc": "Persoonlijke eerste wassing de volgende dag met uw verpleegkundige + schriftelijke hersteluitleg." },
+      { "icon": "🌍", "title": "Meertalige zorg", "desc": "Nederlands · English · Türkçe · Deutsch · العربية — coördinator altijd aan uw zijde." },
+      { "icon": "🛡️", "title": "18 maanden schriftelijke garantie", "desc": "Als getransplanteerde follikels niet aanslaan, herimplanteren wij zonder chirurgische kosten." },
+      { "icon": "📅", "title": "Levenslange follow-up", "desc": "Gepland op 3, 6, 12 en 18 maanden — en daarna levenslang bereikbaar." }
+    ]
+  },
+  "Recovery": {
+    "eyebrow": "Herstel",
+    "title": "Uw 18-maanden traject, stap voor stap uitgestippeld",
+    "subtitle": "Haarrestauratie is een proces. Hier ziet u precies wat er wanneer gebeurt — zodat u er met vertrouwen omheen kunt plannen.",
+    "guaranteeLabel": "Garantie",
+    "guaranteeValue": "18 maanden",
+    "stages": [
+      { "when": "Dag 0–3", "title": "Operatie & rust", "desc": "Operatiedag plus twee herstel-dagen. Lichte zwelling piekt en zakt daarna." },
+      { "when": "Dag 4–10", "title": "Wasprotocol", "desc": "Specifiek schuim-wasprotocol start op dag 4. Korstjes komen in de week daarna natuurlijk los." },
+      { "when": "Week 2–8", "title": "Shock loss", "desc": "Tijdelijk verlies van getransplanteerde haren — volkomen normaal, follikels blijven onder de huid leven." },
+      { "when": "Maand 3–6", "title": "Hergroei begint", "desc": "Nieuwe groei komt door en wordt in de volgende maanden dikker en donkerder." },
+      { "when": "Maand 6–12", "title": "Duidelijke verandering", "desc": "Het grootste deel van de zichtbare transformatie. Dichtheid en dekking verbeteren elke maand." },
+      { "when": "Maand 12–18", "title": "Eindresultaat", "desc": "De definitieve dichtheid en textuur worden beoordeeld. De 18-maanden schriftelijke groeigarantie dekt deze periode." }
+    ]
+  },
   "Departments": {
     "eyebrow": "Specialistische Afdelingen",
     "titlePre": "Leiders in",

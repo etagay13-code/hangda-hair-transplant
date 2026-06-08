@@ -1,24 +1,21 @@
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { blockField, getPageBlock } from '@/lib/page-blocks';
 
-const STAGES = [
-  { when: 'Day 0–3', title: 'Surgery & rest', desc: 'Procedure day plus two recovery days. Mild swelling peaks then subsides.' },
-  { when: 'Day 4–10', title: 'Wash protocol', desc: 'Specific foam wash protocol starts day 4. Scabs naturally exfoliate over the following week.' },
-  { when: 'Week 2–8', title: 'Shock loss', desc: 'Temporary shedding of transplanted hairs — completely normal, follicles remain alive beneath the skin.' },
-  { when: 'Month 3–6', title: 'Regrowth begins', desc: 'New growth pushes through and starts to thicken and darken over the following months.' },
-  { when: 'Month 6–12', title: 'Dramatic change', desc: 'Most of the visible transformation. Density and coverage continue to improve every month.' },
-  { when: 'Month 12–18', title: 'Final result', desc: 'Final density and texture are assessed. 18-month written growth guarantee covers this period.' },
-];
+interface Stage {
+  when: string;
+  title: string;
+  desc: string;
+}
 
 export async function RecoveryTimeline({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: 'Recovery' });
   const block = await getPageBlock('home', 'recovery', locale);
-  const eyebrow = blockField(block?.eyebrow, 'Recovery');
-  const title = blockField(block?.title, 'Your 18-month journey, mapped out');
-  const subtitle = blockField(
-    block?.subtitle,
-    'Hair restoration is a process. Here is exactly what happens, when — so you can plan around it with confidence.'
-  );
+  const eyebrow = blockField(block?.eyebrow, t('eyebrow'));
+  const title = blockField(block?.title, t('title'));
+  const subtitle = blockField(block?.subtitle, t('subtitle'));
+  const stages = t.raw('stages') as Stage[];
   const image = blockField(
     block?.image_url,
     'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80'
@@ -57,15 +54,15 @@ export async function RecoveryTimeline({ locale }: { locale: string }) {
 
               <div className="absolute -bottom-6 -right-4 rotate-[3deg] rounded-2xl bg-[var(--color-primary-darker)] px-5 py-4 text-white shadow-xl">
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-                  Guarantee
+                  {t('guaranteeLabel')}
                 </p>
-                <p className="mt-1 text-xl font-bold">18 months</p>
+                <p className="mt-1 text-xl font-bold">{t('guaranteeValue')}</p>
               </div>
             </div>
           </RevealOnScroll>
 
           <ol className="space-y-5 lg:col-span-7">
-            {STAGES.map((stage, i) => (
+            {stages.map((stage, i) => (
               <RevealOnScroll
                 key={stage.when}
                 delay={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}

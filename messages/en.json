@@ -187,6 +187,39 @@
     "unauthorized": "You are not authorized",
     "rateLimit": "Too many requests. Please wait a moment."
   },
+  "Included": {
+    "eyebrow": "What is included",
+    "title": "One transparent price. No surprises.",
+    "subtitle": "The number on your written quote is the number you pay — and it covers everything from your first consultation to your last follow-up appointment, eighteen months later.",
+    "floatEyebrow": "Free consultation",
+    "floatTitle": "Personalised quote, valid 30 days",
+    "items": [
+      { "icon": "👨‍⚕️", "title": "Free surgeon consultation", "desc": "In-person or video assessment with the lead surgeon, including hairline design." },
+      { "icon": "🩺", "title": "Pre-op blood tests", "desc": "Full preoperative workup at our Den Haag clinic." },
+      { "icon": "✂️", "title": "The full procedure", "desc": "Sapphire FUE or DHI with the senior surgical team — local anaesthesia, all instruments." },
+      { "icon": "🌿", "title": "PRP support session", "desc": "A PRP injection at the end of your procedure to accelerate follicle activation." },
+      { "icon": "💊", "title": "All medications & kit", "desc": "Pain relief, antibiotics, post-op shampoo, lotion, headband, neck pillow." },
+      { "icon": "🧼", "title": "First clinical wash", "desc": "Hands-on first wash next day with your nurse, plus your written recovery briefing." },
+      { "icon": "🌍", "title": "Multilingual care", "desc": "Nederlands · English · Türkçe · Deutsch · العربية — coordinator with you throughout." },
+      { "icon": "🛡️", "title": "18-month written guarantee", "desc": "If transplanted follicles do not yield, we re-implant at no surgical cost." },
+      { "icon": "📅", "title": "Lifetime follow-up", "desc": "Scheduled at 3, 6, 12 and 18 months — and reachable for life after." }
+    ]
+  },
+  "Recovery": {
+    "eyebrow": "Recovery",
+    "title": "Your 18-month journey, mapped out",
+    "subtitle": "Hair restoration is a process. Here is exactly what happens, when — so you can plan around it with confidence.",
+    "guaranteeLabel": "Guarantee",
+    "guaranteeValue": "18 months",
+    "stages": [
+      { "when": "Day 0–3", "title": "Surgery & rest", "desc": "Procedure day plus two recovery days. Mild swelling peaks then subsides." },
+      { "when": "Day 4–10", "title": "Wash protocol", "desc": "Specific foam wash protocol starts day 4. Scabs naturally exfoliate over the following week." },
+      { "when": "Week 2–8", "title": "Shock loss", "desc": "Temporary shedding of transplanted hairs — completely normal, follicles remain alive beneath the skin." },
+      { "when": "Month 3–6", "title": "Regrowth begins", "desc": "New growth pushes through and starts to thicken and darken over the following months." },
+      { "when": "Month 6–12", "title": "Dramatic change", "desc": "Most of the visible transformation. Density and coverage continue to improve every month." },
+      { "when": "Month 12–18", "title": "Final result", "desc": "Final density and texture are assessed. 18-month written growth guarantee covers this period." }
+    ]
+  },
   "Departments": {
     "eyebrow": "Specialty Departments",
     "titlePre": "Leaders in",
