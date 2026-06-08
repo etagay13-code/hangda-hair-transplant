@@ -133,15 +133,8 @@ export function Departments({ locale }: { locale: string }) {
                       {dept.icon}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="flex items-center gap-1.5">
-                        <span className="text-sm font-semibold text-[var(--color-primary-darker)] truncate">
-                          {t(`${dept.key}.title`)}
-                        </span>
-                        {dept.badge && (
-                          <span className="rounded-full bg-[var(--color-primary)] px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white">
-                            {t(`${dept.key}.badge`)}
-                          </span>
-                        )}
+                      <span className="block text-sm font-semibold text-[var(--color-primary-darker)] truncate">
+                        {t(`${dept.key}.title`)}
                       </span>
                       <span className="block text-xs text-slate-500 truncate">
                         {t(`${dept.key}.navSub`)}
