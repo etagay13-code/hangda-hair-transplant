@@ -35,6 +35,7 @@ const NAV: NavGroup[] = [
     items: [
       { href: '/admin/services', label: 'Services' },
       { href: '/admin/gallery', label: 'Gallery' },
+      { href: '/admin/media', label: 'Media Library' },
       { href: '/admin/blog', label: 'Blog Posts' },
       { href: '/admin/team', label: 'Team Members' },
       { href: '/admin/testimonials', label: 'Testimonials' },
@@ -65,8 +66,8 @@ export default async function ProtectedAdminLayout({
   if (!user) redirect('/admin/login');
 
   return (
-    <div className="min-h-screen flex bg-slate-50">
-      <aside className="hidden w-64 flex-col bg-[var(--color-primary-darker)] text-slate-100 md:flex">
+    <div className="flex bg-slate-50">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col bg-[var(--color-primary-darker)] text-slate-100 md:flex">
         <div className="border-b border-slate-700/60 px-6 py-5">
           <p className="text-xs uppercase tracking-widest text-[var(--color-primary)]">MyHaar</p>
           <h1 className="text-lg font-semibold">Admin Console</h1>
@@ -101,7 +102,7 @@ export default async function ProtectedAdminLayout({
           </button>
         </form>
       </aside>
-      <main className="min-w-0 flex-1">
+      <main className="min-h-screen min-w-0 flex-1">
         <div className="mx-auto max-w-7xl px-6 py-8 sm:px-10">{children}</div>
       </main>
     </div>

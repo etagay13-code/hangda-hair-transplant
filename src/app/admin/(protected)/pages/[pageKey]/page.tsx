@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { AdminTopbar, LocaleSwitcherTabs } from '@/components/admin/AdminTopbar';
 import { DeleteButton } from '@/components/admin/DeleteButton';
+import { ImageUploadField } from '@/components/admin/ImageUploadField';
 import { updateBlock } from '../../page-blocks/actions';
 import {
   deleteCollectionItem,
@@ -282,11 +283,12 @@ function InlineBlockForm({
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field
-          label="Görsel URL"
+        <ImageUploadField
           name="image_url"
-          defaultValue={block.image_url ?? ''}
-          placeholder="https://..."
+          label="Görsel (yükle veya URL yapıştır)"
+          bucket="general"
+          folder={`page-blocks/${pageKey}/${block.section_key}`}
+          defaultUrl={block.image_url}
         />
         <Field
           label="CTA buton bağlantısı"
