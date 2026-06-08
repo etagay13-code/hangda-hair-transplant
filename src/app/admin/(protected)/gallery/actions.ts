@@ -22,26 +22,17 @@ function bool(v: FormDataEntryValue | null) {
 }
 
 function payload(form: FormData) {
-  // The form has two modes:
-  // 1. Default — a single 'image_url' field (the combined before/after image).
-  //    We write it to BOTH before_image_url and after_image_url so the public
-  //    render falls into Gallery's "combined" branch (single image card).
-  // 2. Advanced details — explicit 'before_image_url_explicit' and
-  //    'after_image_url_explicit'. If either is provided, they take precedence
-  //    over the single field.
-  const singleImage = nullable(form.get('image_url'));
-  const explicitBefore = nullable(form.get('before_image_url_explicit'));
-  const explicitAfter = nullable(form.get('after_image_url_explicit'));
-  const before = explicitBefore ?? singleImage;
-  const after = explicitAfter ?? singleImage;
+  // Each gallery item is a single composite image (before+after baked
+  // together). We store it in before_image_url and leave after_image_url
+  // NULL so the public renderers all show a single image card.
   return {
     patient_code: nullable(form.get('patient_code')),
     category: str(form.get('category')) || 'hair',
     technique: nullable(form.get('technique')),
     grafts: int(form.get('grafts')),
     months_after: int(form.get('months_after')),
-    before_image_url: before,
-    after_image_url: after,
+    before_image_url: nullable(form.get('image_url')),
+    after_image_url: null,
     description: nullable(form.get('description')),
     locale: str(form.get('locale')) || 'en',
     is_active: bool(form.get('is_active')),

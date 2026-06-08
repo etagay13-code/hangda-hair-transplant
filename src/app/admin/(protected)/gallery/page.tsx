@@ -37,19 +37,19 @@ export default async function GalleryAdminPage() {
             };
             return (
               <div key={g.id} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-                <div className="grid grid-cols-2">
-                  {[g.before_image_url, g.after_image_url].map((u, i) => (
-                    <div key={i} className="relative aspect-square bg-slate-100">
-                      {u ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={u} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                      ) : (
-                        <div className="grid h-full place-items-center text-xs text-slate-400">
-                          {i === 0 ? 'Before' : 'After'}
-                        </div>
-                      )}
+                <div className="relative aspect-[4/3] bg-slate-100">
+                  {g.before_image_url || g.after_image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={(g.before_image_url || g.after_image_url) as string}
+                      alt={g.patient_code ?? ''}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="grid h-full place-items-center text-xs text-slate-400">
+                      Görsel yok
                     </div>
-                  ))}
+                  )}
                 </div>
                 <div className="space-y-1 px-4 py-3 text-sm">
                   <div className="flex items-center justify-between">

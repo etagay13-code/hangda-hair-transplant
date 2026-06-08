@@ -92,10 +92,10 @@ export default async function EditServicePage({ params }: Props) {
               };
               return (
                 <li key={g.id} className="flex items-center gap-4 p-3">
-                  {g.after_image_url ? (
+                  {(g.before_image_url || g.after_image_url) ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      src={g.after_image_url}
+                      src={(g.before_image_url || g.after_image_url) as string}
                       alt={g.patient_code ?? ''}
                       className="h-14 w-20 shrink-0 rounded-md object-cover ring-1 ring-slate-200"
                     />

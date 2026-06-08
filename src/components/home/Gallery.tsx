@@ -67,26 +67,24 @@ function GalleryCard({
   graftsLabel: string;
   monthsLabel: string;
 }) {
-  const isCombined =
-    !!item.before_image_url &&
-    item.before_image_url === item.after_image_url;
-
+  // Cases ship as single composite images (before+after baked into one
+  // file). Pick whichever URL field is set.
+  const imageUrl = item.before_image_url || item.after_image_url;
   return (
     <figure className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100">
-      {isCombined ? (
+      {imageUrl ? (
         <div className="relative aspect-[4/5] bg-slate-100">
           <Image
-            src={item.before_image_url!}
-            alt={`${beforeLabel} / ${afterLabel}`}
+            src={imageUrl}
+            alt={item.patient_code || `${beforeLabel} / ${afterLabel}`}
             fill
             sizes="(min-width: 1024px) 400px, 50vw"
             className="object-cover"
           />
         </div>
       ) : (
-        <div className="grid grid-cols-2">
-          <SingleImage url={item.before_image_url} label={beforeLabel} />
-          <SingleImage url={item.after_image_url} label={afterLabel} />
+        <div className="grid aspect-[4/5] place-items-center bg-slate-100 text-xs text-slate-400">
+          —
         </div>
       )}
       <figcaption className="space-y-2 p-5">
@@ -116,25 +114,3 @@ function GalleryCard({
   );
 }
 
-function SingleImage({ url, label }: { url: string | null; label: string }) {
-  return (
-    <div className="relative aspect-square bg-slate-100">
-      {url ? (
-        <Image
-          src={url}
-          alt={label}
-          fill
-          sizes="(min-width: 1024px) 200px, 50vw"
-          className="object-cover"
-        />
-      ) : (
-        <div className="flex h-full w-full items-center justify-center text-xs text-slate-400">
-          {label}
-        </div>
-      )}
-      <span className="absolute left-2 top-2 rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-white">
-        {label}
-      </span>
-    </div>
-  );
-}
