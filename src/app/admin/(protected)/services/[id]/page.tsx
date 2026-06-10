@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { Image as ImageIcon } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { ServiceForm } from '../ServiceForm';
@@ -51,8 +52,9 @@ export default async function EditServicePage({ params }: Props) {
       <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-slate-900">
-              🖼 Bu hizmetin Öncesi / Sonrası vakaları
+            <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+              <ImageIcon size={20} strokeWidth={1.8} className="text-[var(--color-primary-darker)]" />
+              <span>Bu hizmetin Öncesi / Sonrası vakaları</span>
             </h2>
             <p className="mt-1 text-sm text-slate-500">
               Yalnızca <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs">{service.slug}</code>{' '}
@@ -100,8 +102,8 @@ export default async function EditServicePage({ params }: Props) {
                       className="h-14 w-20 shrink-0 rounded-md object-cover ring-1 ring-slate-200"
                     />
                   ) : (
-                    <div className="grid h-14 w-20 shrink-0 place-items-center rounded-md bg-slate-100 text-xl text-slate-400">
-                      🖼
+                    <div className="grid h-14 w-20 shrink-0 place-items-center rounded-md bg-slate-100 text-slate-400">
+                      <ImageIcon size={20} strokeWidth={1.5} />
                     </div>
                   )}
                   <div className="min-w-0 flex-1">

@@ -1,3 +1,4 @@
+import { BarChart3, Search, Flame, Settings } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { AdminTopbar } from '@/components/admin/AdminTopbar';
@@ -137,8 +138,9 @@ export default async function IntegrationsPage() {
         <form action={saveIntegrations} className="mt-8 space-y-6">
           <section className="admin-card overflow-hidden">
             <header className="border-b border-slate-800 bg-slate-900/40 px-6 py-4">
-              <h2 className="text-lg font-semibold text-white">
-                📊 Analytics & Pazarlama Tag&apos;leri
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
+                <BarChart3 size={20} strokeWidth={1.8} className="text-[var(--color-primary)]" />
+                <span>Analytics & Pazarlama Tag&apos;leri</span>
               </h2>
               <p className="mt-0.5 text-xs text-slate-400">
                 ID girip kaydedin — script otomatik enjekte edilir.
@@ -153,8 +155,9 @@ export default async function IntegrationsPage() {
 
           <section className="admin-card overflow-hidden">
             <header className="border-b border-slate-800 bg-slate-900/40 px-6 py-4">
-              <h2 className="text-lg font-semibold text-white">
-                🔎 Arama Motoru Doğrulamaları
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
+                <Search size={20} strokeWidth={1.8} className="text-[var(--color-primary)]" />
+                <span>Arama Motoru Doğrulamaları</span>
               </h2>
               <p className="mt-0.5 text-xs text-slate-400">
                 Search Console / Bing / Yandex için meta tag içerikleri.
@@ -169,8 +172,9 @@ export default async function IntegrationsPage() {
 
           <section className="admin-card overflow-hidden">
             <header className="border-b border-slate-800 bg-slate-900/40 px-6 py-4">
-              <h2 className="text-lg font-semibold text-white">
-                🔥 Davranış Analizi
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
+                <Flame size={20} strokeWidth={1.8} className="text-[var(--color-primary)]" />
+                <span>Davranış Analizi</span>
               </h2>
               <p className="mt-0.5 text-xs text-slate-400">
                 Ziyaretçi davranışını izleyen araçlar.
@@ -185,8 +189,9 @@ export default async function IntegrationsPage() {
 
           <section className="admin-card overflow-hidden">
             <header className="border-b border-slate-800 bg-slate-900/40 px-6 py-4">
-              <h2 className="text-lg font-semibold text-white">
-                ⚙️ Özel HTML / Script Enjeksiyonu
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
+                <Settings size={20} strokeWidth={1.8} className="text-[var(--color-primary)]" />
+                <span>Özel HTML / Script Enjeksiyonu</span>
               </h2>
               <p className="mt-0.5 text-xs text-slate-400">
                 Yukarıdaki seçenekler ihtiyacınızı karşılamıyorsa, buraya

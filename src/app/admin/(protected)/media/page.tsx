@@ -1,4 +1,11 @@
 import Link from 'next/link';
+import {
+  FolderOpen,
+  Image as ImageIcon,
+  PenLine,
+  Users,
+  type LucideIcon,
+} from 'lucide-react';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { AdminTopbar } from '@/components/admin/AdminTopbar';
 import { MediaCard } from '@/components/admin/MediaCard';
@@ -9,11 +16,11 @@ import type { StorageBucket } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-const BUCKETS: { key: StorageBucket; label: string; icon: string }[] = [
-  { key: 'general', label: 'Genel', icon: '📁' },
-  { key: 'gallery', label: 'Galeri', icon: '🖼' },
-  { key: 'blog', label: 'Blog', icon: '✍️' },
-  { key: 'team', label: 'Ekip', icon: '👥' },
+const BUCKETS: { key: StorageBucket; label: string; Icon: LucideIcon }[] = [
+  { key: 'general', label: 'Genel', Icon: FolderOpen },
+  { key: 'gallery', label: 'Galeri', Icon: ImageIcon },
+  { key: 'blog', label: 'Blog', Icon: PenLine },
+  { key: 'team', label: 'Ekip', Icon: Users },
 ];
 
 interface FileEntry {
@@ -101,7 +108,7 @@ export default async function MediaPage({ searchParams }: Props) {
                       : 'border border-slate-300 bg-white text-slate-600 hover:border-[var(--color-primary)]'
                   }`}
                 >
-                  <span>{b.icon}</span>
+                  <b.Icon size={14} strokeWidth={1.8} />
                   <span>{b.label}</span>
                 </Link>
               );

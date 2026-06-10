@@ -248,7 +248,7 @@ function HeroExtras({ defaults }: { defaults: HeroExtra | null }) {
 
       <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
         <h4 className="text-sm font-bold text-[var(--color-primary-darker)]">
-          📊 İstatistik şeridi
+          İstatistik şeridi
         </h4>
         <p className="mt-1 text-xs text-slate-600">
           Hero altındaki 4 istatistik kutusu. Etiket boş bırakırsanız veya "Göster" kapalıysa o sütun gizlenir. Değer alanına <code className="rounded bg-white px-1 py-0.5 font-mono text-[11px]">15K+</code> / <code className="rounded bg-white px-1 py-0.5 font-mono text-[11px]">98%</code> gibi yazın; rakam kısmı say-sayım animasyonu ile çıkar.
@@ -286,7 +286,7 @@ function HeroExtras({ defaults }: { defaults: HeroExtra | null }) {
 
       <BadgeEditor
         prefix="badgeTopLeft"
-        title="🎖 Sol üst rozet (görselin üstünde)"
+        title="Sol üst rozet (görselin üstünde)"
         defaults={badgeTL}
         labelExample="Success rate"
         valueExample="98%"
@@ -294,7 +294,7 @@ function HeroExtras({ defaults }: { defaults: HeroExtra | null }) {
 
       <BadgeEditor
         prefix="badgeBottomRight"
-        title="🛡 Sağ alt rozet (görselin üstünde)"
+        title="Sağ alt rozet (görselin üstünde)"
         defaults={badgeBR}
         labelExample="Written guarantee"
         valueExample="18 mo."

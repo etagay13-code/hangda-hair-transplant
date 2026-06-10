@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Upload } from 'lucide-react';
 import type { StorageBucket } from '@/types';
 
 interface Props {
@@ -101,7 +102,7 @@ export function ImageUploadField({
                 : 'border-slate-300 bg-slate-50 text-slate-600 hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)]/5'
             }`}
           >
-            <span>📤</span>
+            <Upload size={14} strokeWidth={1.8} />
             <span>
               {uploading ? 'Yükleniyor...' : 'Dosya seç (veya buraya tıkla)'}
             </span>

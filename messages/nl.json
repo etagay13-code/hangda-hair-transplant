@@ -194,15 +194,15 @@
     "floatEyebrow": "Gratis consult",
     "floatTitle": "Persoonlijke offerte, 30 dagen geldig",
     "items": [
-      { "icon": "👨‍⚕️", "title": "Gratis chirurg consult", "desc": "Persoonlijk of via video met de hoofdchirurg, inclusief haarlijnontwerp." },
-      { "icon": "🩺", "title": "Preoperatief bloedonderzoek", "desc": "Volledige preoperatieve evaluatie in onze Den Haag-kliniek." },
-      { "icon": "✂️", "title": "De volledige ingreep", "desc": "Sapphire FUE of DHI met het hoofdchirurgenteam — lokale verdoving, alle instrumenten." },
-      { "icon": "🌿", "title": "PRP-ondersteuningssessie", "desc": "Een PRP-injectie aan het einde van uw ingreep om follikelactivering te versnellen." },
-      { "icon": "💊", "title": "Alle medicatie & kit", "desc": "Pijnstillers, antibiotica, postoperatieve shampoo, lotion, hoofdband, nekkussen." },
-      { "icon": "🧼", "title": "Eerste klinische wassing", "desc": "Persoonlijke eerste wassing de volgende dag met uw verpleegkundige + schriftelijke hersteluitleg." },
-      { "icon": "🌍", "title": "Meertalige zorg", "desc": "Nederlands · English · Türkçe · Deutsch · العربية — coördinator altijd aan uw zijde." },
-      { "icon": "🛡️", "title": "18 maanden schriftelijke garantie", "desc": "Als getransplanteerde follikels niet aanslaan, herimplanteren wij zonder chirurgische kosten." },
-      { "icon": "📅", "title": "Levenslange follow-up", "desc": "Gepland op 3, 6, 12 en 18 maanden — en daarna levenslang bereikbaar." }
+      { "icon": "stethoscope", "title": "Gratis chirurg consult", "desc": "Persoonlijk of via video met de hoofdchirurg, inclusief haarlijnontwerp." },
+      { "icon": "flask", "title": "Preoperatief bloedonderzoek", "desc": "Volledige preoperatieve evaluatie in onze Den Haag-kliniek." },
+      { "icon": "scissors", "title": "De volledige ingreep", "desc": "Sapphire FUE of DHI met het hoofdchirurgenteam — lokale verdoving, alle instrumenten." },
+      { "icon": "syringe", "title": "PRP-ondersteuningssessie", "desc": "Een PRP-injectie aan het einde van uw ingreep om follikelactivering te versnellen." },
+      { "icon": "pill", "title": "Alle medicatie & kit", "desc": "Pijnstillers, antibiotica, postoperatieve shampoo, lotion, hoofdband, nekkussen." },
+      { "icon": "spray-can", "title": "Eerste klinische wassing", "desc": "Persoonlijke eerste wassing de volgende dag met uw verpleegkundige + schriftelijke hersteluitleg." },
+      { "icon": "globe", "title": "Meertalige zorg", "desc": "Nederlands · English · Türkçe · Deutsch · العربية — coördinator altijd aan uw zijde." },
+      { "icon": "shield-check", "title": "18 maanden schriftelijke garantie", "desc": "Als getransplanteerde follikels niet aanslaan, herimplanteren wij zonder chirurgische kosten." },
+      { "icon": "calendar-check", "title": "Levenslange follow-up", "desc": "Gepland op 3, 6, 12 en 18 maanden — en daarna levenslang bereikbaar." }
     ]
   },
   "Recovery": {

@@ -1,3 +1,4 @@
+import { Settings } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { AdminTopbar } from '@/components/admin/AdminTopbar';
@@ -88,10 +89,10 @@ const TEXT_FIELDS: Array<{
       tr: 'Size özel paketi alın',
     },
   },
-  { key: 'popup_card_1', label: '1. paket kartı (📋 plan)' },
-  { key: 'popup_card_2', label: '2. paket kartı (🏥 klinik)' },
-  { key: 'popup_card_3', label: '3. paket kartı (💬 konsültasyon)' },
-  { key: 'popup_card_4', label: '4. paket kartı (🛡 garanti)' },
+  { key: 'popup_card_1', label: '1. paket kartı (plan)' },
+  { key: 'popup_card_2', label: '2. paket kartı (klinik)' },
+  { key: 'popup_card_3', label: '3. paket kartı (konsültasyon)' },
+  { key: 'popup_card_4', label: '4. paket kartı (garanti)' },
   {
     key: 'popup_whatsapp_message',
     label: 'WhatsApp ön-mesaj',
@@ -130,7 +131,10 @@ export default async function PopupAdminPage() {
           {/* MASTER */}
           <section className="admin-card overflow-hidden">
             <header className="border-b border-slate-800 bg-slate-900/40 px-6 py-4">
-              <h2 className="text-lg font-semibold text-white">⚙️ Pop-up Genel Ayarlar</h2>
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
+                <Settings size={20} strokeWidth={1.8} className="text-[var(--color-primary)]" />
+                <span>Pop-up Genel Ayarlar</span>
+              </h2>
             </header>
             <div className="space-y-5 p-6">
               <label className="flex cursor-pointer items-start gap-3">

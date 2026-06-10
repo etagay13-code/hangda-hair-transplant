@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Upload, FolderOpen } from 'lucide-react';
 import type { StorageBucket } from '@/types';
 
 interface Props {
@@ -46,7 +47,10 @@ export function MediaUploader({ defaultBucket = 'general' }: Props) {
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-base font-semibold text-slate-900">📤 Medya Yükle</h2>
+          <h2 className="flex items-center gap-2 text-base font-semibold text-slate-900">
+            <Upload size={18} strokeWidth={1.8} className="text-[var(--color-primary-darker)]" />
+            <span>Medya Yükle</span>
+          </h2>
           <p className="mt-0.5 text-xs text-slate-500">
             JPG, PNG, WebP, AVIF, GIF · max 10 MB · birden fazla dosya seçilebilir
           </p>
@@ -68,7 +72,7 @@ export function MediaUploader({ defaultBucket = 'general' }: Props) {
       </div>
 
       <label className="mt-4 flex cursor-pointer items-center justify-center gap-3 rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-sm text-slate-600 transition hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)]/5">
-        <span className="text-2xl">📁</span>
+        <FolderOpen size={26} strokeWidth={1.5} className="text-slate-400" />
         <span>
           {uploading
             ? progress ?? 'Yükleniyor...'

@@ -194,15 +194,15 @@
     "floatEyebrow": "Free consultation",
     "floatTitle": "Personalised quote, valid 30 days",
     "items": [
-      { "icon": "👨‍⚕️", "title": "Free surgeon consultation", "desc": "In-person or video assessment with the lead surgeon, including hairline design." },
-      { "icon": "🩺", "title": "Pre-op blood tests", "desc": "Full preoperative workup at our Den Haag clinic." },
-      { "icon": "✂️", "title": "The full procedure", "desc": "Sapphire FUE or DHI with the senior surgical team — local anaesthesia, all instruments." },
-      { "icon": "🌿", "title": "PRP support session", "desc": "A PRP injection at the end of your procedure to accelerate follicle activation." },
-      { "icon": "💊", "title": "All medications & kit", "desc": "Pain relief, antibiotics, post-op shampoo, lotion, headband, neck pillow." },
-      { "icon": "🧼", "title": "First clinical wash", "desc": "Hands-on first wash next day with your nurse, plus your written recovery briefing." },
-      { "icon": "🌍", "title": "Multilingual care", "desc": "Nederlands · English · Türkçe · Deutsch · العربية — coordinator with you throughout." },
-      { "icon": "🛡️", "title": "18-month written guarantee", "desc": "If transplanted follicles do not yield, we re-implant at no surgical cost." },
-      { "icon": "📅", "title": "Lifetime follow-up", "desc": "Scheduled at 3, 6, 12 and 18 months — and reachable for life after." }
+      { "icon": "stethoscope", "title": "Free surgeon consultation", "desc": "In-person or video assessment with the lead surgeon, including hairline design." },
+      { "icon": "flask", "title": "Pre-op blood tests", "desc": "Full preoperative workup at our Den Haag clinic." },
+      { "icon": "scissors", "title": "The full procedure", "desc": "Sapphire FUE or DHI with the senior surgical team — local anaesthesia, all instruments." },
+      { "icon": "syringe", "title": "PRP support session", "desc": "A PRP injection at the end of your procedure to accelerate follicle activation." },
+      { "icon": "pill", "title": "All medications & kit", "desc": "Pain relief, antibiotics, post-op shampoo, lotion, headband, neck pillow." },
+      { "icon": "spray-can", "title": "First clinical wash", "desc": "Hands-on first wash next day with your nurse, plus your written recovery briefing." },
+      { "icon": "globe", "title": "Multilingual care", "desc": "Nederlands · English · Türkçe · Deutsch · العربية — coordinator with you throughout." },
+      { "icon": "shield-check", "title": "18-month written guarantee", "desc": "If transplanted follicles do not yield, we re-implant at no surgical cost." },
+      { "icon": "calendar-check", "title": "Lifetime follow-up", "desc": "Scheduled at 3, 6, 12 and 18 months — and reachable for life after." }
     ]
   },
   "Recovery": {

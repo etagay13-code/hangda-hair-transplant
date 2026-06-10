@@ -194,15 +194,15 @@
     "floatEyebrow": "Ücretsiz Konsültasyon",
     "floatTitle": "Kişiselleştirilmiş teklif, 30 gün geçerli",
     "items": [
-      { "icon": "👨‍⚕️", "title": "Ücretsiz cerrah konsültasyonu", "desc": "Lider cerrahla yüz yüze veya video görüşmesi — saç çizgisi tasarımı dahil." },
-      { "icon": "🩺", "title": "Ameliyat öncesi kan testleri", "desc": "Den Haag kliniğimizde tam preoperatif değerlendirme." },
-      { "icon": "✂️", "title": "Tam işlem", "desc": "Lider cerrahi ekipten Sapphire FUE veya DHI — lokal anestezi, tüm araç gereç dahil." },
-      { "icon": "🌿", "title": "PRP destek seansı", "desc": "İşleminizin sonunda folikül aktivasyonunu hızlandıracak PRP enjeksiyonu." },
-      { "icon": "💊", "title": "Tüm ilaçlar & kit", "desc": "Ağrı kesici, antibiyotik, ameliyat sonrası şampuan, losyon, bant, boyun yastığı." },
-      { "icon": "🧼", "title": "İlk klinik yıkama", "desc": "Ertesi gün hemşirenizle birlikte ilk yıkama + yazılı iyileşme rehberiniz." },
-      { "icon": "🌍", "title": "Çok dilli bakım", "desc": "Nederlands · English · Türkçe · Deutsch · العربية — koordinatör süreç boyunca yanınızda." },
-      { "icon": "🛡️", "title": "18 ay yazılı garanti", "desc": "Ekilen foliküller tutmazsa, cerrahi ücret almadan yeniden ekiyoruz." },
-      { "icon": "📅", "title": "Ömür boyu takip", "desc": "3, 6, 12 ve 18. ayda planlı kontroller — ve sonrasında ömür boyu ulaşılabiliriz." }
+      { "icon": "stethoscope", "title": "Ücretsiz cerrah konsültasyonu", "desc": "Lider cerrahla yüz yüze veya video görüşmesi — saç çizgisi tasarımı dahil." },
+      { "icon": "flask", "title": "Ameliyat öncesi kan testleri", "desc": "Den Haag kliniğimizde tam preoperatif değerlendirme." },
+      { "icon": "scissors", "title": "Tam işlem", "desc": "Lider cerrahi ekipten Sapphire FUE veya DHI — lokal anestezi, tüm araç gereç dahil." },
+      { "icon": "syringe", "title": "PRP destek seansı", "desc": "İşleminizin sonunda folikül aktivasyonunu hızlandıracak PRP enjeksiyonu." },
+      { "icon": "pill", "title": "Tüm ilaçlar & kit", "desc": "Ağrı kesici, antibiyotik, ameliyat sonrası şampuan, losyon, bant, boyun yastığı." },
+      { "icon": "spray-can", "title": "İlk klinik yıkama", "desc": "Ertesi gün hemşirenizle birlikte ilk yıkama + yazılı iyileşme rehberiniz." },
+      { "icon": "globe", "title": "Çok dilli bakım", "desc": "Nederlands · English · Türkçe · Deutsch · العربية — koordinatör süreç boyunca yanınızda." },
+      { "icon": "shield-check", "title": "18 ay yazılı garanti", "desc": "Ekilen foliküller tutmazsa, cerrahi ücret almadan yeniden ekiyoruz." },
+      { "icon": "calendar-check", "title": "Ömür boyu takip", "desc": "3, 6, 12 ve 18. ayda planlı kontroller — ve sonrasında ömür boyu ulaşılabiliriz." }
     ]
   },
   "Recovery": {

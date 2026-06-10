@@ -2,6 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { useLocale } from 'next-intl';
+import {
+  X,
+  Check,
+  ClipboardList,
+  Building2,
+  MessageCircle,
+  ShieldCheck,
+} from 'lucide-react';
 import { gaEvent, pushDataLayer } from '@/lib/analytics';
 
 export interface PopupCopy {
@@ -92,9 +100,7 @@ export function CampaignPopup({
           aria-label={copy.closeLabel}
           className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-white text-slate-700 shadow-md ring-1 ring-slate-200 transition hover:bg-slate-50 hover:text-black"
         >
-          <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round">
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
+          <X size={16} strokeWidth={2.5} />
         </button>
 
         <div className="flex flex-col justify-center gap-6 bg-white p-6 sm:p-8 lg:p-10">
@@ -135,10 +141,10 @@ export function CampaignPopup({
             {copy.rightTitle}
           </h3>
           <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4">
-            <PackageCard icon={<PlanIcon />} label={copy.card1} />
-            <PackageCard icon={<ClinicIcon />} label={copy.card2} />
-            <PackageCard icon={<ConsultIcon />} label={copy.card3} />
-            <PackageCard icon={<GuaranteeIcon />} label={copy.card4} />
+            <PackageCard icon={<ClipboardList size={22} strokeWidth={1.8} />} label={copy.card1} />
+            <PackageCard icon={<Building2 size={22} strokeWidth={1.8} />} label={copy.card2} />
+            <PackageCard icon={<MessageCircle size={22} strokeWidth={1.8} />} label={copy.card3} />
+            <PackageCard icon={<ShieldCheck size={22} strokeWidth={1.8} />} label={copy.card4} />
           </div>
         </div>
       </div>
@@ -149,9 +155,7 @@ export function CampaignPopup({
 function CheckBadge() {
   return (
     <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[var(--color-primary)] text-white shadow">
-      <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M5 13l4 4 10-10" />
-      </svg>
+      <Check size={14} strokeWidth={3} />
     </span>
   );
 }
@@ -169,40 +173,3 @@ function PackageCard({ icon, label }: { icon: React.ReactNode; label: string }) 
   );
 }
 
-function PlanIcon() {
-  return (
-    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-      <rect x={4} y={4} width={16} height={18} rx={2} />
-      <path d="M9 2h6a1 1 0 0 1 1 1v2H8V3a1 1 0 0 1 1-1z" />
-      <path d="M9 13l2 2 4-4" />
-      <path d="M9 18h6" />
-    </svg>
-  );
-}
-
-function ClinicIcon() {
-  return (
-    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 22V8l9-6 9 6v14" />
-      <path d="M9 22v-6h6v6" />
-      <path d="M12 11v4M10 13h4" />
-    </svg>
-  );
-}
-
-function ConsultIcon() {
-  return (
-    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z" />
-    </svg>
-  );
-}
-
-function GuaranteeIcon() {
-  return (
-    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="M9 12l2 2 4-4" />
-    </svg>
-  );
-}

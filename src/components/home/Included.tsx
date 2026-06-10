@@ -1,5 +1,18 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+import {
+  Stethoscope,
+  FlaskConical,
+  Scissors,
+  Syringe,
+  Pill,
+  SprayCan,
+  Globe,
+  ShieldCheck,
+  CalendarCheck,
+  Sparkles,
+  type LucideIcon,
+} from 'lucide-react';
 import { RevealOnScroll } from '@/components/ui/RevealOnScroll';
 import { blockField, getPageBlock } from '@/lib/page-blocks';
 
@@ -8,6 +21,18 @@ interface IncludedItem {
   title: string;
   desc: string;
 }
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  stethoscope: Stethoscope,
+  flask: FlaskConical,
+  scissors: Scissors,
+  syringe: Syringe,
+  pill: Pill,
+  'spray-can': SprayCan,
+  globe: Globe,
+  'shield-check': ShieldCheck,
+  'calendar-check': CalendarCheck,
+};
 
 export async function Included({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'Included' });
@@ -69,11 +94,13 @@ export async function Included({ locale }: { locale: string }) {
         </div>
 
         <ul className="space-y-5 lg:col-span-7">
-          {items.map((it, i) => (
+          {items.map((it, i) => {
+            const Icon = ICON_MAP[it.icon] ?? Sparkles;
+            return (
             <RevealOnScroll key={it.title} delay={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5} as="li">
               <div className="group flex items-start gap-5 rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-[var(--color-primary)] hover:shadow-md">
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[var(--color-primary)]/12 text-2xl transition group-hover:scale-110">
-                  {it.icon}
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[var(--color-primary)]/12 text-[var(--color-primary-darker)] transition group-hover:scale-110">
+                  <Icon size={22} strokeWidth={1.8} />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-base font-semibold text-[var(--color-primary-darker)]">
@@ -89,7 +116,8 @@ export async function Included({ locale }: { locale: string }) {
                 </span>
               </div>
             </RevealOnScroll>
-          ))}
+          );
+          })}
         </ul>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { ShieldCheck, FileText } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { AdminTopbar } from '@/components/admin/AdminTopbar';
@@ -35,7 +36,10 @@ export default async function FooterAdminPage() {
           {/* MASTER SECTION TOGGLE */}
           <section className="admin-card overflow-hidden">
             <header className="border-b border-slate-800 bg-slate-900/40 px-6 py-4">
-              <h2 className="text-lg font-semibold text-white">🎯 Güven Rozeti Bölümü</h2>
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
+                <ShieldCheck size={20} strokeWidth={1.8} className="text-[var(--color-primary)]" />
+                <span>Güven Rozeti Bölümü</span>
+              </h2>
               <p className="mt-0.5 text-xs text-slate-400">
                 Anasayfa ve Hakkımızda sayfasının altındaki koyu yeşil şerit.
               </p>
@@ -131,7 +135,10 @@ export default async function FooterAdminPage() {
           {/* FOOTER TAGLINE (per locale) */}
           <section className="admin-card overflow-hidden">
             <header className="border-b border-slate-800 bg-slate-900/40 px-6 py-4">
-              <h2 className="text-lg font-semibold text-white">📝 Footer altyazı (her dilde)</h2>
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
+                <FileText size={20} strokeWidth={1.8} className="text-[var(--color-primary)]" />
+                <span>Footer altyazı (her dilde)</span>
+              </h2>
               <p className="mt-0.5 text-xs text-slate-400">
                 Footer'ın sol kolonunda logonun altındaki tek satırlık tanıtım yazısı.
               </p>

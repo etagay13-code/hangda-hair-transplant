@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Home, Users, Stethoscope, Image as ImageIcon, PenLine, Mail, type LucideIcon } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { AdminTopbar } from '@/components/admin/AdminTopbar';
@@ -10,16 +11,16 @@ interface PageCard {
   title: string;
   description: string;
   liveHref: string;
-  icon: string;
+  Icon: LucideIcon;
 }
 
 const PAGES: PageCard[] = [
-  { key: 'home',     title: 'Ana Sayfa',      description: 'Hero, teknikler, hizmetler, süreç, galeri, paket, iyileşme, yorumlar, SSS, iletişim.', liveHref: '/', icon: '🏠' },
-  { key: 'about',    title: 'Hakkımızda',     description: 'Hikaye, misyon, değerler, zaman çizelgesi, akreditasyon, ekip, ekipman.', liveHref: '/about', icon: '👥' },
-  { key: 'services', title: 'Hizmetler',      description: 'Tedavi menüsü ana sayfası.', liveHref: '/services', icon: '⚕️' },
-  { key: 'gallery',  title: 'Öncesi & Sonrası', description: 'Galeri sayfasının hero metni.', liveHref: '/gallery', icon: '🖼' },
-  { key: 'blog',     title: 'Blog',           description: 'Blog ana sayfasının hero metni.', liveHref: '/blog', icon: '✍️' },
-  { key: 'contact',  title: 'İletişim',       description: 'İletişim sayfası hero ve form girişi.', liveHref: '/contact', icon: '✉️' },
+  { key: 'home',     title: 'Ana Sayfa',      description: 'Hero, teknikler, hizmetler, süreç, galeri, paket, iyileşme, yorumlar, SSS, iletişim.', liveHref: '/', Icon: Home },
+  { key: 'about',    title: 'Hakkımızda',     description: 'Hikaye, misyon, değerler, zaman çizelgesi, akreditasyon, ekip, ekipman.', liveHref: '/about', Icon: Users },
+  { key: 'services', title: 'Hizmetler',      description: 'Tedavi menüsü ana sayfası.', liveHref: '/services', Icon: Stethoscope },
+  { key: 'gallery',  title: 'Öncesi & Sonrası', description: 'Galeri sayfasının hero metni.', liveHref: '/gallery', Icon: ImageIcon },
+  { key: 'blog',     title: 'Blog',           description: 'Blog ana sayfasının hero metni.', liveHref: '/blog', Icon: PenLine },
+  { key: 'contact',  title: 'İletişim',       description: 'İletişim sayfası hero ve form girişi.', liveHref: '/contact', Icon: Mail },
 ];
 
 export default async function PagesIndex() {
@@ -57,8 +58,8 @@ export default async function PagesIndex() {
               >
                 <div className="border-b border-slate-800 bg-gradient-to-br from-slate-800/60 to-slate-900 px-5 py-5">
                   <div className="flex items-center justify-between">
-                    <span className="grid h-10 w-10 place-items-center rounded-lg bg-slate-700/60 text-xl">
-                      {page.icon}
+                    <span className="grid h-10 w-10 place-items-center rounded-lg bg-slate-700/60 text-[var(--color-primary)]">
+                      <page.Icon size={20} strokeWidth={1.8} />
                     </span>
                     <span className="admin-pill">
                       <span className="dot" /> Yayında

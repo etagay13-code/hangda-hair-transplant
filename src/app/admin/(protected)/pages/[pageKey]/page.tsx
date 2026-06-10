@@ -173,7 +173,7 @@ async function SectionCard({
               {pageKey} · {section.key}
             </p>
             <h2 className="mt-1 flex items-center gap-2 text-lg font-semibold text-white">
-              <span>{section.icon}</span>
+              <section.Icon size={18} strokeWidth={1.8} className="text-[var(--color-primary)]" />
               <span>{section.title}</span>
             </h2>
             <p className="mt-0.5 text-xs text-slate-400">{section.description}</p>
@@ -561,8 +561,8 @@ function CollectionRowItem({
           className="h-12 w-16 shrink-0 rounded-md object-cover ring-1 ring-slate-700"
         />
       ) : (
-        <div className="grid h-12 w-16 shrink-0 place-items-center rounded-md bg-slate-800 text-xl text-slate-600">
-          {section.icon}
+        <div className="grid h-12 w-16 shrink-0 place-items-center rounded-md bg-slate-800 text-slate-600">
+          <section.Icon size={20} strokeWidth={1.5} />
         </div>
       )}
 

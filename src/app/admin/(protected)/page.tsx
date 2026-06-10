@@ -1,4 +1,14 @@
 import Link from 'next/link';
+import {
+  Inbox,
+  Sparkles,
+  Stethoscope,
+  PenLine,
+  Image as ImageIcon,
+  Users,
+  Star,
+  type LucideIcon,
+} from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { PageHeader } from '@/components/admin/Toolbar';
 import { AdminTopbar } from '@/components/admin/AdminTopbar';
@@ -33,14 +43,20 @@ export default async function AdminDashboardPage() {
         .limit(6),
     ]);
 
-  const stats = [
-    { label: 'Toplam Talep', value: contactsTotal.count ?? 0, href: '/admin/contacts', icon: '📥' },
-    { label: 'Yeni Talep',   value: newContacts.count ?? 0,   href: '/admin/contacts?status=new', icon: '✨', accent: true },
-    { label: 'Hizmet',        value: services.count ?? 0,      href: '/admin/services', icon: '⚕️' },
-    { label: 'Blog Yazısı',   value: posts.count ?? 0,         href: '/admin/blog', icon: '✍️' },
-    { label: 'Galeri',        value: gallery.count ?? 0,       href: '/admin/gallery', icon: '🖼' },
-    { label: 'Ekip',          value: team.count ?? 0,          href: '/admin/team', icon: '👥' },
-    { label: 'Yorum',         value: testimonials.count ?? 0,  href: '/admin/testimonials', icon: '⭐' },
+  const stats: {
+    label: string;
+    value: number;
+    href: string;
+    Icon: LucideIcon;
+    accent?: boolean;
+  }[] = [
+    { label: 'Toplam Talep', value: contactsTotal.count ?? 0, href: '/admin/contacts', Icon: Inbox },
+    { label: 'Yeni Talep',   value: newContacts.count ?? 0,   href: '/admin/contacts?status=new', Icon: Sparkles, accent: true },
+    { label: 'Hizmet',        value: services.count ?? 0,      href: '/admin/services', Icon: Stethoscope },
+    { label: 'Blog Yazısı',   value: posts.count ?? 0,         href: '/admin/blog', Icon: PenLine },
+    { label: 'Galeri',        value: gallery.count ?? 0,       href: '/admin/gallery', Icon: ImageIcon },
+    { label: 'Ekip',          value: team.count ?? 0,          href: '/admin/team', Icon: Users },
+    { label: 'Yorum',         value: testimonials.count ?? 0,  href: '/admin/testimonials', Icon: Star },
   ];
 
   const recentRows = (recent.data ?? []) as Contact[];
@@ -64,8 +80,8 @@ export default async function AdminDashboardPage() {
               }`}
             >
               <div className="flex items-center justify-between">
-                <span className="grid h-8 w-8 place-items-center rounded-lg bg-slate-700/60 text-base">
-                  {s.icon}
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-slate-700/60 text-[var(--color-primary)]">
+                  <s.Icon size={16} strokeWidth={1.8} />
                 </span>
                 {s.accent && (
                   <span className="rounded-full bg-[var(--color-primary)]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[var(--color-primary)]">

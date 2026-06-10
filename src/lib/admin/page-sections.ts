@@ -2,7 +2,23 @@
 // Each public page is built from N sections; for each we declare its
 // page_blocks key (where the text overrides live), the optional collection
 // table it lists (gallery, services, etc.), an informational note, and a
-// short label/icon for the admin card header.
+// Lucide icon component for the admin card header.
+
+import {
+  Target,
+  Building2,
+  Stethoscope,
+  Route,
+  Image as ImageIcon,
+  Package,
+  Hourglass,
+  Star,
+  HelpCircle,
+  Mail,
+  Users,
+  PenLine,
+  type LucideIcon,
+} from 'lucide-react';
 
 export type PageKey = 'home' | 'about' | 'services' | 'gallery' | 'blog' | 'contact';
 
@@ -11,7 +27,7 @@ export type SectionDef =
       key: string;
       title: string;
       description: string;
-      icon: string;
+      Icon: LucideIcon;
       type: 'block-with-extra' | 'block-text-only';
       note?: string;
     }
@@ -19,7 +35,7 @@ export type SectionDef =
       key: string;
       title: string;
       description: string;
-      icon: string;
+      Icon: LucideIcon;
       type: 'collection';
       note?: string;
       collection: {
@@ -48,14 +64,14 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'hero',
         title: 'Hero / Üst Banner',
         description: 'Sayfanın en üstündeki tanıtım alanı, istatistikler ve görsel.',
-        icon: '🎯',
+        Icon: Target,
         type: 'block-with-extra',
       },
       {
         key: 'departments',
         title: 'Uzman Departmanlar',
         description: 'Cerrahi / Özel restorasyon / PRP departmanlarını gösteren sekmeli bölüm.',
-        icon: '🏥',
+        Icon: Building2,
         type: 'block-text-only',
         note: 'Departman kartlarındaki başlık, açıklama ve istatistikler messages/{tr,nl,en}.json dosyasındaki "Departments" alanından gelir. Bu bölümde sadece üstteki ortak metni düzenleyebilirsiniz.',
       },
@@ -63,7 +79,7 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'services',
         title: 'Hizmetlerimiz',
         description: 'Hizmet katalog kartları. Üstteki başlık + hizmet listesi.',
-        icon: '⚕️',
+        Icon: Stethoscope,
         type: 'collection',
         collection: {
           table: 'services',
@@ -77,7 +93,7 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'process',
         title: 'Bizimle Yolculuğunuz',
         description: '4 adımlı süreç anlatımı.',
-        icon: '🛤',
+        Icon: Route,
         type: 'block-text-only',
         note: '4 adımın başlık ve açıklaması çeviri dosyasındaki "Process" alanından gelir.',
       },
@@ -85,7 +101,7 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'gallery',
         title: 'Öncesi & Sonrası',
         description: 'Hasta öncesi/sonrası vakaları. Üstteki başlık + vaka listesi.',
-        icon: '🖼',
+        Icon: ImageIcon,
         type: 'collection',
         collection: {
           table: 'gallery',
@@ -99,7 +115,7 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'included',
         title: 'Pakete Dahil Olanlar',
         description: 'Tek şeffaf fiyat + dahil olan 9 madde.',
-        icon: '📦',
+        Icon: Package,
         type: 'block-text-only',
         note: 'Maddelerin (cerrah konsültasyonu, kan testleri, vs.) içeriği çeviri dosyasındaki "Included" alanından gelir.',
       },
@@ -107,7 +123,7 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'recovery',
         title: '18 Aylık İyileşme',
         description: 'Aşama aşama iyileşme zaman çizelgesi.',
-        icon: '⏳',
+        Icon: Hourglass,
         type: 'block-text-only',
         note: '6 aşamanın içeriği çeviri dosyasındaki "Recovery" alanından gelir.',
       },
@@ -115,7 +131,7 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'testimonials',
         title: 'Hasta Hikayeleri',
         description: 'Yorum kartları. Üstteki başlık + yorum listesi.',
-        icon: '⭐',
+        Icon: Star,
         type: 'collection',
         collection: {
           table: 'testimonials',
@@ -129,7 +145,7 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'faq',
         title: 'Sıkça Sorulan Sorular',
         description: 'SSS akordeon listesi.',
-        icon: '❓',
+        Icon: HelpCircle,
         type: 'collection',
         collection: {
           table: 'faq',
@@ -142,7 +158,7 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
         key: 'contact',
         title: 'İletişim Bölümü',
         description: 'Sayfanın altındaki iletişim form bölümü tanıtımı.',
-        icon: '✉️',
+        Icon: Mail,
         type: 'block-text-only',
       },
     ],
@@ -152,14 +168,14 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
     description: 'Hakkımızda sayfasının tüm bölümleri ve ekip listesi.',
     live: '/about',
     sections: [
-      { key: 'hero',    title: 'Hero', description: 'Sayfa üstündeki tanıtım.', icon: '🎯', type: 'block-text-only' },
-      { key: 'story',   title: 'Hikayemiz', description: 'Klinik hikayesi.', icon: '📖', type: 'block-text-only' },
-      { key: 'mission', title: 'Misyon', description: 'Misyon ve değerler.', icon: '🎯', type: 'block-text-only' },
+      { key: 'hero',    title: 'Hero', description: 'Sayfa üstündeki tanıtım.', Icon: Target, type: 'block-text-only' },
+      { key: 'story',   title: 'Hikayemiz', description: 'Klinik hikayesi.', Icon: PenLine, type: 'block-text-only' },
+      { key: 'mission', title: 'Misyon', description: 'Misyon ve değerler.', Icon: Target, type: 'block-text-only' },
       {
         key: 'team',
         title: 'Ekibimiz',
         description: 'Ekip üyeleri listesi.',
-        icon: '👥',
+        Icon: Users,
         type: 'collection',
         collection: {
           table: 'team_members',
@@ -176,12 +192,12 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
     description: 'Hizmetler ana sayfasının hero metni ve tüm hizmetlerin listesi.',
     live: '/services',
     sections: [
-      { key: 'hero', title: 'Hero', description: 'Hizmetler sayfasının üstündeki tanıtım.', icon: '🎯', type: 'block-text-only' },
+      { key: 'hero', title: 'Hero', description: 'Hizmetler sayfasının üstündeki tanıtım.', Icon: Target, type: 'block-text-only' },
       {
         key: 'list',
         title: 'Tüm Hizmetler',
         description: 'Sitenin tüm hizmet sayfaları. Her satır kendi detay sayfasına bağlanır.',
-        icon: '⚕️',
+        Icon: Stethoscope,
         type: 'collection',
         collection: {
           table: 'services',
@@ -198,12 +214,12 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
     description: 'Galeri ana sayfasının hero metni ve tüm vakalar.',
     live: '/gallery',
     sections: [
-      { key: 'hero', title: 'Hero', description: 'Galeri sayfasının üstündeki tanıtım.', icon: '🎯', type: 'block-text-only' },
+      { key: 'hero', title: 'Hero', description: 'Galeri sayfasının üstündeki tanıtım.', Icon: Target, type: 'block-text-only' },
       {
         key: 'cases',
         title: 'Tüm Vakalar',
         description: 'Galeride yer alan tüm öncesi/sonrası vakaları.',
-        icon: '🖼',
+        Icon: ImageIcon,
         type: 'collection',
         collection: {
           table: 'gallery',
@@ -220,12 +236,12 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
     description: 'Blog ana sayfasının hero metni ve tüm yazılar.',
     live: '/blog',
     sections: [
-      { key: 'hero', title: 'Hero', description: 'Blog ana sayfasının üstündeki tanıtım.', icon: '🎯', type: 'block-text-only' },
+      { key: 'hero', title: 'Hero', description: 'Blog ana sayfasının üstündeki tanıtım.', Icon: Target, type: 'block-text-only' },
       {
         key: 'posts',
         title: 'Tüm Blog Yazıları',
         description: 'Sitedeki blog yazıları.',
-        icon: '✍️',
+        Icon: PenLine,
         type: 'collection',
         collection: {
           table: 'blog_posts',
@@ -242,8 +258,8 @@ export const PAGE_SECTIONS: Record<PageKey, PageConfig> = {
     description: 'İletişim sayfasının metinleri.',
     live: '/contact',
     sections: [
-      { key: 'hero',    title: 'Hero', description: 'Sayfa üstündeki tanıtım.', icon: '🎯', type: 'block-text-only' },
-      { key: 'contact', title: 'İletişim Bilgileri', description: 'Adres / telefon / form tanıtımı.', icon: '✉️', type: 'block-text-only' },
+      { key: 'hero',    title: 'Hero', description: 'Sayfa üstündeki tanıtım.', Icon: Target, type: 'block-text-only' },
+      { key: 'contact', title: 'İletişim Bilgileri', description: 'Adres / telefon / form tanıtımı.', Icon: Mail, type: 'block-text-only' },
     ],
   },
 };

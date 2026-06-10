@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { Scissors, UserCircle2, Sparkles } from 'lucide-react';
 
 interface Procedure {
   slug: string;
@@ -17,25 +18,9 @@ interface Department {
   icon: React.ReactNode;
 }
 
-const HairIcon = (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-    <path d="M12 2v3M5 8c0-2 3-3 7-3s7 1 7 3v3c0 4-3 11-7 11s-7-7-7-11z" />
-    <path d="M9 10v2M15 10v2" />
-  </svg>
-);
-const BeardIcon = (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-    <circle cx={12} cy={9} r={4} />
-    <path d="M5 22c0-4 3-6 7-6s7 2 7 6" />
-    <path d="M8 14c1 3 2 4 4 4s3-1 4-4" />
-  </svg>
-);
-const PrpIcon = (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-    <path d="M18 2l-1 3M9 5l-2 2M6 7l-4 4 5 5 4-4M15 17l4-4 3 3-4 4" />
-    <path d="M13 11l-2 2" />
-  </svg>
-);
+const HairIcon = <Scissors size={20} strokeWidth={1.8} />;
+const BeardIcon = <UserCircle2 size={20} strokeWidth={1.8} />;
+const PrpIcon = <Sparkles size={20} strokeWidth={1.8} />;
 
 const DEPARTMENTS: Department[] = [
   {
