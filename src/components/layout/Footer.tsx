@@ -1,3 +1,4 @@
+import { Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { getSetting, getSiteSettings } from '@/lib/settings';
@@ -69,17 +70,24 @@ export async function Footer({ locale }: { locale: string }) {
             <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
               {t('contactInfo')}
             </h3>
-            <ul className="mt-4 space-y-2 text-sm text-slate-300">
-              {address && <li>{address}</li>}
+            <ul className="mt-4 space-y-3 text-sm text-slate-300">
+              {address && (
+                <li className="flex items-start gap-2.5">
+                  <MapPin size={16} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[var(--color-primary)]" />
+                  <span>{address}</span>
+                </li>
+              )}
               {phone && (
-                <li>
+                <li className="flex items-start gap-2.5">
+                  <Phone size={16} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[var(--color-primary)]" />
                   <a href={`tel:${phone.replace(/\s+/g, '')}`} className="hover:text-white">
                     {phone}
                   </a>
                 </li>
               )}
               {whatsapp && (
-                <li>
+                <li className="flex items-start gap-2.5">
+                  <MessageCircle size={16} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[var(--color-primary)]" />
                   <a
                     href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`}
                     target="_blank"
@@ -91,13 +99,19 @@ export async function Footer({ locale }: { locale: string }) {
                 </li>
               )}
               {email && (
-                <li>
+                <li className="flex items-start gap-2.5">
+                  <Mail size={16} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[var(--color-primary)]" />
                   <a href={`mailto:${email}`} className="hover:text-white">
                     {email}
                   </a>
                 </li>
               )}
-              {hours && <li className="text-slate-400">{hours}</li>}
+              {hours && (
+                <li className="flex items-start gap-2.5 text-slate-400">
+                  <Clock size={16} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[var(--color-primary)]" />
+                  <span>{hours}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

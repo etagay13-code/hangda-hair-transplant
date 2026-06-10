@@ -1,3 +1,5 @@
+import { Navigation } from 'lucide-react';
+
 interface Props {
   query: string;
   title?: string;
@@ -41,10 +43,7 @@ export function GoogleMap({
         rel="noopener noreferrer"
         className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3.5 py-1.5 text-xs font-semibold text-[var(--color-primary-darker)] shadow-md ring-1 ring-slate-200 backdrop-blur transition hover:bg-white"
       >
-        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-          <path d="M9 20l-5.4-5.4a8 8 0 0 1 11.3-11.3l5.4 5.4-11.3 11.3z" />
-          <path d="M14 7l3 3" />
-        </svg>
+        <Navigation size={14} strokeWidth={2} />
         <span>Get directions</span>
       </a>
     </div>

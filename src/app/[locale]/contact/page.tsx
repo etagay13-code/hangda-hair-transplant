@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { getPageSeo, getSetting, getSiteSettings } from '@/lib/settings';
 import { PageHero } from '@/components/layout/PageHero';
+import { Mail, MapPin, Phone, Clock, MessageCircle, Mailbox } from 'lucide-react';
+import type { ComponentType } from 'react';
 import { ContactForm } from '@/components/home/ContactForm';
 import { GoogleMap } from '@/components/layout/GoogleMap';
 import type { Faq } from '@/types';
@@ -73,7 +75,7 @@ export default async function ContactPage({ params }: Props) {
           <div className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-2 sm:gap-4 sm:p-5 lg:grid-cols-4">
             {address && (
               <InfoChip
-                icon="📍"
+                Icon={MapPin}
                 label={t('addressLabel')}
                 value={address}
                 href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(mapQuery)}`}
@@ -82,7 +84,7 @@ export default async function ContactPage({ params }: Props) {
             )}
             {phone && (
               <InfoChip
-                icon="📞"
+                Icon={Phone}
                 label={t('phoneLabel')}
                 value={phone}
                 href={`tel:${phone.replace(/\s+/g, '')}`}
@@ -90,14 +92,14 @@ export default async function ContactPage({ params }: Props) {
             )}
             {email && (
               <InfoChip
-                icon="✉️"
+                Icon={Mail}
                 label={t('emailLabel')}
                 value={email}
                 href={`mailto:${email}`}
               />
             )}
             {hours && (
-              <InfoChip icon="🕐" label={t('hoursLabel')} value={hours} />
+              <InfoChip Icon={Clock} label={t('hoursLabel')} value={hours} />
             )}
           </div>
         </div>
@@ -109,10 +111,7 @@ export default async function ContactPage({ params }: Props) {
           <div className="lg:col-span-3 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="flex items-start gap-3">
               <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[var(--color-primary)]/15 text-[var(--color-primary-darker)]">
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
-                  <path d="M3 8l9 6 9-6" />
-                  <rect x={3} y={6} width={18} height={14} rx={2} />
-                </svg>
+                <Mailbox size={24} strokeWidth={1.8} />
               </div>
               <div>
                 <h2 className="text-xl font-semibold text-[var(--color-primary-darker)] sm:text-2xl">
@@ -145,7 +144,9 @@ export default async function ContactPage({ params }: Props) {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 ring-1 ring-slate-200 transition hover:ring-[var(--color-primary)]"
                   >
-                    <span className="grid h-9 w-9 place-items-center rounded-full bg-[#25D366] text-white">💬</span>
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-[#25D366] text-white">
+                      <MessageCircle size={18} />
+                    </span>
                     <div className="min-w-0">
                       <p className="text-xs text-slate-500">WhatsApp · fastest</p>
                       <p className="truncate font-semibold text-[var(--color-primary-darker)]">{whatsapp}</p>
@@ -157,7 +158,9 @@ export default async function ContactPage({ params }: Props) {
                     href={`tel:${phone.replace(/\s+/g, '')}`}
                     className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 ring-1 ring-slate-200 transition hover:ring-[var(--color-primary)]"
                   >
-                    <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-primary)] text-white">📞</span>
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-primary)] text-white">
+                      <Phone size={18} />
+                    </span>
                     <div className="min-w-0">
                       <p className="text-xs text-slate-500">{t('phoneLabel')}</p>
                       <p className="truncate font-semibold text-[var(--color-primary-darker)]">{phone}</p>
@@ -169,7 +172,9 @@ export default async function ContactPage({ params }: Props) {
                     href={`mailto:${email}`}
                     className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 ring-1 ring-slate-200 transition hover:ring-[var(--color-primary)]"
                   >
-                    <span className="grid h-9 w-9 place-items-center rounded-full bg-slate-700 text-white">✉</span>
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-slate-700 text-white">
+                      <Mail size={18} />
+                    </span>
                     <div className="min-w-0">
                       <p className="text-xs text-slate-500">{t('emailLabel')}</p>
                       <p className="truncate font-semibold text-[var(--color-primary-darker)]">{email}</p>
@@ -232,13 +237,13 @@ function Stat({ label, value }: { label: string; value: string }) {
 }
 
 function InfoChip({
-  icon,
+  Icon,
   label,
   value,
   href,
   external,
 }: {
-  icon: string;
+  Icon: ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
   label: string;
   value: string;
   href?: string;
@@ -246,8 +251,8 @@ function InfoChip({
 }) {
   const inner = (
     <>
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--color-primary)]/12 text-lg">
-        {icon}
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--color-primary)]/12 text-[var(--color-primary-darker)]">
+        <Icon size={18} strokeWidth={1.8} />
       </span>
       <span className="min-w-0">
         <span className="block text-[10px] font-semibold uppercase tracking-widest text-slate-500">

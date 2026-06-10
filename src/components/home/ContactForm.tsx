@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { Mail, MessageCircle, Phone, type LucideIcon } from 'lucide-react';
 import { trackConsultationRequest, trackFormSubmit } from '@/lib/analytics';
 
 interface ServiceOption {
@@ -25,10 +26,10 @@ const NORWOOD_OPTIONS = [
   { value: 'not-sure', label: 'Not sure — please advise' },
 ];
 
-const CONTACT_PREF = [
-  { value: 'whatsapp', label: 'WhatsApp', icon: '💬' },
-  { value: 'phone', label: 'Phone', icon: '📞' },
-  { value: 'email', label: 'Email', icon: '✉️' },
+const CONTACT_PREF: { value: string; label: string; Icon: LucideIcon }[] = [
+  { value: 'whatsapp', label: 'WhatsApp', Icon: MessageCircle },
+  { value: 'phone', label: 'Phone', Icon: Phone },
+  { value: 'email', label: 'Email', Icon: Mail },
 ];
 
 const formSchema = z.object({
@@ -172,7 +173,7 @@ export function ContactForm({ services }: { services: ServiceOption[] }) {
             {CONTACT_PREF.map((opt) => (
               <label
                 key={opt.value}
-                className="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-center text-sm transition has-[:checked]:border-[var(--color-primary)] has-[:checked]:bg-[var(--color-primary)]/10 has-[:checked]:ring-2 has-[:checked]:ring-[var(--color-primary)]/30 hover:border-[var(--color-primary)]/50"
+                className="group relative flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-center text-sm transition has-[:checked]:border-[var(--color-primary)] has-[:checked]:bg-[var(--color-primary)]/10 has-[:checked]:ring-2 has-[:checked]:ring-[var(--color-primary)]/30 hover:border-[var(--color-primary)]/50"
               >
                 <input
                   type="radio"
@@ -180,7 +181,7 @@ export function ContactForm({ services }: { services: ServiceOption[] }) {
                   className="sr-only"
                   {...register('preferred_contact')}
                 />
-                <span className="mr-1.5">{opt.icon}</span>
+                <opt.Icon size={16} strokeWidth={1.8} className="text-[var(--color-primary-darker)]" />
                 <span className="font-medium text-[var(--color-primary-darker)]">{opt.label}</span>
               </label>
             ))}
