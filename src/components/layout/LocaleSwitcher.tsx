@@ -9,6 +9,7 @@ const LABELS: Record<string, string> = {
   en: 'EN',
   nl: 'NL',
   tr: 'TR',
+  ar: 'AR',
 };
 
 export function LocaleSwitcher({ variant = 'inline' }: { variant?: 'inline' | 'block' }) {

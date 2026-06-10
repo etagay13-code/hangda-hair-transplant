@@ -16,6 +16,7 @@ const LOCALE_LABELS: Record<string, string> = {
   en: 'İngilizce (EN)',
   nl: 'Felemenkçe (NL)',
   tr: 'Türkçe (TR)',
+  ar: 'Arapça (AR)',
 };
 
 export function BlockForm({ action, defaults = {}, lockIdentity = false, submitLabel = 'Değişiklikleri Kaydet' }: Props) {
