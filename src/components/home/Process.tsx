@@ -84,7 +84,7 @@ export async function Process({ locale }: { locale: string }) {
                   </span>
                   <div className="flex-1">
                     <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-primary)]">
-                      Step {s.n}
+                      {t('stepLabel')} {s.n}
                     </p>
                     <h3 className="mt-1 text-xl font-semibold text-white">{s.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-white/70">{s.desc}</p>

@@ -67,6 +67,7 @@
   "Process": {
     "title": "Your Journey With Us",
     "subtitle": "A clear, supportive path from consultation to recovery",
+    "stepLabel": "Step",
     "step1Title": "Free Consultation",
     "step1Desc": "Discuss goals and assess your hair loss",
     "step2Title": "Personalized Plan",
@@ -155,7 +156,16 @@
     "submitting": "Sending...",
     "successTitle": "Thank You!",
     "successMessage": "We received your message and will contact you within 24 hours.",
-    "errorMessage": "Could not submit the form. Please try again."
+    "errorMessage": "Could not submit the form. Please try again.",
+    "sectionAbout": "About you",
+    "sectionTreatment": "Treatment interest",
+    "sectionGoals": "Tell us about your goals",
+    "reachLabel": "How should we reach you?",
+    "consent": "I agree that MyHaar can contact me about my consultation request. My data is never shared with third parties.",
+    "formTitle": "Request your free consultation",
+    "formSubtitle": "A medical coordinator replies within 24 hours with a surgeon-led assessment, a custom plan, and a written quote.",
+    "talkNow": "Talk to us right now",
+    "whatsappFastest": "WhatsApp · fastest"
   },
   "Footer": {
     "tagline": "Premium hair restoration trusted worldwide",

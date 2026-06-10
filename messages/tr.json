@@ -67,6 +67,7 @@
   "Process": {
     "title": "Bizimle Yolculuğunuz",
     "subtitle": "Konsültasyondan iyileşmeye net bir yol",
+    "stepLabel": "Adım",
     "step1Title": "Ücretsiz Konsültasyon",
     "step1Desc": "Hedefleriniz ve saç dökülmenizin değerlendirilmesi",
     "step2Title": "Kişisel Plan",
@@ -155,7 +156,16 @@
     "submitting": "Gönderiliyor...",
     "successTitle": "Teşekkürler!",
     "successMessage": "Mesajınız ulaştı, 24 saat içinde sizinle iletişime geçeceğiz.",
-    "errorMessage": "Form gönderilemedi. Lütfen tekrar deneyin."
+    "errorMessage": "Form gönderilemedi. Lütfen tekrar deneyin.",
+    "sectionAbout": "Hakkınızda",
+    "sectionTreatment": "İlgilendiğiniz tedavi",
+    "sectionGoals": "Hedeflerinizi bize anlatın",
+    "reachLabel": "Sizinle nasıl iletişime geçelim?",
+    "consent": "MyHaar'ın bu konsültasyon talebim hakkında benimle iletişime geçmesini kabul ediyorum. Bilgilerim üçüncü taraflarla paylaşılmaz.",
+    "formTitle": "Ücretsiz konsültasyonunuzu talep edin",
+    "formSubtitle": "Tıbbi koordinatörümüz 24 saat içinde cerrah liderliğinde değerlendirme, kişisel plan ve yazılı teklifle döner.",
+    "talkNow": "Hemen bizimle konuşun",
+    "whatsappFastest": "WhatsApp · en hızlı"
   },
   "Footer": {
     "tagline": "Dünya çapında güvenilen premium saç restorasyonu",

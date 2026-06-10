@@ -129,7 +129,7 @@ export function ContactForm({ services }: { services: ServiceOption[] }) {
           <span className="grid h-6 w-6 place-items-center rounded-full bg-[var(--color-primary)] text-[10px] text-white">
             1
           </span>
-          About you
+          {t('sectionAbout')}
         </legend>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label={t('name')} required error={errors.name?.message}>
@@ -168,7 +168,7 @@ export function ContactForm({ services }: { services: ServiceOption[] }) {
 
         {/* Preferred contact */}
         <div>
-          <span className="label-field">How should we reach you?</span>
+          <span className="label-field">{t('reachLabel')}</span>
           <div className="mt-2 grid grid-cols-3 gap-2">
             {CONTACT_PREF.map((opt) => (
               <label
@@ -195,7 +195,7 @@ export function ContactForm({ services }: { services: ServiceOption[] }) {
           <span className="grid h-6 w-6 place-items-center rounded-full bg-[var(--color-primary)] text-[10px] text-white">
             2
           </span>
-          Treatment interest
+          {t('sectionTreatment')}
         </legend>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label={t('service')} error={errors.service_interest?.message}>
@@ -226,7 +226,7 @@ export function ContactForm({ services }: { services: ServiceOption[] }) {
           <span className="grid h-6 w-6 place-items-center rounded-full bg-[var(--color-primary)] text-[10px] text-white">
             3
           </span>
-          Tell us about your goals
+          {t('sectionGoals')}
         </legend>
         <Field label={t('message')} error={errors.message?.message}>
           <textarea
@@ -243,10 +243,7 @@ export function ContactForm({ services }: { services: ServiceOption[] }) {
             className="mt-0.5 h-4 w-4 rounded border-slate-300 accent-[var(--color-primary)]"
             {...register('consent')}
           />
-          <span>
-            I agree that MyHaar can contact me about my consultation request.
-            My data is never shared with third parties.
-          </span>
+          <span>{t('consent')}</span>
         </label>
         {errors.consent && (
           <p className="text-xs text-red-600">{errors.consent.message}</p>

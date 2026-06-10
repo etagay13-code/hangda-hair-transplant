@@ -67,6 +67,7 @@
   "Process": {
     "title": "Uw Traject Bij Ons",
     "subtitle": "Een duidelijk pad van consult tot herstel",
+    "stepLabel": "Stap",
     "step1Title": "Gratis Consult",
     "step1Desc": "Bespreek uw doelen en haaruitval",
     "step2Title": "Persoonlijk Plan",
@@ -155,7 +156,16 @@
     "submitting": "Verzenden...",
     "successTitle": "Bedankt!",
     "successMessage": "Wij hebben uw bericht ontvangen en nemen binnen 24 uur contact op.",
-    "errorMessage": "Kon het formulier niet verzenden. Probeer opnieuw."
+    "errorMessage": "Kon het formulier niet verzenden. Probeer opnieuw.",
+    "sectionAbout": "Over u",
+    "sectionTreatment": "Behandelinginteresse",
+    "sectionGoals": "Vertel ons over uw doelen",
+    "reachLabel": "Hoe kunnen we u bereiken?",
+    "consent": "Ik ga ermee akkoord dat MyHaar contact met mij opneemt over mijn consult-aanvraag. Mijn gegevens worden nooit gedeeld met derden.",
+    "formTitle": "Vraag uw gratis consult aan",
+    "formSubtitle": "Een medisch coördinator reageert binnen 24 uur met een chirurg-geleide beoordeling, een persoonlijk plan en een schriftelijke offerte.",
+    "talkNow": "Praat nu met ons",
+    "whatsappFastest": "WhatsApp · het snelst"
   },
   "Footer": {
     "tagline": "Premium haarherstel wereldwijd vertrouwd",

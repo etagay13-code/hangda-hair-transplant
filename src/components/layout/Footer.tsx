@@ -81,7 +81,7 @@ export async function Footer({ locale }: { locale: string }) {
                 <li className="flex items-start gap-2.5">
                   <Phone size={16} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[var(--color-primary)]" />
                   <a href={`tel:${phone.replace(/\s+/g, '')}`} className="hover:text-white">
-                    {phone}
+                    <bdi>{phone}</bdi>
                   </a>
                 </li>
               )}
@@ -94,7 +94,7 @@ export async function Footer({ locale }: { locale: string }) {
                     rel="noopener noreferrer"
                     className="hover:text-white"
                   >
-                    WhatsApp: {whatsapp}
+                    WhatsApp: <bdi>{whatsapp}</bdi>
                   </a>
                 </li>
               )}
@@ -102,7 +102,7 @@ export async function Footer({ locale }: { locale: string }) {
                 <li className="flex items-start gap-2.5">
                   <Mail size={16} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[var(--color-primary)]" />
                   <a href={`mailto:${email}`} className="hover:text-white">
-                    {email}
+                    <bdi>{email}</bdi>
                   </a>
                 </li>
               )}

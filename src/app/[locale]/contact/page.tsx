@@ -28,7 +28,7 @@ export default async function ContactPage({ params }: Props) {
   setRequestLocale(locale);
 
   const supabase = await createClient();
-  const [{ data: servicesData }, { data: faqData }, settings, t, tNav, tCommon] = await Promise.all([
+  const [{ data: servicesData }, { data: faqData }, settings, t, tNav, tCommon, tForm] = await Promise.all([
     supabase
       .from('services')
       .select('slug,title')
@@ -47,6 +47,7 @@ export default async function ContactPage({ params }: Props) {
     getTranslations('Contact'),
     getTranslations('Navigation'),
     getTranslations('Common'),
+    getTranslations('ContactForm'),
   ]);
 
   const services = (servicesData ?? []).map((s) => ({ slug: s.slug, title: s.title }));
@@ -115,11 +116,10 @@ export default async function ContactPage({ params }: Props) {
               </div>
               <div>
                 <h2 className="text-xl font-semibold text-[var(--color-primary-darker)] sm:text-2xl">
-                  Request your free consultation
+                  {tForm('formTitle')}
                 </h2>
                 <p className="mt-1.5 text-sm text-slate-600">
-                  A medical coordinator replies within 24 hours with a surgeon-led
-                  assessment, a custom plan, and a written quote.
+                  {tForm('formSubtitle')}
                 </p>
               </div>
             </div>
@@ -134,7 +134,7 @@ export default async function ContactPage({ params }: Props) {
 
             <div className="rounded-2xl bg-gradient-to-br from-[var(--color-primary)]/15 to-white p-5 ring-1 ring-[var(--color-primary)]/20 sm:p-6">
               <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)]">
-                Talk to us right now
+                {tForm('talkNow')}
               </h3>
               <div className="mt-4 space-y-3 text-sm">
                 {waNumber && (
@@ -148,8 +148,8 @@ export default async function ContactPage({ params }: Props) {
                       <MessageCircle size={18} />
                     </span>
                     <div className="min-w-0">
-                      <p className="text-xs text-slate-500">WhatsApp · fastest</p>
-                      <p className="truncate font-semibold text-[var(--color-primary-darker)]">{whatsapp}</p>
+                      <p className="text-xs text-slate-500">{tForm('whatsappFastest')}</p>
+                      <p className="truncate font-semibold text-[var(--color-primary-darker)]" dir="ltr">{whatsapp}</p>
                     </div>
                   </a>
                 )}
@@ -163,7 +163,7 @@ export default async function ContactPage({ params }: Props) {
                     </span>
                     <div className="min-w-0">
                       <p className="text-xs text-slate-500">{t('phoneLabel')}</p>
-                      <p className="truncate font-semibold text-[var(--color-primary-darker)]">{phone}</p>
+                      <p className="truncate font-semibold text-[var(--color-primary-darker)]" dir="ltr">{phone}</p>
                     </div>
                   </a>
                 )}
@@ -177,7 +177,7 @@ export default async function ContactPage({ params }: Props) {
                     </span>
                     <div className="min-w-0">
                       <p className="text-xs text-slate-500">{t('emailLabel')}</p>
-                      <p className="truncate font-semibold text-[var(--color-primary-darker)]">{email}</p>
+                      <p className="truncate font-semibold text-[var(--color-primary-darker)]" dir="ltr">{email}</p>
                     </div>
                   </a>
                 )}
@@ -259,7 +259,7 @@ function InfoChip({
           {label}
         </span>
         <span className="mt-0.5 block truncate text-sm font-semibold text-[var(--color-primary-darker)]">
-          {value}
+          <bdi>{value}</bdi>
         </span>
       </span>
     </>
