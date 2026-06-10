@@ -22,6 +22,16 @@ body {
   color: var(--foreground);
 }
 
+/* RTL adjustments — the layout wraps Arabic in a dir="rtl" div. Tailwind 4
+ * already handles most flex/grid direction flipping; these tweaks keep the
+ * marquee + a few absolute-positioned floating badges feeling natural. */
+[dir="rtl"] {
+  text-align: right;
+}
+[dir="rtl"] .marquee-track {
+  animation-direction: reverse;
+}
+
 @layer utilities {
   .container-page {
     @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;

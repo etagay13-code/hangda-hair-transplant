@@ -7,7 +7,7 @@ import type { SiteSetting } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-const LOCALES = ['en', 'nl', 'tr'] as const;
+const LOCALES = ['en', 'nl', 'tr', 'ar'] as const;
 
 const TEXT_FIELDS: Array<{
   key: string;

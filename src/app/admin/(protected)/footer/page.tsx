@@ -7,7 +7,7 @@ import type { SiteSetting } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-const LOCALES = ['en', 'nl', 'tr'] as const;
+const LOCALES = ['en', 'nl', 'tr', 'ar'] as const;
 
 export default async function FooterAdminPage() {
   const supabase = await createClient();

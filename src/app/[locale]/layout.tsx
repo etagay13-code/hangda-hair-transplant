@@ -3,7 +3,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { routing } from '@/i18n/routing';
+import { routing, RTL_LOCALES } from '@/i18n/routing';
 import { getSiteSettings, getPageSeo, getSetting } from '@/lib/settings';
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import {
@@ -122,8 +122,10 @@ export default async function LocaleLayout({ children, params }: Props) {
     target: row.target,
   }));
 
+  const dir = RTL_LOCALES.has(locale) ? 'rtl' : 'ltr';
+
   return (
-    <>
+    <div lang={locale} dir={dir}>
       {searchConsole && <meta name="google-site-verification" content={searchConsole} />}
       {bingVerify && <meta name="msvalidate.01" content={bingVerify} />}
       {yandexVerify && <meta name="yandex-verification" content={yandexVerify} />}
@@ -133,6 +135,14 @@ export default async function LocaleLayout({ children, params }: Props) {
           dangerouslySetInnerHTML={{ __html: customHead }}
         />
       )}
+      {/* Sync <html lang> + <html dir> at first paint so global CSS + screen
+          readers see the correct values without a flash. */}
+      <script
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: `(function(){var d=document.documentElement;d.setAttribute('lang','${locale}');d.setAttribute('dir','${dir}');})();`,
+        }}
+      />
       <GoogleTagManager gtmId={gtmId} />
       <GoogleAnalytics measurementId={gaId} />
       <MetaPixel pixelId={pixelId} />
@@ -156,6 +166,6 @@ export default async function LocaleLayout({ children, params }: Props) {
           dangerouslySetInnerHTML={{ __html: customBody }}
         />
       )}
-    </>
+    </div>
   );
 }

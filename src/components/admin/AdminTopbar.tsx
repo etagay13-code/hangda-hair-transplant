@@ -15,6 +15,7 @@ const LOCALE_LABELS: Record<string, string> = {
   en: 'English',
   nl: 'Nederlands',
   tr: 'Türkçe',
+  ar: 'العربية',
 };
 
 const FLAGS: Record<string, string> = {
@@ -22,6 +23,7 @@ const FLAGS: Record<string, string> = {
   en: '🇬🇧',
   nl: '🇳🇱',
   tr: '🇹🇷',
+  ar: '🇸🇦',
 };
 
 export function AdminTopbar({ crumb, preview, locale = 'all', hideLocale, children }: Props) {
