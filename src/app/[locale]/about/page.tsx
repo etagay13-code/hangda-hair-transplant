@@ -51,7 +51,7 @@ export default async function AboutPage({ params }: Props) {
   setRequestLocale(locale);
 
   const supabase = await createClient();
-  const [{ data: teamData }, { data: galleryData }, settings, t, tNav, tTeam, tCommon] = await Promise.all([
+  const [{ data: teamData }, { data: galleryData }, settings, t, tNav, tTeam] = await Promise.all([
     supabase
       .from('team_members')
       .select('*')
@@ -69,7 +69,6 @@ export default async function AboutPage({ params }: Props) {
     getTranslations('About'),
     getTranslations('Navigation'),
     getTranslations('Team'),
-    getTranslations('Common'),
   ]);
 
   const team = (teamData ?? []) as TeamMember[];
@@ -286,19 +285,6 @@ export default async function AboutPage({ params }: Props) {
 
       <TrustBadges locale={locale} />
 
-      <section className="bg-[var(--color-primary-darker)] text-white">
-        <div className="container-page py-16 text-center">
-          <h2 className="heading-display text-3xl text-white sm:text-4xl">
-            Ready to start your journey?
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-base text-white/80">
-            Free, no-obligation surgeon-led consultation. Reply within 24 hours.
-          </p>
-          <a href={`/${locale}/contact`} className="btn-primary mt-8 !bg-white !text-[var(--color-primary-darker)] hover:!bg-slate-100">
-            {tCommon('freeConsultation')}
-          </a>
-        </div>
-      </section>
     </main>
   );
 }

@@ -470,17 +470,6 @@ export default async function ServiceDetailPage({ params }: Props) {
         </section>
       )}
 
-      <section className="bg-[var(--color-primary-darker)] text-white">
-        <div className="container-page py-16 text-center">
-          <h2 className="heading-display text-3xl text-white sm:text-4xl">
-            {tCTA('title')}
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-base text-white/80">{tCTA('subtitle')}</p>
-          <a href={`/${locale}/#contact`} className="btn-primary mt-8 !bg-white !text-[var(--color-primary-darker)] hover:!bg-slate-100">
-            {tCTA('button')}
-          </a>
-        </div>
-      </section>
     </main>
   );
 }

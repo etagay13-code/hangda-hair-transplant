@@ -44,7 +44,6 @@ export default async function GalleryPage({ params, searchParams }: Props) {
 
   const t = await getTranslations('Gallery');
   const tNav = await getTranslations('Navigation');
-  const tCommon = await getTranslations('Common');
 
   return (
     <main>
@@ -102,15 +101,6 @@ export default async function GalleryPage({ params, searchParams }: Props) {
             </div>
           )}
 
-          <div className="mt-16 rounded-3xl border border-slate-200 bg-gradient-to-br from-[var(--color-primary)]/15 to-white p-10 text-center">
-            <h2 className="heading-display text-2xl sm:text-3xl">Your result could be next.</h2>
-            <p className="mx-auto mt-3 max-w-xl text-base text-slate-600">
-              Send us your photos for a free, no-obligation surgical assessment. You will receive a personalised plan within 24 hours.
-            </p>
-            <a href={`/${locale}/#contact`} className="btn-primary mt-6">
-              {tCommon('freeConsultation')}
-            </a>
-          </div>
         </div>
       </section>
     </main>
